@@ -6,12 +6,22 @@
 //
 
 import Testing
+import SwiftUI
 @testable import MarmotMonitor
 
-struct MarmotMonitorTests {
+struct StartupManagerTests {
+    @Test func whenOnBoardingFinishedFonctionIsCall_thenIsOnBoardingFinishedIsTrue() async throws {
+        UserDefaults.standard.removeObject(forKey: AppStorageKeys.isOnBoardingFinished)
+        // 1. given
+        let startupManager = StartupManager()
+        let isOnBoardingFinishedFirstStatus = startupManager.isOnBoardingFinished
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+          // 2. when
+        startupManager.onBoardingFinished()
+
+          // 3. then
+        #expect(isOnBoardingFinishedFirstStatus == false)
+        #expect(startupManager.isOnBoardingFinished == true)
     }
 
 }
