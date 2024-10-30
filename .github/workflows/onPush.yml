@@ -1,6 +1,6 @@
-name: "Swift Build & Test"
+name: "Swift Build on push"
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build-and-test:
@@ -19,11 +19,3 @@ jobs:
           -project MarmotMonitor.xcodeproj \
           -scheme MarmotMonitor \
           -destination "platform=iOS Simulator,name=iPhone 16"
-
-    - name: Test
-      run: |
-        xcodebuild test-without-building \
-          -project MarmotMonitor.xcodeproj \
-          -scheme MarmotMonitor \
-          -destination "platform=iOS Simulator,name=iPhone 16,OS=18.0" \
-          | xcpretty && exit ${PIPESTATUS[0]}
