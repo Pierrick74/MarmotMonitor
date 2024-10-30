@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+// entry point of the app
+// This view will determine if the user has already seen the onboarding screen
 
 struct StartupView: View {
 

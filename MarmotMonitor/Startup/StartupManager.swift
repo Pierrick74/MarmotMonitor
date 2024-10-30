@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+// This class will manage the onboarding process
+// It will be used to determine if user have already seen the onboarding screen
+// Data will be stored in AppStorage
+
 final class StartupManager: ObservableObject {
 
     enum CurrentState {
@@ -16,7 +20,7 @@ final class StartupManager: ObservableObject {
 
     @AppStorage("isOnBoardingFinished") private(set) var isOnBoardingFinished: Bool = false
 
-        func onBoardingFinished() {
-            isOnBoardingFinished = true
-        }
+    func onBoardingFinished() {
+        isOnBoardingFinished = true
+    }
 }
