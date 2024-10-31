@@ -24,20 +24,17 @@ struct OnBoardingView: View {
                 Button(action: manager.next) {
                     Text("Next")
                 }
-                    .tag(OnBoardingManager.Screen.welcome.rawValue)
-                Text("Baby Name")
-                    .tag(OnBoardingManager.Screen.babyName.rawValue)
-                Text("Gender")
-                    .tag(OnBoardingManager.Screen.gender.rawValue)
-                Text("Parent Name")
-                    .tag(OnBoardingManager.Screen.parentName.rawValue)
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .accessibilityLabel("Page \(String(describing: OnBoardingManager.Screen(rawValue: manager.activeScreen)!.title))")
+
+                CustomPageIndicator(numberOfPages: OnBoardingManager.Screen.allCases.count,
+                                        currentPage: $manager.activeScreen,
+                                    color: .secondary)
+                .padding(.top, 20)
             }
-            .tabViewStyle(.page)
-            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-            .accessibilityLabel("Page \(String(describing: OnBoardingManager.Screen(rawValue: manager.activeScreen)!.title))")
         }
         .overlay(alignment: .topLeading) {
-//            if isShowPrevButton {
+            if isShowPrevButton {
                 Button(action: manager.previous) {
                     Image(systemName: "chevron.backward")
                         .foregroundColor(colorScheme == .light ? .blue.opacity(0.6) : .white.opacity(0.6))
@@ -49,7 +46,7 @@ struct OnBoardingView: View {
                         .font(.system(size: 25, weight: .bold, design: .rounded))
                         .padding(30)
                 }
-//            }
+            }
         }
         .onChange(of: manager.activeScreen) {
             withAnimation {
@@ -58,8 +55,6 @@ struct OnBoardingView: View {
                 } else {
                     isShowPrevButton = true
                 }
-                print("activeScreen: \(manager.activeScreen)")
-                print("isShowPrevButton: \(isShowPrevButton)")
             }
         }
         // Disable scroll to manage with Button
