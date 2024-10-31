@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+// manage the onboarding screen
 
 struct OnBoardingView: View {
     @StateObject var manager = OnBoardingManager()
@@ -33,16 +34,22 @@ struct OnBoardingView: View {
             }
             .tabViewStyle(.page)
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+            .accessibilityLabel("Page \(String(describing: OnBoardingManager.Screen(rawValue: manager.activeScreen)!.title))")
         }
         .overlay(alignment: .topLeading) {
-            if isShowPrevButton {
+//            if isShowPrevButton {
                 Button(action: manager.previous) {
-                    Image(systemName: "chevron.backward.circle.fill")
-                        .foregroundColor(.white)
-                        .font(.system(size: 30, weight: .bold, design: .rounded))
-                        .padding()
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(colorScheme == .light ? .blue.opacity(0.6) : .white.opacity(0.6))
+                        .background(Circle().fill(.whiteToEgiptienBlue)
+                                        .shadow(color: colorScheme == .light ? .gray : .clear
+                                                , radius: 2, x: 2, y: 2)
+                                        .shadow(color: .white, radius: 2)
+                                        .frame(width: 35, height: 35))
+                        .font(.system(size: 25, weight: .bold, design: .rounded))
+                        .padding(30)
                 }
-            }
+//            }
         }
         .onChange(of: manager.activeScreen) {
             withAnimation {
