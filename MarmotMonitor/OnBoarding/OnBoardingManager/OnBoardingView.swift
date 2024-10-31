@@ -20,9 +20,16 @@ struct OnBoardingView: View {
                             Gradient(colors: [.pastelBlueToEgiptienBlue, .whiteToEgiptienBlue]), startPoint: .top, endPoint: .bottom)
             .edgesIgnoringSafeArea(.all)
 
-            TabView(selection: $manager.activeScreen) {
-                Button(action: manager.next) {
-                    Text("Next")
+            VStack {
+                TabView(selection: $manager.activeScreen) {
+                    WelcomeView(action: manager.next)
+                        .tag(OnBoardingManager.Screen.welcome.rawValue)
+                    Text("Baby Name")
+                        .tag(OnBoardingManager.Screen.babyName.rawValue)
+                    Text("Gender")
+                        .tag(OnBoardingManager.Screen.gender.rawValue)
+                    Text("Parent Name")
+                        .tag(OnBoardingManager.Screen.parentName.rawValue)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .accessibilityLabel("Page \(String(describing: OnBoardingManager.Screen(rawValue: manager.activeScreen)!.title))")
