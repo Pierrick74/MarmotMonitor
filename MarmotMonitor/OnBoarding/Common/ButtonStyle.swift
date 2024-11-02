@@ -12,7 +12,7 @@ struct OnBoardingButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.title)
+            .font(.subheadline)
             .foregroundColor(colorScheme == .dark ? .white : .black.opacity(0.8))
             .padding()
             .frame(maxWidth: .infinity)

@@ -1,16 +1,17 @@
 //
-//  WelcomeView.swift
+//  BabyNameView.swift
 //  MarmotMonitor
 //
-//  Created by pierrick viret on 31/10/2024.
+//  Created by pierrick viret on 02/11/2024.
 //
 
 import SwiftUI
 
-struct WelcomeView: View {
+struct BabyNameView: View {
     @Environment(\.colorScheme) var colorScheme
 
     let action: () -> Void
+    @State private var name = ""
 
     var body: some View {
         GeometryReader { proxy in
@@ -21,21 +22,16 @@ struct WelcomeView: View {
 
                     ZStack(alignment: .top) {
                         VStack(alignment: .leading) {
-                            Text("Bienvenue")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(.primary)
-                                .padding(.bottom, 10)
-                            Text("MarmotMonitor est une application qui vous permet de suivre la croissance de votre bébé.")
+
+                            Text("Quelle est le nom de la petite marmotte ? ")
                                 .font(.body)
                                 .foregroundColor(.primary)
                                 .padding(.bottom, 10)
                                 .multilineTextAlignment(.leading)
-                            Text("Je vais t'aider à créer ton espace personnalisé.")
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .padding(.bottom, 10)
-                                .multilineTextAlignment(.leading)
+
+                            TextField("Nom", text: $name)
+                                .padding()
+                                .frame(maxWidth: .infinity)
                         }
                         .onBoardingBackground()
 
@@ -51,7 +47,7 @@ struct WelcomeView: View {
                     }
 
                     Button(action: action) {
-                        Text("Commencer")
+                        Text("Suivant")
                     }
                     .buttonStyle(OnBoardingButtonStyle())
                 }
@@ -63,7 +59,7 @@ struct WelcomeView: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-        WelcomeView(action: {})
+    BabyNameView(action: {})
             .preferredColorScheme(.light)
             .background(LinearGradient(gradient:
                                         Gradient(colors: [.pastelBlueToEgiptienBlue, .whiteToEgiptienBlue]), startPoint: .top, endPoint: .bottom)
