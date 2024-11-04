@@ -11,11 +11,14 @@ import SwiftUI
 
 struct OnBoardingManagerTests {
     let manager: OnBoardingManager
+    var storage: AppStorageManagerProtocol
 
     init() {
-        manager = OnBoardingManager()
+        storage = MockAppStorageManager()
+        manager = OnBoardingManager(storageManager: storage)
     }
 
+    // MARK: - Tests Screen manager
     @Test func whenClassIsInit_thenActicveScreenIsWelcom() async throws {
         // 1. given
         #expect(manager.activeScreen == OnBoardingManager.Screen.allCases.first!.rawValue)
@@ -49,9 +52,6 @@ struct OnBoardingManagerTests {
     }
 
     @Test func whenNextIsCall_thenShouldNotExceedLastScreen() async throws {
-        // 1. given
-        let initValue = manager.activeScreen
-
         // 2. when
         for _ in 0...10 {
             manager.next()
@@ -75,9 +75,6 @@ struct OnBoardingManagerTests {
     }
 
     @Test func whenPreviousIsCall_thenShouldNotExceedFirstScreen() async throws {
-        // 1. given
-        let initValue = manager.activeScreen
-
         // 2. when
         for _ in 0...10 {
             manager.previous()
@@ -86,4 +83,30 @@ struct OnBoardingManagerTests {
         // 3. then
         #expect(manager.activeScreen == OnBoardingManager.Screen.allCases.first!.rawValue)
     }
+
+    // MARK: - Tests BabyName manager
+    @Test func whenBabyNameIsSet_thenBabyNameIsSaved() async throws {
+        // 1. given
+        let babyName = "BabyName"
+
+        // 2. when
+        manager.babyName = babyName
+
+        // 3. then
+        #expect(storage.babyName == babyName)
+        #expect(manager.babyName == babyName)
+    }
+
+    @Test mutating func babyNameHaveValueInStorage_WhenBabyNameIsGet_thenBabyNameHaveSameValue() async throws {
+        // 1. given
+        let babyName = "BabyName"
+
+        // 2. when
+        storage.babyName = babyName
+
+        // 3. then
+        #expect(storage.babyName == babyName)
+        #expect(manager.babyName == babyName)
+    }
+
 }

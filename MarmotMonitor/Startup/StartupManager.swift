@@ -18,9 +18,18 @@ final class StartupManager: ObservableObject {
         case onBoarding
     }
 
-    @AppStorage("isOnBoardingFinished") private(set) var isOnBoardingFinished: Bool = false
+    private var storageManager: AppStorageManagerProtocol
+
+    init(storageManager: AppStorageManagerProtocol = AppStorageManager.shared) {
+        self.storageManager = storageManager
+    }
+
+    var isOnBoardingFinished: Bool {
+        storageManager.isOnBoardingFinished
+    }
 
     func onBoardingFinished() {
-        isOnBoardingFinished = true
+        storageManager.isOnBoardingFinished = true
     }
+
 }

@@ -24,7 +24,7 @@ struct OnBoardingView: View {
                 TabView(selection: $manager.activeScreen) {
                     WelcomeView(action: manager.next)
                         .tag(OnBoardingManager.Screen.welcome.rawValue)
-                    BabyNameView(action: manager.next)
+                    BabyNameView(action: manager.next, babyName: $manager.babyName)
                         .tag(OnBoardingManager.Screen.babyName.rawValue)
                     Text("Gender")
                         .tag(OnBoardingManager.Screen.gender.rawValue)

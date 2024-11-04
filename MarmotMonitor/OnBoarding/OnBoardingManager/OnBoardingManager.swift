@@ -12,6 +12,35 @@ import SwiftUI
 
 final class OnBoardingManager: ObservableObject {
 
+    private var storageManager: AppStorageManagerProtocol
+
+    init(storageManager: AppStorageManagerProtocol = AppStorageManager.shared) {
+        self.storageManager = storageManager
+    }
+
+    @Published var activeScreen: Int = Screen.allCases.first!.rawValue
+
+    var babyName: String {
+            get { storageManager.babyName }
+            set { storageManager.babyName = newValue }
+    }
+
+    func previous() {
+        let previousScreenIndex = max(activeScreen - 1, Screen.allCases.first!.rawValue)
+        withAnimation {
+            activeScreen = previousScreenIndex
+        }
+    }
+
+    func next() {
+        let nextScreenIndex = min(activeScreen + 1, Screen.allCases.last!.rawValue)
+        withAnimation(.easeInOut) {
+            activeScreen = nextScreenIndex
+        }
+    }
+}
+
+extension OnBoardingManager {
     enum Screen: Int, CaseIterable {
         case welcome
         case babyName
@@ -32,22 +61,6 @@ final class OnBoardingManager: ObservableObject {
             case .birthDate:
                 return "date de naissance"
             }
-        }
-    }
-
-    @Published var activeScreen: Int = Screen.allCases.first!.rawValue
-
-    func previous() {
-        let previousScreenIndex = max(activeScreen - 1, Screen.allCases.first!.rawValue)
-        withAnimation {
-            activeScreen = previousScreenIndex
-        }
-    }
-
-    func next() {
-        let nextScreenIndex = min(activeScreen + 1, Screen.allCases.last!.rawValue)
-        withAnimation(.easeInOut) {
-            activeScreen = nextScreenIndex
         }
     }
 }

@@ -12,21 +12,21 @@ import SwiftUI
 struct StartupManagerTests {
 
     let manager: StartupManager
+    let storage: AppStorageManagerProtocol
 
     init() {
-        manager = StartupManager()
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.isOnBoardingFinished)
+        storage = MockAppStorageManager()
+        manager = StartupManager(storageManager: storage)
     }
 
     @Test func whenOnBoardingFinishedFonctionIsCall_thenIsOnBoardingFinishedIsTrue() async throws {
         // 1. given
-        let isOnBoardingFinishedFirstStatus = manager.isOnBoardingFinished
+        #expect(storage.isOnBoardingFinished == false)
 
-          // 2. when
+        // 2. when
         manager.onBoardingFinished()
 
-          // 3. then
-        #expect(isOnBoardingFinishedFirstStatus == false)
-        #expect(manager.isOnBoardingFinished == true)
+        // 3. then
+        #expect(storage.isOnBoardingFinished == true)
     }
 }
