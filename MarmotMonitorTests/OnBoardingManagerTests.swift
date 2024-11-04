@@ -109,4 +109,33 @@ struct OnBoardingManagerTests {
         #expect(manager.babyName == babyName)
     }
 
+    @Test mutating func whenBabyNameIsSetWithOneCharacter_thenBabyNameNotSave() async throws {
+        // 1. given
+        let babyName = "B"
+        #expect(storage.babyName.isEmpty)
+        #expect(manager.valideBabyName == nil)
+
+        // 2. when
+        manager.babyName = babyName
+
+        // 3. then
+        #expect(storage.babyName.isEmpty)
+        #expect(manager.babyName.isEmpty)
+        #expect(manager.valideBabyName == false)
+    }
+
+    @Test mutating func whenBabyNameIsSetWithNoCharacter_thenBabyNameNotSave() async throws {
+        // 1. given
+        let babyName = ""
+        #expect(storage.babyName.isEmpty)
+        #expect(manager.valideBabyName == nil)
+
+        // 2. when
+        manager.babyName = babyName
+
+        // 3. then
+        #expect(storage.babyName.isEmpty)
+        #expect(manager.babyName.isEmpty)
+        #expect(manager.valideBabyName == false)
+    }
 }

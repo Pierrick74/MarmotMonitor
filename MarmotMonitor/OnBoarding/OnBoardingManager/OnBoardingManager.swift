@@ -18,12 +18,8 @@ final class OnBoardingManager: ObservableObject {
         self.storageManager = storageManager
     }
 
+    // MARK: - Screen manager
     @Published var activeScreen: Int = Screen.allCases.first!.rawValue
-
-    var babyName: String {
-            get { storageManager.babyName }
-            set { storageManager.babyName = newValue }
-    }
 
     func previous() {
         let previousScreenIndex = max(activeScreen - 1, Screen.allCases.first!.rawValue)
@@ -38,6 +34,19 @@ final class OnBoardingManager: ObservableObject {
             activeScreen = nextScreenIndex
         }
     }
+
+    // MARK: - Baby Name
+    var babyName: String {
+        get { storageManager.babyName }
+        set {
+            let trimmed = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+            storageManager.babyName = trimmed.count < 2 ? "" : trimmed
+            valideBabyName = trimmed.count < 2 ? false : true
+        }
+    }
+
+    @Published var valideBabyName: Bool?
+
 }
 
 extension OnBoardingManager {
