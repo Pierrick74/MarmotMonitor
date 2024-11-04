@@ -2,6 +2,7 @@
   "sourceLanguage" : "fr",
   "strings" : {
     "Baby Name" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -47,6 +48,9 @@
         }
       }
     },
+    "Inserer le nom de la petite marmotte ? " : {
+
+    },
     "Je vais t'aider à créer ton espace personnalisé." : {
       "localizations" : {
         "en" : {
@@ -82,9 +86,6 @@
           }
         }
       }
-    },
-    "Nom" : {
-
     },
     "Page %@" : {
       "localizations" : {

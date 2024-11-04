@@ -24,7 +24,7 @@ struct OnBoardingView: View {
                 TabView(selection: $manager.activeScreen) {
                     WelcomeView(action: manager.next)
                         .tag(OnBoardingManager.Screen.welcome.rawValue)
-                    Text("Baby Name")
+                    BabyNameView(action: manager.next)
                         .tag(OnBoardingManager.Screen.babyName.rawValue)
                     Text("Gender")
                         .tag(OnBoardingManager.Screen.gender.rawValue)
@@ -38,6 +38,7 @@ struct OnBoardingView: View {
                                         currentPage: $manager.activeScreen,
                                     color: .secondary)
                 .padding(.top, 20)
+                .allowsHitTesting(false)
             }
         }
         .overlay(alignment: .topLeading) {

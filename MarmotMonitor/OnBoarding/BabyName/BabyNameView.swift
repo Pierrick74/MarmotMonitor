@@ -9,9 +9,13 @@ import SwiftUI
 
 struct BabyNameView: View {
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    private var textOfTextField: String {
+        return dynamicTypeSize > .xxLarge ? "Nom" : "Nom du bébé"
+    }
 
     let action: () -> Void
-    @State private var name = ""
+    @State private var text = ""
 
     var body: some View {
         GeometryReader { proxy in
@@ -28,10 +32,16 @@ struct BabyNameView: View {
                                 .foregroundColor(.primary)
                                 .padding(.bottom, 10)
                                 .multilineTextAlignment(.leading)
+                                .accessibilityHidden(true)
 
-                            TextField("Nom", text: $name)
+                            TextField(textOfTextField, text: $text)
+                                .font(.body)
+                                .multilineTextAlignment(.leading)
                                 .padding()
-                                .frame(maxWidth: .infinity)
+                                .background(RoundedRectangle(cornerRadius: 14).fill(.pastelBlueToEgiptienBlue.opacity(0.35)))
+                                .padding(.horizontal)
+                                .accessibilityLabel("Inserer le nom de la petite marmotte ? ")
+                                .accessibilityValue(text)
                         }
                         .onBoardingBackground()
 
