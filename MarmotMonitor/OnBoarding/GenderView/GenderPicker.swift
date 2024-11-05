@@ -34,6 +34,8 @@ struct GenderPicker: View {
 }
 
 struct GenderButton: View {
+    @Environment(\.colorScheme) var colorScheme
+
     let type: GenderType
     let selection: String
     let action: () -> Void
@@ -60,7 +62,9 @@ struct GenderButton: View {
                             ? (type == .boy ? .pastelBlueToEgiptienBlue : .pinkToEgiptienBlue)
                             : (type == .boy ? .pastelBlueToEgiptienBlue.opacity(0.2) : .pinkToEgiptienBlue.opacity(0.2))
                     )
-                    .shadow(color: selection == type.rawValue ? .primary : .clear, radius: 2, x: 0, y: 2)
+                    .shadow(color: selection == type.rawValue ?
+                            colorScheme == .light ? .primary : .clear
+                            : .clear, radius: 2, x: 0, y: 2)
             )
         })
         .foregroundColor(selection == type.rawValue ? .primary : .primary.opacity(0.5))
