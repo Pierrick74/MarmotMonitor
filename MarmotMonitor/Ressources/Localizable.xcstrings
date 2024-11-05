@@ -1,23 +1,6 @@
 {
   "sourceLanguage" : "fr",
   "strings" : {
-    "Baby Name" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Baby Name"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nom du bébé"
-          }
-        }
-      }
-    },
     "Bienvenue" : {
       "localizations" : {
         "en" : {
@@ -38,21 +21,25 @@
         }
       }
     },
-    "Gender" : {
+    "Inserer le nom de la petite marmotte ? " : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gender"
+            "value" : "Insert the name of the little groundhog?"
           }
         }
       }
     },
-    "Inserer le nom de la petite marmotte ? " : {
-
-    },
     "Inserer le nom du Parent ? " : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insert the Parent's name"
+          }
+        }
+      }
     },
     "Je vais t'aider à créer ton espace personnalisé." : {
       "localizations" : {
@@ -64,8 +51,25 @@
         }
       }
     },
+    "La petite marmotte est-elle un garçon ou une fille ? " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Is the little groundhog a boy or a girl?"
+          }
+        }
+      }
+    },
     "Le nom doit contenir au moins 2 caractères" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The name must contain at least 2 characters"
+          }
+        }
+      }
     },
     "Main View" : {
       "localizations" : {
@@ -119,31 +123,35 @@
         }
       }
     },
-    "Parent Name" : {
-      "extractionState" : "stale",
+    "Quelle est le nom de la petite marmotte ? " : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Parent Name"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nom des parents"
+            "value" : "What is the name of the little marmot?"
           }
         }
       }
     },
-    "Quelle est le nom de la petite marmotte ? " : {
-
-    },
     "Quelle est le nom du Parent ? " : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What is the Parent's name?"
+          }
+        }
+      }
     },
     "Suivant" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

@@ -26,7 +26,7 @@ struct OnBoardingView: View {
                         .tag(OnBoardingManager.Screen.welcome.rawValue)
                     BabyNameView(action: manager.next, babyName: $manager.babyName, valideName: $manager.isBabyNameValide)
                         .tag(OnBoardingManager.Screen.babyName.rawValue)
-                    Text("Gender")
+                    GenderView(action: manager.next, gender: $manager.gender)
                         .tag(OnBoardingManager.Screen.gender.rawValue)
                     ParentNameView(action: manager.next, parentName: $manager.parentName, valideName: $manager.isParentNameValide)
                         .tag(OnBoardingManager.Screen.parentName.rawValue)

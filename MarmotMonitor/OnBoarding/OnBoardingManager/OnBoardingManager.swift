@@ -16,6 +16,7 @@ final class OnBoardingManager: ObservableObject {
 
     init(storageManager: AppStorageManagerProtocol = AppStorageManager.shared) {
         self.storageManager = storageManager
+        gender = storageManager.gender
     }
 
     // MARK: - Screen manager
@@ -59,6 +60,12 @@ final class OnBoardingManager: ObservableObject {
 
     @Published var isParentNameValide: Bool?
 
+    // MARK: - Gender
+    @Published var gender: String {
+        didSet {
+            storageManager.gender = gender
+        }
+    }
 }
 
 extension OnBoardingManager {
