@@ -45,7 +45,7 @@ final class OnBoardingManager: ObservableObject {
         }
     }
 
-    @Published var valideBabyName: Bool? = nil
+    @Published var valideBabyName: Bool?
 
 }
 
