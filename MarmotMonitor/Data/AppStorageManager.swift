@@ -11,6 +11,7 @@ import SwiftUI
 protocol AppStorageManagerProtocol {
     var babyName: String { get set }
     var isOnBoardingFinished: Bool { get set }
+    var parentName: String { get set }
 }
 
 // MARK: - AppStorageManager
@@ -19,9 +20,11 @@ final class AppStorageManager: AppStorageManagerProtocol {
     enum AppStorageKeys: String {
         case isOnBoardingFinished
         case babyName
+        case parentName
     }
 
     @AppStorage(AppStorageKeys.babyName.rawValue) var babyName: String = ""
+    @AppStorage(AppStorageKeys.parentName.rawValue) var parentName: String = ""
     @AppStorage(AppStorageKeys.isOnBoardingFinished.rawValue) var isOnBoardingFinished: Bool = false
 
     static let shared = AppStorageManager()
@@ -32,4 +35,5 @@ final class AppStorageManager: AppStorageManagerProtocol {
 class MockAppStorageManager: AppStorageManagerProtocol {
     var babyName: String = ""
     var isOnBoardingFinished: Bool = false
+    var parentName: String = ""
 }

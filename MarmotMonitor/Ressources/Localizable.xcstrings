@@ -51,6 +51,9 @@
     "Inserer le nom de la petite marmotte ? " : {
 
     },
+    "Inserer le nom du Parent ? " : {
+
+    },
     "Je vais t'aider à créer ton espace personnalisé." : {
       "localizations" : {
         "en" : {
@@ -117,6 +120,7 @@
       }
     },
     "Parent Name" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -133,6 +137,9 @@
       }
     },
     "Quelle est le nom de la petite marmotte ? " : {
+
+    },
+    "Quelle est le nom du Parent ? " : {
 
     },
     "Suivant" : {

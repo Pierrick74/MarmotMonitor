@@ -24,11 +24,11 @@ struct OnBoardingView: View {
                 TabView(selection: $manager.activeScreen) {
                     WelcomeView(action: manager.next)
                         .tag(OnBoardingManager.Screen.welcome.rawValue)
-                    BabyNameView(action: manager.next, babyName: $manager.babyName, valideName: $manager.valideBabyName)
+                    BabyNameView(action: manager.next, babyName: $manager.babyName, valideName: $manager.isBabyNameValide)
                         .tag(OnBoardingManager.Screen.babyName.rawValue)
                     Text("Gender")
                         .tag(OnBoardingManager.Screen.gender.rawValue)
-                    Text("Parent Name")
+                    ParentNameView(action: manager.next, parentName: $manager.parentName, valideName: $manager.isParentNameValide)
                         .tag(OnBoardingManager.Screen.parentName.rawValue)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))

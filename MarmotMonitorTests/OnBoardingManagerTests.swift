@@ -113,7 +113,7 @@ struct OnBoardingManagerTests {
         // 1. given
         let babyName = "B"
         #expect(storage.babyName.isEmpty)
-        #expect(manager.valideBabyName == nil)
+        #expect(manager.isBabyNameValide == nil)
 
         // 2. when
         manager.babyName = babyName
@@ -121,14 +121,14 @@ struct OnBoardingManagerTests {
         // 3. then
         #expect(storage.babyName.isEmpty)
         #expect(manager.babyName.isEmpty)
-        #expect(manager.valideBabyName == false)
+        #expect(manager.isBabyNameValide == false)
     }
 
     @Test mutating func whenBabyNameIsSetWithNoCharacter_thenBabyNameNotSave() async throws {
         // 1. given
         let babyName = ""
         #expect(storage.babyName.isEmpty)
-        #expect(manager.valideBabyName == nil)
+        #expect(manager.isBabyNameValide == nil)
 
         // 2. when
         manager.babyName = babyName
@@ -136,6 +136,61 @@ struct OnBoardingManagerTests {
         // 3. then
         #expect(storage.babyName.isEmpty)
         #expect(manager.babyName.isEmpty)
-        #expect(manager.valideBabyName == false)
+        #expect(manager.isBabyNameValide == false)
+    }
+
+    // MARK: - Tests ParentName manager
+    @Test func whenParentNameIsSet_thenParentNameIsSaved() async throws {
+        // 1. given
+        let parentName = "parentName"
+
+        // 2. when
+        manager.parentName = parentName
+
+        // 3. then
+        #expect(storage.parentName == parentName)
+        #expect(manager.parentName == parentName)
+    }
+
+    @Test mutating func parentNameHaveValueInStorage_WhenParentNameIsGet_thenParentNameHaveSameValue() async throws {
+        // 1. given
+        let parentName = "parentName"
+
+        // 2. when
+        storage.parentName = parentName
+
+        // 3. then
+        #expect(storage.parentName == parentName)
+        #expect(manager.parentName == parentName)
+    }
+
+    @Test mutating func whenParentNameIsSetWithOneCharacter_thenParentNameNotSave() async throws {
+        // 1. given
+        let parentName = "B"
+        #expect(storage.parentName.isEmpty)
+        #expect(manager.isParentNameValide == nil)
+
+        // 2. when
+        manager.parentName = parentName
+
+        // 3. then
+        #expect(storage.parentName.isEmpty)
+        #expect(manager.parentName.isEmpty)
+        #expect(manager.isParentNameValide == false)
+    }
+
+    @Test mutating func whenParentNameIsSetWithNoCharacter_thenParentNameNotSave() async throws {
+        // 1. given
+        let parentName = ""
+        #expect(storage.parentName.isEmpty)
+        #expect(manager.isParentNameValide == nil)
+
+        // 2. when
+        manager.parentName = parentName
+
+        // 3. then
+        #expect(storage.parentName.isEmpty)
+        #expect(manager.parentName.isEmpty)
+        #expect(manager.isParentNameValide == false)
     }
 }

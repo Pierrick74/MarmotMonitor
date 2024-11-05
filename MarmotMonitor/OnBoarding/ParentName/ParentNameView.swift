@@ -1,22 +1,22 @@
 //
-//  BabyNameView.swift
+//  ParentNameView.swift
 //  MarmotMonitor
 //
-//  Created by pierrick viret on 02/11/2024.
+//  Created by pierrick viret on 05/11/2024.
 //
 
 import SwiftUI
 
-struct BabyNameView: View {
+struct ParentNameView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     private var placeholderOfTextField: String {
-        return dynamicTypeSize > .xxLarge ? "Nom" : "Nom du bébé"
+        return dynamicTypeSize > .xxLarge ? "Nom" : "Nom du parent"
     }
 
     let action: () -> Void
 
-    @Binding var babyName: String
+    @Binding var parentName: String
     @Binding var valideName: Bool?
 
     @State private var showAlerte = false
@@ -31,22 +31,22 @@ struct BabyNameView: View {
                     ZStack(alignment: .top) {
                         VStack(alignment: .leading) {
 
-                            Text("Quelle est le nom de la petite marmotte ? ")
+                            Text("Quelle est le nom du Parent ? ")
                                 .font(.body)
                                 .foregroundColor(.primary)
                                 .padding(.bottom, 10)
                                 .multilineTextAlignment(.leading)
                                 .accessibilityHidden(true)
 
-                            TextField(placeholderOfTextField, text: $babyName)
+                            TextField(placeholderOfTextField, text: $parentName)
                                 .tint(.primary)
                                 .font(.body)
                                 .multilineTextAlignment(.leading)
                                 .padding()
                                 .background(RoundedRectangle(cornerRadius: 14).fill(.pastelBlueToEgiptienBlue.opacity(0.35)))
                                 .padding(.horizontal)
-                                .accessibilityLabel("Inserer le nom de la petite marmotte ? ")
-                                .accessibilityValue(babyName)
+                                .accessibilityLabel("Inserer le nom du Parent ? ")
+                                .accessibilityValue(parentName)
 
                                Text("Le nom doit contenir au moins 2 caractères")
                                         .font(.caption)
@@ -79,7 +79,6 @@ struct BabyNameView: View {
                         Text("Suivant")
                     }
                     .buttonStyle(OnBoardingButtonStyle())
-                    .disabled(valideName == false)
                 }
                 .padding(.horizontal, 20)
             }
@@ -89,7 +88,7 @@ struct BabyNameView: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    BabyNameView(action: {}, babyName: .constant(""), valideName: .constant(false))
+    ParentNameView(action: {}, parentName: .constant(""), valideName: .constant(false))
             .preferredColorScheme(.light)
             .background(LinearGradient(gradient:
                                         Gradient(colors: [.pastelBlueToEgiptienBlue, .whiteToEgiptienBlue]), startPoint: .top, endPoint: .bottom)
