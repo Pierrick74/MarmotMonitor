@@ -15,10 +15,10 @@ struct ParentNameView: View {
     }
 
     let action: () -> Void
+    let actionBack: () -> Void
 
     @Binding var parentName: String
     @Binding var valideName: Bool?
-
     @State private var showAlerte = false
 
     var body: some View {
@@ -72,7 +72,12 @@ struct ParentNameView: View {
                         }
                     }
 
-                    Button(action: action) {
+                    Button {
+                        self.dismissKeyboard()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                            action()
+                        }
+                    } label: {
                         Text("Suivant")
                     }
                     .buttonStyle(OnBoardingButtonStyle())
@@ -80,12 +85,26 @@ struct ParentNameView: View {
                 .padding(.horizontal, 20)
             }
             .scrollBounceBehavior(.basedOnSize)
+            .onTapGesture {
+                self.dismissKeyboard()
+            }
+        }
+        .overlay(alignment: .topLeading) {
+            Button {
+                self.dismissKeyboard()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    actionBack()
+                }
+            } label: {
+                Image(systemName: "chevron.backward")
+            }
+            .buttonStyle(OnBoardingBackButtonStyle())
         }
     }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    ParentNameView(action: {}, parentName: .constant(""), valideName: .constant(false))
+    ParentNameView(action: {}, actionBack: {}, parentName: .constant(""), valideName: .constant(false))
             .preferredColorScheme(.light)
             .background(LinearGradient(gradient:
                                         Gradient(colors: [.pastelBlueToEgiptienBlue, .whiteToEgiptienBlue]), startPoint: .top, endPoint: .bottom)
