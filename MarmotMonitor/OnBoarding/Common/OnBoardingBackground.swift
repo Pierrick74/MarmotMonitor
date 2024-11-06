@@ -25,7 +25,6 @@ struct OnBoardingBackgroundModifier: ViewModifier {
     }
 }
 
-// 2. Extension View pour faciliter l'utilisation
 extension View {
     func onBoardingBackground() -> some View {
         modifier(OnBoardingBackgroundModifier())

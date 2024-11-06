@@ -26,16 +26,13 @@ struct BabyNameView: View {
             ScrollView {
                 VStack {
                     Spacer()
-                        .frame(height: proxy.size.height * 0.25)
+                        .frame(height: proxy.size.height * 0.30)
 
                     ZStack(alignment: .top) {
                         VStack(alignment: .leading) {
 
                             Text("Quelle est le nom de la petite marmotte ? ")
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .padding(.bottom, 10)
-                                .multilineTextAlignment(.leading)
+                                .onBoardingTextStyle()
                                 .accessibilityHidden(true)
 
                             TextField(placeholderOfTextField, text: $babyName)

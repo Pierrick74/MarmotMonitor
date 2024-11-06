@@ -12,6 +12,7 @@ protocol AppStorageManagerProtocol {
     var babyName: String { get set }
     var isOnBoardingFinished: Bool { get set }
     var parentName: String { get set }
+    var gender: String { get set }
 }
 
 // MARK: - AppStorageManager
@@ -21,8 +22,10 @@ final class AppStorageManager: AppStorageManagerProtocol {
         case isOnBoardingFinished
         case babyName
         case parentName
+        case gender
     }
 
+    @AppStorage(AppStorageKeys.gender.rawValue) var gender: String = ""
     @AppStorage(AppStorageKeys.babyName.rawValue) var babyName: String = ""
     @AppStorage(AppStorageKeys.parentName.rawValue) var parentName: String = ""
     @AppStorage(AppStorageKeys.isOnBoardingFinished.rawValue) var isOnBoardingFinished: Bool = false
@@ -36,4 +39,5 @@ class MockAppStorageManager: AppStorageManagerProtocol {
     var babyName: String = ""
     var isOnBoardingFinished: Bool = false
     var parentName: String = ""
+    var gender: String = "girl"
 }

@@ -1,16 +1,19 @@
 //
-//  WelcomeView.swift
+//  GenderView.swift
 //  MarmotMonitor
 //
-//  Created by pierrick viret on 31/10/2024.
+//  Created by pierrick viret on 05/11/2024.
 //
 
 import SwiftUI
 
-struct WelcomeView: View {
+struct GenderView: View {
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let action: () -> Void
+
+    @Binding var gender: String
 
     var body: some View {
         GeometryReader { proxy in
@@ -21,15 +24,14 @@ struct WelcomeView: View {
 
                     ZStack(alignment: .top) {
                         VStack(alignment: .leading) {
-                            Text("Bienvenue")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(.primary)
-                                .padding(.bottom, 10)
-                            Text("MarmotMonitor est une application qui vous permet de suivre la croissance de votre bébé.")
+                            Spacer()
+                                .frame(height: 10)
+
+                            Text("La petite marmotte est-elle un garçon ou une fille ? ")
                                 .onBoardingTextStyle()
-                            Text("Je vais t'aider à créer ton espace personnalisé.")
-                                .onBoardingTextStyle()
+
+                            GenderPicker(selection: $gender)
+                                .padding(.horizontal)
                         }
                         .onBoardingBackground()
 
@@ -45,7 +47,7 @@ struct WelcomeView: View {
                     }
 
                     Button(action: action) {
-                        Text("Commencer")
+                        Text("Suivant")
                     }
                     .buttonStyle(OnBoardingButtonStyle())
                 }
@@ -57,7 +59,7 @@ struct WelcomeView: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-        WelcomeView(action: {})
+    GenderView(action: {}, gender: .constant("Garçon"))
             .preferredColorScheme(.light)
             .background(LinearGradient(gradient:
                                         Gradient(colors: [.pastelBlueToEgiptienBlue, .whiteToEgiptienBlue]), startPoint: .top, endPoint: .bottom)

@@ -26,7 +26,7 @@ struct OnBoardingView: View {
                         .tag(OnBoardingManager.Screen.welcome.rawValue)
                     BabyNameView(action: manager.next, babyName: $manager.babyName, valideName: $manager.isBabyNameValide)
                         .tag(OnBoardingManager.Screen.babyName.rawValue)
-                    Text("Gender")
+                    GenderView(action: manager.next, gender: $manager.gender)
                         .tag(OnBoardingManager.Screen.gender.rawValue)
                     ParentNameView(action: manager.next, parentName: $manager.parentName, valideName: $manager.isParentNameValide)
                         .tag(OnBoardingManager.Screen.parentName.rawValue)
@@ -45,11 +45,12 @@ struct OnBoardingView: View {
             if isShowPrevButton {
                 Button(action: manager.previous) {
                     Image(systemName: "chevron.backward")
-                        .foregroundColor(colorScheme == .light ? .blue.opacity(0.6) : .white.opacity(0.6))
+                        .foregroundColor(colorScheme == .light ? .blue.opacity(0.6) : .white.opacity(0.8))
                         .background(Circle().fill(.whiteToEgiptienBlue)
-                                        .shadow(color: colorScheme == .light ? .gray : .clear
-                                                , radius: 2, x: 2, y: 2)
-                                        .shadow(color: .white, radius: 2)
+                                        .shadow(color: colorScheme == .light ? .gray : .clear,
+                                                radius: 1, x: 2, y: 2)
+//                                        .shadow(color: colorScheme == .light ? .gray : .clear,
+//                                                radius: 2)
                                         .frame(width: 35, height: 35))
                         .font(.system(size: 25, weight: .bold, design: .rounded))
                         .padding(30)
