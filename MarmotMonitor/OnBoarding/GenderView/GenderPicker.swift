@@ -22,12 +22,14 @@ struct GenderPicker: View {
                 selection: selection,
                 action: { selection = GenderType.boy.rawValue }
             )
+            .accessibilityHint("Séléctionné", isEnabled: selection == GenderType.boy.rawValue)
 
             GenderButton(
                 type: .girl,
                 selection: selection,
                 action: { selection = GenderType.girl.rawValue }
             )
+            .accessibilityHint("Séléctionné", isEnabled: selection == GenderType.girl.rawValue)
         }
         .padding(5)
     }

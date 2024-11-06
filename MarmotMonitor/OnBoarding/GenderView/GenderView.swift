@@ -32,7 +32,6 @@ struct GenderView: View {
                                 .padding(.bottom, 10)
                                 .foregroundColor(.primary)
                                 .multilineTextAlignment(.leading)
-                                .accessibilityHidden(true)
 
                             GenderPicker(selection: $gender)
                                 .padding(.horizontal)

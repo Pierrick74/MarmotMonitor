@@ -39,5 +39,5 @@ class MockAppStorageManager: AppStorageManagerProtocol {
     var babyName: String = ""
     var isOnBoardingFinished: Bool = false
     var parentName: String = ""
-    var gender: String = ""
+    var gender: String = "girl"
 }
