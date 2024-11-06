@@ -32,10 +32,7 @@ struct BabyNameView: View {
                         VStack(alignment: .leading) {
 
                             Text("Quelle est le nom de la petite marmotte ? ")
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .padding(.bottom, 10)
-                                .multilineTextAlignment(.leading)
+                                .onBoardingTextStyle()
                                 .accessibilityHidden(true)
 
                             TextField(placeholderOfTextField, text: $babyName)

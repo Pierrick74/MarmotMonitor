@@ -28,10 +28,7 @@ struct GenderView: View {
                                 .frame(height: 10)
 
                             Text("La petite marmotte est-elle un garçon ou une fille ? ")
-                                .font(.body)
-                                .padding(.bottom, 10)
-                                .foregroundColor(.primary)
-                                .multilineTextAlignment(.leading)
+                                .onBoardingTextStyle()
 
                             GenderPicker(selection: $gender)
                                 .padding(.horizontal)

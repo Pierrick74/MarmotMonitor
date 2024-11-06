@@ -27,15 +27,9 @@ struct WelcomeView: View {
                                 .foregroundColor(.primary)
                                 .padding(.bottom, 10)
                             Text("MarmotMonitor est une application qui vous permet de suivre la croissance de votre bébé.")
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .padding(.bottom, 10)
-                                .multilineTextAlignment(.leading)
+                                .onBoardingTextStyle()
                             Text("Je vais t'aider à créer ton espace personnalisé.")
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .padding(.bottom, 10)
-                                .multilineTextAlignment(.leading)
+                                .onBoardingTextStyle()
                         }
                         .onBoardingBackground()
 

@@ -53,7 +53,7 @@ struct GenderButton: View {
                     .frame(height: 40)
                     .opacity(selection == type.rawValue ? 1 : 0.5)
                 Text(type.rawValue)
-                    .font(.body)
+                    .font(.body.bold())
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 12)
@@ -62,14 +62,14 @@ struct GenderButton: View {
                     .fill(
                         selection == type.rawValue
                         ? (type == .boy ? .boyGenderButton : .girlGenderButton)
-                            : (type == .boy ? .boyGenderButton.opacity(0.2) : .girlGenderButton.opacity(0.2))
+                            : (type == .boy ? .boyGenderButton.opacity(0.4) : .girlGenderButton.opacity(0.4))
                     )
                     .shadow(color: selection == type.rawValue ?
                             colorScheme == .light ? .primary : .clear
                             : .clear, radius: 2, x: 0, y: 2)
             )
         })
-        .foregroundColor(selection == type.rawValue ? .primary : .primary.opacity(0.5))
+        .foregroundColor(selection == type.rawValue ? .primary : .primary.opacity(0.7))
     }
 }
 

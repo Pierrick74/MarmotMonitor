@@ -32,10 +32,7 @@ struct ParentNameView: View {
                         VStack(alignment: .leading) {
 
                             Text("Quelle est le nom du Parent ? ")
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .padding(.bottom, 10)
-                                .multilineTextAlignment(.leading)
+                                .onBoardingTextStyle()
                                 .accessibilityHidden(true)
 
                             TextField(placeholderOfTextField, text: $parentName)

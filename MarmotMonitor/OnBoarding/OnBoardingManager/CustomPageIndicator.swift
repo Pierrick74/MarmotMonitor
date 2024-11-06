@@ -35,6 +35,7 @@ struct CustomPageIndicator: View {
         }
         .padding(.vertical, 20)
         .accessibilityLabel("Page \(currentPage + 1) de \(numberOfPages)")
+        .contentShape(Rectangle())
     }
 }
 
