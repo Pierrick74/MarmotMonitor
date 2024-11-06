@@ -15,10 +15,10 @@ struct BabyNameView: View {
     }
 
     let action: () -> Void
+    let actionBack: () -> Void
 
     @Binding var babyName: String
     @Binding var valideName: Bool?
-
     @State private var showAlerte = false
 
     var body: some View {
@@ -30,7 +30,6 @@ struct BabyNameView: View {
 
                     ZStack(alignment: .top) {
                         VStack(alignment: .leading) {
-
                             Text("Quelle est le nom de la petite marmotte ? ")
                                 .onBoardingTextStyle()
                                 .accessibilityHidden(true)
@@ -45,15 +44,15 @@ struct BabyNameView: View {
                                 .accessibilityLabel("Inserer le nom de la petite marmotte ? ")
                                 .accessibilityValue(babyName)
 
-                               Text("Le nom doit contenir au moins 2 caractères")
-                                        .font(.caption)
-                                        .foregroundColor(.red)
-                                        .frame(maxWidth: .infinity)
-                                        .padding(.bottom, 10)
-                                        .multilineTextAlignment(.center)
-                                        .opacity(showAlerte ? 1 : 0)
-                                        .offset(y: showAlerte ? 0 : -20)
-                                        .animation(showAlerte ? .easeInOut : .none, value: showAlerte)
+                            Text("Le nom doit contenir au moins 2 caractères")
+                                .font(.caption)
+                                .foregroundColor(.red)
+                                .frame(maxWidth: .infinity)
+                                .padding(.bottom, 10)
+                                .multilineTextAlignment(.center)
+                                .opacity(showAlerte ? 1 : 0)
+                                .offset(y: showAlerte ? 0 : -20)
+                                .animation(showAlerte ? .easeInOut : .none, value: showAlerte)
                         }
                         .onBoardingBackground()
                         .onChange(of: valideName) {
@@ -72,7 +71,12 @@ struct BabyNameView: View {
                         }
                     }
 
-                    Button(action: action) {
+                    Button {
+                        self.dismissKeyboard()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                            action()
+                        }
+                    } label: {
                         Text("Suivant")
                     }
                     .buttonStyle(OnBoardingButtonStyle())
@@ -81,12 +85,26 @@ struct BabyNameView: View {
                 .padding(.horizontal, 20)
             }
             .scrollBounceBehavior(.basedOnSize)
+            .onTapGesture {
+                self.dismissKeyboard()
+            }
+        }
+        .overlay(alignment: .topLeading) {
+            Button {
+                self.dismissKeyboard()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    actionBack()
+                }
+            } label: {
+                Image(systemName: "chevron.backward")
+            }
+            .buttonStyle(OnBoardingBackButtonStyle())
         }
     }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    BabyNameView(action: {}, babyName: .constant(""), valideName: .constant(false))
+    BabyNameView(action: {}, actionBack: {}, babyName: .constant(""), valideName: .constant(false))
             .preferredColorScheme(.light)
             .background(LinearGradient(gradient:
                                         Gradient(colors: [.pastelBlueToEgiptienBlue, .whiteToEgiptienBlue]), startPoint: .top, endPoint: .bottom)

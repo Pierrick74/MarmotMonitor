@@ -17,53 +17,38 @@ struct OnBoardingView: View {
     var body: some View {
         ZStack {
             LinearGradient(gradient:
-                            Gradient(colors: [.pastelBlueToEgiptienBlue, .whiteToEgiptienBlue]), startPoint: .top, endPoint: .bottom)
+                            Gradient(colors: [.pastelBlueToEgiptienBlue, .whiteToEgiptienBlue]),
+                           startPoint: .top,
+                           endPoint: .bottom)
             .edgesIgnoringSafeArea(.all)
 
             VStack {
                 TabView(selection: $manager.activeScreen) {
                     WelcomeView(action: manager.next)
                         .tag(OnBoardingManager.Screen.welcome.rawValue)
-                    BabyNameView(action: manager.next, babyName: $manager.babyName, valideName: $manager.isBabyNameValide)
-                        .tag(OnBoardingManager.Screen.babyName.rawValue)
-                    GenderView(action: manager.next, gender: $manager.gender)
+                    BabyNameView(action: manager.next,
+                                 actionBack: manager.previous,
+                                 babyName: $manager.babyName,
+                                 valideName: $manager.isBabyNameValide)
+                            .tag(OnBoardingManager.Screen.babyName.rawValue)
+                    GenderView(action: manager.next,
+                               actionBack: manager.previous,
+                               gender: $manager.gender)
                         .tag(OnBoardingManager.Screen.gender.rawValue)
-                    ParentNameView(action: manager.next, parentName: $manager.parentName, valideName: $manager.isParentNameValide)
+                    ParentNameView(action: manager.next,
+                                   actionBack: manager.previous,
+                                   parentName: $manager.parentName,
+                                   valideName: $manager.isParentNameValide)
                         .tag(OnBoardingManager.Screen.parentName.rawValue)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .accessibilityLabel("Page \(String(describing: OnBoardingManager.Screen(rawValue: manager.activeScreen)!.title))")
 
                 CustomPageIndicator(numberOfPages: OnBoardingManager.Screen.allCases.count,
-                                        currentPage: $manager.activeScreen,
+                                    currentPage: $manager.activeScreen,
                                     color: .secondary)
                 .padding(.top, 20)
                 .allowsHitTesting(false)
-            }
-        }
-        .overlay(alignment: .topLeading) {
-            if isShowPrevButton {
-                Button(action: manager.previous) {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(colorScheme == .light ? .blue.opacity(0.6) : .white.opacity(0.8))
-                        .background(Circle().fill(.whiteToEgiptienBlue)
-                                        .shadow(color: colorScheme == .light ? .gray : .clear,
-                                                radius: 1, x: 2, y: 2)
-//                                        .shadow(color: colorScheme == .light ? .gray : .clear,
-//                                                radius: 2)
-                                        .frame(width: 35, height: 35))
-                        .font(.system(size: 25, weight: .bold, design: .rounded))
-                        .padding(30)
-                }
-            }
-        }
-        .onChange(of: manager.activeScreen) {
-            withAnimation {
-                if manager.activeScreen == OnBoardingManager.Screen.allCases.first!.rawValue {
-                    isShowPrevButton = false
-                } else {
-                    isShowPrevButton = true
-                }
             }
         }
         // Disable scroll to manage with Button

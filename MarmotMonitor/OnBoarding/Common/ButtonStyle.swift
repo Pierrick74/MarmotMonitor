@@ -22,3 +22,17 @@ struct OnBoardingButtonStyle: ButtonStyle {
                 .shadow(color: colorScheme == .dark ? .clear : .primary, radius: 2, x: 2, y: 2))
     }
 }
+
+struct OnBoardingBackButtonStyle: ButtonStyle {
+    @Environment(\.colorScheme) var colorScheme
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(colorScheme == .light ? .blue.opacity(0.6) : .white.opacity(0.8))
+            .background(Circle().fill(.whiteToEgiptienBlue)
+                .shadow(color: colorScheme == .light ? .gray : .clear,
+                        radius: 1, x: 2, y: 2)
+                    .frame(width: 35, height: 35))
+            .font(.system(size: 25, weight: .bold, design: .rounded))
+            .padding(30)
+    }
+}

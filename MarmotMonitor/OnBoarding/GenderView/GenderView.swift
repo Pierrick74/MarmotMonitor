@@ -12,6 +12,7 @@ struct GenderView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let action: () -> Void
+    let actionBack: () -> Void
 
     @Binding var gender: String
 
@@ -55,11 +56,17 @@ struct GenderView: View {
             }
             .scrollBounceBehavior(.basedOnSize)
         }
+        .overlay(alignment: .topLeading) {
+            Button(action: actionBack) {
+                Image(systemName: "chevron.backward")
+            }
+            .buttonStyle(OnBoardingBackButtonStyle())
+        }
     }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    GenderView(action: {}, gender: .constant("Garçon"))
+    GenderView(action: {}, actionBack: {}, gender: .constant("Garçon"))
             .preferredColorScheme(.light)
             .background(LinearGradient(gradient:
                                         Gradient(colors: [.pastelBlueToEgiptienBlue, .whiteToEgiptienBlue]), startPoint: .top, endPoint: .bottom)
