@@ -26,7 +26,7 @@ struct BabyNameView: View {
             ScrollView {
                 VStack {
                     Spacer()
-                        .frame(height: proxy.size.height * 0.25)
+                        .frame(height: proxy.size.height * 0.30)
 
                     ZStack(alignment: .top) {
                         VStack(alignment: .leading) {
