@@ -59,8 +59,8 @@ struct GenderButton: View {
                 RoundedRectangle(cornerRadius: 30)
                     .fill(
                         selection == type.rawValue
-                            ? (type == .boy ? .pastelBlueToEgiptienBlue : .pinkToEgiptienBlue)
-                            : (type == .boy ? .pastelBlueToEgiptienBlue.opacity(0.2) : .pinkToEgiptienBlue.opacity(0.2))
+                        ? (type == .boy ? .boyGenderButton : .girlGenderButton)
+                            : (type == .boy ? .boyGenderButton.opacity(0.2) : .girlGenderButton.opacity(0.2))
                     )
                     .shadow(color: selection == type.rawValue ?
                             colorScheme == .light ? .primary : .clear
