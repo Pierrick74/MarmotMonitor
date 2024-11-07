@@ -21,7 +21,6 @@ struct OnBoardingView: View {
                            startPoint: .top,
                            endPoint: .bottom)
             .edgesIgnoringSafeArea(.all)
-
             VStack {
                 TabView(selection: $manager.activeScreen) {
                     WelcomeView(action: manager.next)
@@ -30,16 +29,18 @@ struct OnBoardingView: View {
                                  actionBack: manager.previous,
                                  babyName: $manager.babyName,
                                  valideName: $manager.isBabyNameValide)
-                            .tag(OnBoardingManager.Screen.babyName.rawValue)
+                    .tag(OnBoardingManager.Screen.babyName.rawValue)
                     GenderView(action: manager.next,
                                actionBack: manager.previous,
                                gender: $manager.gender)
-                        .tag(OnBoardingManager.Screen.gender.rawValue)
+                    .tag(OnBoardingManager.Screen.gender.rawValue)
                     ParentNameView(action: manager.next,
                                    actionBack: manager.previous,
                                    parentName: $manager.parentName,
                                    valideName: $manager.isParentNameValide)
-                        .tag(OnBoardingManager.Screen.parentName.rawValue)
+                    .tag(OnBoardingManager.Screen.parentName.rawValue)
+                    BabyBirthdayView(action: manager.next, actionBack: manager.previous, babyBirthday: $manager.babyBirthday)
+                        .tag(OnBoardingManager.Screen.babyBirthday.rawValue)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .accessibilityLabel("Page \(String(describing: OnBoardingManager.Screen(rawValue: manager.activeScreen)!.title))")
@@ -53,10 +54,17 @@ struct OnBoardingView: View {
         }
         // Disable scroll to manage with Button
         .onAppear {
-            UIScrollView.appearance().isScrollEnabled = false
+                UIScrollView.appearance().isScrollEnabled = false
         }
         .onDisappear {
             UIScrollView.appearance().isScrollEnabled = true
+        }
+        .onChange(of: manager.activeScreen) {
+            if manager.activeScreen == OnBoardingManager.Screen.babyBirthday.rawValue {
+                UIScrollView.appearance().isScrollEnabled = true
+            } else {
+                UIScrollView.appearance().isScrollEnabled = false
+            }
         }
     }
 }

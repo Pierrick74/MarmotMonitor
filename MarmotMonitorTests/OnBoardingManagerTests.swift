@@ -35,7 +35,7 @@ struct OnBoardingManagerTests {
         #expect(OnBoardingManager.Screen.babyName.title == "Nom du bébé")
         #expect(OnBoardingManager.Screen.gender.title == "genre du bébé")
         #expect(OnBoardingManager.Screen.parentName.title == "nom des parents")
-        #expect(OnBoardingManager.Screen.birthDate.title == "date de naissance")
+        #expect(OnBoardingManager.Screen.babyBirthday.title == "date de naissance")
 
     }
 
