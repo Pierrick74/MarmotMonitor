@@ -207,4 +207,18 @@ struct OnBoardingManagerTests {
         #expect(storage.gender == gender)
         #expect(manager.gender == gender)
     }
+
+    // MARK: - Tests BirthDay
+    @Test func whenBirthdayIsSet_thenBirthDayIsSaved() async throws {
+        // 1. given
+        let initBirthday = storage.babyBirthday
+        let birthday = Date().addingTimeInterval(100)
+
+        // 2. when
+        manager.babyBirthday = birthday
+
+        // 3. then
+        #expect(storage.babyBirthday == birthday)
+        #expect(manager.babyBirthday != initBirthday)
+    }
 }

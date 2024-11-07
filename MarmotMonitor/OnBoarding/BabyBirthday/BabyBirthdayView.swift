@@ -29,10 +29,9 @@ struct BabyBirthdayView: View {
 
                             Text("Quand est née la petite marmotte ?")
                                 .onBoardingTextStyle()
-                                .accessibilityHidden(true)
 
                             DatePicker("", selection: $babyBirthday, displayedComponents: .date)
-                                .datePickerStyle(.wheel)
+                                .datePickerStyle(WheelDatePickerStyle())
                         }
                         .onBoardingBackground()
 

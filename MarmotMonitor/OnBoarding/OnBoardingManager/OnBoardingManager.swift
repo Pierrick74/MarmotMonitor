@@ -31,6 +31,11 @@ final class OnBoardingManager: ObservableObject {
     }
 
     func next() {
+        guard activeScreen != Screen.allCases.last!.rawValue else {
+            StartupManager.shared.onBoardingFinished()
+            return
+        }
+
         let nextScreenIndex = min(activeScreen + 1, Screen.allCases.last!.rawValue)
         withAnimation(.easeInOut) {
             activeScreen = nextScreenIndex
@@ -68,9 +73,10 @@ final class OnBoardingManager: ObservableObject {
         }
     }
 
-    // MARK: - Parent Name
+    // MARK: - BirthDay
     @Published var babyBirthday: Date {
-        didSet { storageManager.babyBirthday = babyBirthday }
+        didSet { storageManager.babyBirthday = babyBirthday
+        }
     }
 }
 

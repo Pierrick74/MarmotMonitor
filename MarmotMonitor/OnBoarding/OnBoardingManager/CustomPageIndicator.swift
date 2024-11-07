@@ -33,9 +33,10 @@ struct CustomPageIndicator: View {
                 }
             }
         }
-        .padding(.vertical, 5)
         .accessibilityLabel("Page \(currentPage + 1) de \(numberOfPages)")
         .contentShape(Rectangle())
+        .padding(.vertical, 5)
+        .padding(.horizontal, 20)
     }
 }
 

@@ -13,23 +13,27 @@ import SwiftUI
 
 final class StartupManager: ObservableObject {
 
-    enum CurrentState {
-        case running
-        case onBoarding
-    }
+    static let shared = StartupManager(storageManager: AppStorageManager.shared)
 
     private var storageManager: AppStorageManagerProtocol
 
     init(storageManager: AppStorageManagerProtocol = AppStorageManager.shared) {
         self.storageManager = storageManager
+        isOnBoardingFinished = storageManager.isOnBoardingFinished
     }
 
-    var isOnBoardingFinished: Bool {
-        storageManager.isOnBoardingFinished
+    @Published var isOnBoardingFinished: Bool {
+        didSet { storageManager.isOnBoardingFinished = isOnBoardingFinished }
     }
 
     func onBoardingFinished() {
-        storageManager.isOnBoardingFinished = true
+        withAnimation {
+            isOnBoardingFinished = true
+        }
     }
 
+    enum CurrentState {
+        case running
+        case onBoarding
+    }
 }

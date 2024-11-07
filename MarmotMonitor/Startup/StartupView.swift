@@ -11,7 +11,7 @@ import SwiftUI
 
 struct StartupView: View {
 
-    @StateObject var startupManager = StartupManager()
+    @StateObject var startupManager = StartupManager.shared
 
     var body: some View {
         VStack {
