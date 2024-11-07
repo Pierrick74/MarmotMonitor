@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "fr",
   "strings" : {
+    "" : {
+
+    },
     "Bienvenue" : {
       "localizations" : {
         "en" : {
@@ -10,6 +13,9 @@
           }
         }
       }
+    },
+    "C'est parti !" : {
+
     },
     "Commencer" : {
       "localizations" : {
@@ -122,6 +128,9 @@
           }
         }
       }
+    },
+    "Quand est née la petite marmotte ?" : {
+
     },
     "Quelle est le nom de la petite marmotte ? " : {
       "localizations" : {

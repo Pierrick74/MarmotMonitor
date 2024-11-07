@@ -17,6 +17,7 @@ final class OnBoardingManager: ObservableObject {
     init(storageManager: AppStorageManagerProtocol = AppStorageManager.shared) {
         self.storageManager = storageManager
         gender = storageManager.gender
+        babyBirthday = storageManager.babyBirthday
     }
 
     // MARK: - Screen manager
@@ -30,6 +31,11 @@ final class OnBoardingManager: ObservableObject {
     }
 
     func next() {
+        guard activeScreen != Screen.allCases.last!.rawValue else {
+            StartupManager.shared.onBoardingFinished()
+            return
+        }
+
         let nextScreenIndex = min(activeScreen + 1, Screen.allCases.last!.rawValue)
         withAnimation(.easeInOut) {
             activeScreen = nextScreenIndex
@@ -66,6 +72,12 @@ final class OnBoardingManager: ObservableObject {
             storageManager.gender = gender
         }
     }
+
+    // MARK: - BirthDay
+    @Published var babyBirthday: Date {
+        didSet { storageManager.babyBirthday = babyBirthday
+        }
+    }
 }
 
 extension OnBoardingManager {
@@ -74,7 +86,7 @@ extension OnBoardingManager {
         case babyName
         case gender
         case parentName
-        case birthDate
+        case babyBirthday
 
         var title: String {
             switch self {
@@ -86,7 +98,7 @@ extension OnBoardingManager {
                 return "genre du bébé"
             case .parentName:
                 return "nom des parents"
-            case .birthDate:
+            case .babyBirthday:
                 return "date de naissance"
             }
         }
