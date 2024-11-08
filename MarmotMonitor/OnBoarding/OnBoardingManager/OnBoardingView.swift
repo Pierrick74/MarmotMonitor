@@ -17,7 +17,9 @@ struct OnBoardingView: View {
     var body: some View {
         ZStack {
             LinearGradient(gradient:
-                            Gradient(colors: [.pastelBlueToEgiptienBlue, .whiteToEgiptienBlue]),
+                            Gradient(colors: [
+                                manager.gender == GenderType.boy.rawValue ?  .pastelBlueToEgiptienBlue : .pinkToEgiptienBlue,
+                                    .whiteToEgiptienBlue]),
                            startPoint: .top,
                            endPoint: .bottom)
             .edgesIgnoringSafeArea(.all)
