@@ -15,7 +15,14 @@
       }
     },
     "C'est parti !" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It's gone"
+          }
+        }
+      }
     },
     "Commencer" : {
       "localizations" : {
@@ -130,7 +137,14 @@
       }
     },
     "Quand est née la petite marmotte ?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When was the little marmot born?"
+          }
+        }
+      }
     },
     "Quelle est le nom de la petite marmotte ? " : {
       "localizations" : {
@@ -153,7 +167,14 @@
       }
     },
     "Séléctionné" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selected"
+          }
+        }
+      }
     },
     "Suivant" : {
       "localizations" : {
