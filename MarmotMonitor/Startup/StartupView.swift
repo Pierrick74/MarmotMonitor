@@ -16,7 +16,7 @@ struct StartupView: View {
     var body: some View {
         VStack {
             if startupManager.isOnBoardingFinished {
-                MainView()
+                MainTabView()
             } else {
                 OnBoardingView()
             }
