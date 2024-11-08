@@ -27,7 +27,7 @@ final class AppStorageManager: AppStorageManagerProtocol {
         case babyBirthday
     }
 
-    @AppStorage(AppStorageKeys.gender.rawValue) var gender: String = ""
+    @AppStorage(AppStorageKeys.gender.rawValue) var gender: String = GenderType.boy.rawValue
     @AppStorage(AppStorageKeys.babyName.rawValue) var babyName: String = ""
     @AppStorage(AppStorageKeys.parentName.rawValue) var parentName: String = ""
     @AppStorage(AppStorageKeys.isOnBoardingFinished.rawValue) var isOnBoardingFinished: Bool = false

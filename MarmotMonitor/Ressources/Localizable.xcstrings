@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "Auj" : {
+
+    },
     "Bienvenue" : {
       "localizations" : {
         "en" : {
@@ -33,6 +36,12 @@
           }
         }
       }
+    },
+    "Docteur" : {
+
+    },
+    "First View" : {
+
     },
     "Inserer le nom de la petite marmotte ? " : {
       "localizations" : {
@@ -85,6 +94,7 @@
       }
     },
     "Main View" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -109,6 +119,9 @@
           }
         }
       }
+    },
+    "Monitor" : {
+
     },
     "Page %@" : {
       "localizations" : {
@@ -165,6 +178,9 @@
           }
         }
       }
+    },
+    "Réglage" : {
+
     },
     "Séléctionné" : {
       "localizations" : {
