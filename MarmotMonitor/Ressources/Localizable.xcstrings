@@ -17,6 +17,9 @@
         }
       }
     },
+    "Bonjour Pierrick" : {
+
+    },
     "C'est parti !" : {
       "localizations" : {
         "en" : {
@@ -37,10 +40,16 @@
         }
       }
     },
+    "Comment ça va ?" : {
+
+    },
     "Docteur" : {
 
     },
     "First View" : {
+
+    },
+    "Hello, World!" : {
 
     },
     "Inserer le nom de la petite marmotte ? " : {
