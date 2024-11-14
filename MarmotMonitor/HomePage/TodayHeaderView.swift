@@ -55,7 +55,6 @@ struct TodayHeaderView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .scaleEffect(1 - 0.4 * progress, anchor: .leading)
             .offset(x: 100 * progress)
-            .padding(.bottom, max(10 - progress * 100, 0))
         }
         .frame(height: height())
         .clipped()

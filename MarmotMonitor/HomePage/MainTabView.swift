@@ -31,12 +31,12 @@ struct MainTabView: View {
         }
         .tint(gender == GenderType.boy.rawValue ? .blueTapBar : .pinkTapBar)
         .onAppear {
-                let appearance = UITabBarAppearance()
-                appearance.configureWithOpaqueBackground()
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
             appearance.stackedLayoutAppearance.normal.iconColor = UIColor.label
-                appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.black]
-                UITabBar.appearance().standardAppearance = appearance
-            }
+            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.label]
+            UITabBar.appearance().standardAppearance = appearance
+        }
     }
 }
 

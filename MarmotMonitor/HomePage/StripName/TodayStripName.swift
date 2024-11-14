@@ -17,10 +17,10 @@ struct TodayStripName: View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
                 if dynamicTypeSize <= .accessibility3 {
-                    Text(manager.welcomeMessage).font(.title.bold()).foregroundColor(.black)
+                    Text(manager.welcomeMessage).font(.title.bold()).foregroundColor(.primary)
                         .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
                 }
-                Text(manager.babyInfo).foregroundStyle(.black).font(.title2.bold())
+                Text(manager.babyInfo).foregroundStyle(.primary).font(.title2.bold())
                     .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
             }
             .padding(.horizontal, 20)
