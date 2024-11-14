@@ -9,7 +9,15 @@ import SwiftUI
 
 struct TodayDetailsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Je suis actuellement en reconversion professionnelle. En effet, je suis un ancien militaire et j'ai passé 19 ans dans l'aéronautique ")
+        Text("Je suis actuellement en reconversion professionnelle. En effet, je suis un ancien militaire et j'ai passé 19 ans dans l'aéronautique ")
+        Text("Je suis actuellement en reconversion professionnelle. En effet, je suis un ancien militaire et j'ai passé 19 ans dans l'aéronautique ")
+        Text("Je suis actuellement en reconversion professionnelle. En effet, je suis un ancien militaire et j'ai passé 19 ans dans l'aéronautique ")
+        Text("Je suis actuellement en reconversion professionnelle. En effet, je suis un ancien militaire et j'ai passé 19 ans dans l'aéronautique ")
+        Text("Je suis actuellement en reconversion professionnelle. En effet, je suis un ancien militaire et j'ai passé 19 ans dans l'aéronautique ")
+        Text("Je suis actuellement en reconversion professionnelle. En effet, je suis un ancien militaire et j'ai passé 19 ans dans l'aéronautique ")
+        Text("Je suis actuellement en reconversion professionnelle. En effet, je suis un ancien militaire et j'ai passé 19 ans dans l'aéronautique ")
+        Text("Je suis actuellement en reconversion professionnelle. En effet, je suis un ancien militaire et j'ai passé 19 ans dans l'aéronautique ")
     }
 }
 

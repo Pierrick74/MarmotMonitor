@@ -17,9 +17,6 @@
         }
       }
     },
-    "Bonjour Pierrick" : {
-
-    },
     "C'est parti !" : {
       "localizations" : {
         "en" : {
@@ -40,16 +37,10 @@
         }
       }
     },
-    "Comment ça va ?" : {
-
-    },
     "Docteur" : {
 
     },
     "First View" : {
-
-    },
-    "Hello, World!" : {
 
     },
     "Inserer le nom de la petite marmotte ? " : {
@@ -71,6 +62,9 @@
           }
         }
       }
+    },
+    "Je suis actuellement en reconversion professionnelle. En effet, je suis un ancien militaire et j'ai passé 19 ans dans l'aéronautique " : {
+
     },
     "Je vais t'aider à créer ton espace personnalisé." : {
       "localizations" : {
@@ -131,6 +125,16 @@
     },
     "Monitor" : {
 
+    },
+    "nous sommes le %@ %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "nous sommes le %1$@ %2$@"
+          }
+        }
+      }
     },
     "Page %@" : {
       "localizations" : {

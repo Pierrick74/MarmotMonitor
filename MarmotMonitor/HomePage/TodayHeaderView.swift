@@ -37,7 +37,7 @@ struct TodayHeaderView: View {
         ZStack {
             GeometryReader {
                 let rect = $0.frame(in: .global)
-                Image(.todayDefault).resizable().scaledToFill()
+                Image(decorative: "todayDefault").resizable().scaledToFill()
                     .frame(width: rect.size.width + (minImageHeight - rect.width) * progress,
                            height: rect.size.height + (minImageHeight - rect.height) * progress)
                     .clipShape(
@@ -50,15 +50,7 @@ struct TodayHeaderView: View {
             }
             VStack(alignment: .leading) {
                 Spacer()
-                VStack {
-                    Text("Bonjour Pierrick").font(.title.bold()).foregroundColor(.black)
-                        .padding(.horizontal, 10)
-                    Text("Comment ça va ?").foregroundStyle(.black).font(.title2.bold())
-                        .padding(.horizontal, 10)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(.ultraThinMaterial
-                                .opacity(1 - progress))
+                TodayStripName(progress: $progress)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .scaleEffect(1 - 0.4 * progress, anchor: .leading)
@@ -86,4 +78,8 @@ extension TodayHeaderView {
             ? minHeight
             : size.height * percentageHeight + contentOffset
     }
+}
+
+#Preview {
+    TodayView()
 }

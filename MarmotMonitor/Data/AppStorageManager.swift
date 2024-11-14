@@ -39,9 +39,9 @@ final class AppStorageManager: AppStorageManagerProtocol {
 // MARK: - Mock For Tests
 
 class MockAppStorageManager: AppStorageManagerProtocol {
-    var babyName: String = ""
+    var babyName: String = "Line"
     var isOnBoardingFinished: Bool = false
-    var parentName: String = ""
+    var parentName: String = "Pierrick"
     var gender: String = "girl"
     var babyBirthday: Date = Date()
 }
