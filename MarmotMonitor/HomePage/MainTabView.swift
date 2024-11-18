@@ -12,7 +12,7 @@ struct MainTabView: View {
 
     var body: some View {
         TabView {
-            Text("First View")
+            TodayView()
                 .tabItem {
                     Label("Auj", systemImage: "calendar")
                 }
@@ -30,6 +30,13 @@ struct MainTabView: View {
                 }
         }
         .tint(gender == GenderType.boy.rawValue ? .blueTapBar : .pinkTapBar)
+        .onAppear {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.stackedLayoutAppearance.normal.iconColor = UIColor.label
+            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.label]
+            UITabBar.appearance().standardAppearance = appearance
+        }
     }
 }
 
