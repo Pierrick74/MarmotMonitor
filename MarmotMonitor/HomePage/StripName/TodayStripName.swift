@@ -16,10 +16,10 @@ struct TodayStripName: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
-                if dynamicTypeSize <= .accessibility3 {
-                    Text(manager.welcomeMessage).font(.title.bold()).foregroundColor(.primary)
+                Text(manager.welcomeMessage).font(.title.bold()).foregroundColor(.primary)
                         .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
-                }
+                        .opacity(dynamicTypeSize >= .xLarge ? 1 - progress : 1)
+
                 Text(manager.babyInfo).foregroundStyle(.primary).font(.title2.bold())
                     .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
             }
@@ -51,5 +51,5 @@ struct TodayStripName: View {
 }
 
 #Preview {
-    TodayStripName(progress: .constant(0), manager: TodayStripNameManager(storageManager: MockAppStorageManager()))
+    TodayStripName(progress: .constant(0), manager: TodayStripNameManager(storageManager: MockAppStorageManagerForStripName()))
 }

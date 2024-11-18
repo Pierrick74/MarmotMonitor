@@ -45,3 +45,11 @@ class MockAppStorageManager: AppStorageManagerProtocol {
     var gender: String = "girl"
     var babyBirthday: Date = Date()
 }
+
+class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
+    var babyName: String = "Line"
+    var isOnBoardingFinished: Bool = false
+    var parentName: String = "Pierrick"
+    var gender: String = "girl"
+    var babyBirthday: Date = Date.init(timeIntervalSinceNow: -8952485962)
+}

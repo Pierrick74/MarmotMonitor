@@ -19,6 +19,7 @@ struct TodayHeaderView: View {
 
     @State private var progress: CGFloat = .zero
     @Binding var contentOffset: CGFloat
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
     init(
         size: CGSize,
@@ -63,6 +64,7 @@ struct TodayHeaderView: View {
                 .fill(.ultraThinMaterial)
                 .opacity(1 * progress)
         )
+        .opacity(dynamicTypeSize >= .xxxLarge ? 1 - progress : 1)
     }
 }
 

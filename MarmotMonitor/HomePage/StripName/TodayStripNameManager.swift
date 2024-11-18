@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class TodayStripNameManager: ObservableObject {    
+final class TodayStripNameManager: ObservableObject {
     private var storageManager: AppStorageManagerProtocol
 
     init(storageManager: AppStorageManagerProtocol = AppStorageManager.shared) {
