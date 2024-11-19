@@ -15,7 +15,6 @@ struct TodayView: View {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        GeometryReader { geometry in
             ScrollView {
                 ZStack(alignment: .top) {
                     VStack(spacing: 0) {
@@ -25,7 +24,7 @@ struct TodayView: View {
                                 .resizable()
                                 .scaledToFill()
                                 .frame(height: 300)
-                                .frame(maxWidth: geometry.size.width)
+                                .frame(maxWidth: UIScreen.main.bounds.width)
                                 .clipped()
                         }
 
@@ -47,6 +46,7 @@ struct TodayView: View {
                                     .padding(.horizontal, 5)
 
                                 RowView(activity: .growth(data: ActivityType.GrowthData(weight: 2, height: 2, headCircumference: 2)))
+                                    .padding(.horizontal, 5)
                                 Spacer()
 
                             }
@@ -93,7 +93,6 @@ struct TodayView: View {
             .scrollBounceBehavior(.basedOnSize)
             .ignoresSafeArea()
         }
-    }
 }
 
 #Preview {

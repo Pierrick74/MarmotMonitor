@@ -18,7 +18,7 @@ struct TodayStripName: View {
                 Text(manager.welcomeMessage).font(.title).foregroundColor(.primary)
                         .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
 
-                Text(manager.babyInfo).foregroundStyle(.primary).font(.title2)
+                Text(manager.babyInfo).foregroundStyle(.primary).font(.body)
                     .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
             }
             .padding(.horizontal, 20)

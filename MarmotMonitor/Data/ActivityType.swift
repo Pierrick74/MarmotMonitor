@@ -46,7 +46,7 @@ enum ActivityType {
         case .bottle: return .feed
         case .breast: return .feed
         case .sleep: return .sleep
-        default: return .red
+        default: return .growth
         }
     }
 

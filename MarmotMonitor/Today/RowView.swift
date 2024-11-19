@@ -9,47 +9,56 @@ import SwiftUI
 
 struct RowView: View {
     var activity: ActivityType
+    @State private var height = 0
 
     var body: some View {
-        HStack {
-            ZStack {
-                Circle().fill(activity.color)
-                    .shadow(radius: 5)
-                    .shadow(radius: 5, x: 5, y: 5)
+        ZStack( alignment: .bottom) {
+            Rectangle()
+                .background(activity.color)
+                .cornerRadius(25)
+                .frame(height: 80)
+                .offset(x: 1, y: 2)
 
-                Image(activity.imageName)
-                    .resizable()
-                    .padding(10)
-                    .background(.clear)
-            }
-            .frame(width: 50, height: 50)
+            ZStack(alignment: .top) {
 
-            VStack(alignment: .leading, spacing: 4) {
-                Text(activity.title)
-                    .font(.title)
-                    .foregroundColor(.secondary)
-                Text("Il y a 3 Heures")
-                    .font(.subheadline)
-                    .foregroundColor(.primary)
-            }
-            .padding(.leading, 10)
-            Spacer()
-            VStack(alignment: .center) {
-                Text("30")
-                    .font(.body)
-                    .bold()
-                Text("min")
-                    .bold()
-            }
-            .padding()
+                HStack {
+                    Spacer()
+                    Spacer()
+                    Image(activity.imageName)
+                        .resizable()
+                        .frame(width: 80, height: 80)
+                        .clipped()
+                    Spacer()
+                }
 
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(activity.title)
+                            .font(.title)
+                            .foregroundColor(.primary)
+                        Text("Il y a 3 Heures")
+                            .font(.subheadline)
+                            .foregroundColor(.primary)
+                    }
+                    .padding(.leading, 10)
+                    Spacer()
+                    VStack(alignment: .center) {
+                        Text("30")
+                            .font(.body)
+                            .bold()
+                        Text("min")
+                            .bold()
+                    }
+                    .padding()
+                }
+            }
+            .padding(.horizontal, 10)
+            .background(activity.color)
+            .cornerRadius(25)
         }
-        .padding(.horizontal)
-        .background(activity.color)
-        .cornerRadius(20)
-    }
+        }
 }
 
 #Preview {
-    RowView(activity: .bottle(quantity: 5))
+    RowView(activity: .sleep(duration: 3))
 }
