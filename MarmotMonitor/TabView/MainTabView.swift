@@ -16,15 +16,15 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Auj", systemImage: "calendar")
                 }
-            Text("First View")
+            Text("Version 2")
                 .tabItem {
                     Label("Monitor", systemImage: "waveform.path.ecg")
                 }
-            Text("First View")
+            Text("Version 2")
                 .tabItem {
                     Label("Docteur", systemImage: "stethoscope")
                 }
-            Text("First View")
+            TodayView()
                 .tabItem {
                     Label("Réglage", systemImage: "gear")
                 }

@@ -9,18 +9,16 @@ import SwiftUI
 
 struct TodayStripName: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
-    @Binding var progress: CGFloat
 
     var manager = TodayStripNameManager()
 
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
-                Text(manager.welcomeMessage).font(.title.bold()).foregroundColor(.primary)
+                Text(manager.welcomeMessage).font(.title).foregroundColor(.primary)
                         .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
-                        .opacity(dynamicTypeSize >= .xLarge ? 1 - progress : 1)
 
-                Text(manager.babyInfo).foregroundStyle(.primary).font(.title2.bold())
+                Text(manager.babyInfo).foregroundStyle(.primary).font(.title2)
                     .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
             }
             .padding(.horizontal, 20)
@@ -40,16 +38,15 @@ struct TodayStripName: View {
             }
             .background(Rectangle().fill(.white))
             .cornerRadius(7)
-            .padding(5)
+            .padding(7)
             .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel("nous sommes le \(Date.now, format: .dateTime.day()) \(Date.now, format: .dateTime.month())")
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.regularMaterial.opacity(1 - progress - 0.1))
     }
 }
 
 #Preview {
-    TodayStripName(progress: .constant(0), manager: TodayStripNameManager(storageManager: MockAppStorageManagerForStripName()))
+    TodayStripName(manager: TodayStripNameManager(storageManager: MockAppStorageManagerForStripName()))
 }
