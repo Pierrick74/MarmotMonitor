@@ -19,12 +19,15 @@ struct TodayView: View {
             ScrollView {
                 ZStack(alignment: .top) {
                     VStack(spacing: 0) {
-                        selectedImage
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 300)
-                            .frame(maxWidth: geometry.size.width)
-                            .clipped()
+                        PhotosPicker(selection: $photo,
+                                     matching: .images) {
+                            selectedImage
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: 300)
+                                .frame(maxWidth: geometry.size.width)
+                                .clipped()
+                        }
 
                         ZStack {
                             BackgroundColor()
@@ -64,8 +67,6 @@ struct TodayView: View {
                     HStack {
                         Spacer()
 
-                        PhotosPicker(selection: $photo,
-                                     matching: .images) {
                             ZStack {
 
                                 Image(systemName: "photo")
@@ -76,7 +77,6 @@ struct TodayView: View {
                                 Image(systemName: "photo")
 
                             }
-                        }
                                      .padding(13)
                                      .clipShape(Circle())
                                      .background(Circle()
@@ -85,6 +85,7 @@ struct TodayView: View {
                                         .fill(colorScheme == .light ? .black : .clear)
                                         .offset(x: 1, y: 2))
                                      .padding(.horizontal, 15)
+                                     .allowsHitTesting(false)
                     }
                     .padding(.top, 47)
                 }
