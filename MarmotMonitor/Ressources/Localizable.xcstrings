@@ -4,7 +4,13 @@
     "" : {
 
     },
+    "30" : {
+
+    },
     "Auj" : {
+
+    },
+    "Aujourd'hui" : {
 
     },
     "Bienvenue" : {
@@ -40,7 +46,7 @@
     "Docteur" : {
 
     },
-    "First View" : {
+    "Il y a 3 Heures" : {
 
     },
     "Inserer le nom de la petite marmotte ? " : {
@@ -62,9 +68,6 @@
           }
         }
       }
-    },
-    "Je suis actuellement en reconversion professionnelle. En effet, je suis un ancien militaire et j'ai passé 19 ans dans l'aéronautique " : {
-
     },
     "Je vais t'aider à créer ton espace personnalisé." : {
       "localizations" : {
@@ -122,6 +125,9 @@
           }
         }
       }
+    },
+    "min" : {
+
     },
     "Monitor" : {
 
@@ -214,6 +220,12 @@
           }
         }
       }
+    },
+    "Synthèse de la journée" : {
+
+    },
+    "Version 2" : {
+
     }
   },
   "version" : "1.0"

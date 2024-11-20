@@ -15,16 +15,18 @@ struct MainTabView: View {
             TodayView()
                 .tabItem {
                     Label("Auj", systemImage: "calendar")
+                        .accessibility(label: Text("Aujourd'hui"))
+                        .accessibilityHint("Synthèse de la journée")
                 }
-            Text("First View")
+            Text("Version 2")
                 .tabItem {
                     Label("Monitor", systemImage: "waveform.path.ecg")
                 }
-            Text("First View")
+            Text("Version 2")
                 .tabItem {
                     Label("Docteur", systemImage: "stethoscope")
                 }
-            Text("First View")
+            TodayView()
                 .tabItem {
                     Label("Réglage", systemImage: "gear")
                 }

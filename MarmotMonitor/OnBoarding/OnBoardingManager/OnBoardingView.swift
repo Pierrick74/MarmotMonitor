@@ -16,13 +16,8 @@ struct OnBoardingView: View {
 
     var body: some View {
         ZStack {
-            LinearGradient(gradient:
-                            Gradient(colors: [
-                                manager.gender == GenderType.boy.rawValue ?  .pastelBlueToEgiptienBlue : .pinkToEgiptienBlue,
-                                    .whiteToEgiptienBlue]),
-                           startPoint: .top,
-                           endPoint: .bottom)
-            .edgesIgnoringSafeArea(.all)
+            BackgroundColor()
+
             VStack {
                 TabView(selection: $manager.activeScreen) {
                     WelcomeView(action: manager.next)
