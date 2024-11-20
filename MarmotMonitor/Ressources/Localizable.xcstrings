@@ -99,23 +99,6 @@
         }
       }
     },
-    "Main View" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Main View"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vue Principale"
-          }
-        }
-      }
-    },
     "MarmotMonitor est une application qui vous permet de suivre la croissance de votre bébé." : {
       "localizations" : {
         "en" : {

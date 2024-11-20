@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct MarmotMonitorApp: App {
@@ -13,5 +14,6 @@ struct MarmotMonitorApp: App {
         WindowGroup {
             StartupView()
         }
+        .modelContainer(for: BabyActivity.self)
     }
 }
