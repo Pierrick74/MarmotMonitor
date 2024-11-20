@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum ActivityType {
+enum Activity {
     case diaper(state: DiaperState)
     case bottle(quantity: Int)
     case breast(duration: BreastDuration)

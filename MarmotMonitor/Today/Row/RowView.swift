@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct RowView: View {
-    var activity: ActivityType
+    var manager: RowManager
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+
+    init(activity: Activity) {
+        self.manager = RowManager(activity: activity)
+    }
 
     var body: some View {
         ZStack( alignment: .bottom) {
             Rectangle()
-                .background(activity.color)
+                .background(manager.color)
                 .cornerRadius(25)
                 .frame(height: 80)
                 .offset(x: 1, y: 2)
@@ -24,7 +28,7 @@ struct RowView: View {
                     HStack {
                         Spacer()
                         Spacer()
-                        Image(activity.imageName)
+                        Image(manager.imageName)
                             .resizable()
                             .frame(width: 80, height: 80)
                             .clipped()
@@ -34,7 +38,7 @@ struct RowView: View {
 
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(activity.title)
+                        Text(manager.title)
                             .font(.title)
                             .foregroundColor(.primary)
                         Text("Il y a 3 Heures")
@@ -54,10 +58,12 @@ struct RowView: View {
                 }
             }
             .padding(.horizontal, 10)
-            .background(activity.color)
+            .background(manager.color)
             .cornerRadius(25)
         }
-        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(manager.accessibilityDescription)
+    }
 }
 
 #Preview {

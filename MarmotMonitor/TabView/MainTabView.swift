@@ -15,6 +15,8 @@ struct MainTabView: View {
             TodayView()
                 .tabItem {
                     Label("Auj", systemImage: "calendar")
+                        .accessibility(label: Text("Aujourd'hui"))
+                        .accessibilityHint("Synthèse de la journée")
                 }
             Text("Version 2")
                 .tabItem {

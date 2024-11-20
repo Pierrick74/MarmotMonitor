@@ -27,6 +27,7 @@ struct TodayView: View {
                                 .frame(maxWidth: UIScreen.main.bounds.width)
                                 .clipped()
                         }
+                                     .accessibilityHidden(true)
 
                         ZStack {
                             BackgroundColor()
@@ -45,7 +46,7 @@ struct TodayView: View {
                                 RowView(activity: .diaper(state: .dirty))
                                     .padding(.horizontal, 5)
 
-                                RowView(activity: .growth(data: ActivityType.GrowthData(weight: 2, height: 2, headCircumference: 2)))
+                                RowView(activity: .growth(data: Activity.GrowthData(weight: 2, height: 2, headCircumference: 2)))
                                     .padding(.horizontal, 5)
                                 Spacer()
 
@@ -88,6 +89,7 @@ struct TodayView: View {
                                      .allowsHitTesting(false)
                     }
                     .padding(.top, 47)
+                    .accessibilityHidden(true)
                 }
             }
             .scrollBounceBehavior(.basedOnSize)

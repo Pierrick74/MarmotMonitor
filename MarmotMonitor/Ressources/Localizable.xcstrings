@@ -10,6 +10,9 @@
     "Auj" : {
 
     },
+    "Aujourd'hui" : {
+
+    },
     "Bienvenue" : {
       "localizations" : {
         "en" : {
@@ -217,6 +220,9 @@
           }
         }
       }
+    },
+    "Synthèse de la journée" : {
+
     },
     "Version 2" : {
 
