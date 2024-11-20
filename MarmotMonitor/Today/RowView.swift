@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RowView: View {
     var activity: ActivityType
-    @State private var height = 0
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
     var body: some View {
         ZStack( alignment: .bottom) {
@@ -20,15 +20,16 @@ struct RowView: View {
                 .offset(x: 1, y: 2)
 
             ZStack(alignment: .top) {
-
-                HStack {
-                    Spacer()
-                    Spacer()
-                    Image(activity.imageName)
-                        .resizable()
-                        .frame(width: 80, height: 80)
-                        .clipped()
-                    Spacer()
+                if dynamicTypeSize < .accessibility3 {
+                    HStack {
+                        Spacer()
+                        Spacer()
+                        Image(activity.imageName)
+                            .resizable()
+                            .frame(width: 80, height: 80)
+                            .clipped()
+                        Spacer()
+                    }
                 }
 
                 HStack {
