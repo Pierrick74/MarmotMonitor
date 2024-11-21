@@ -37,25 +37,27 @@ struct TodayView: View {
                                 TodayStripName()
                                     .padding(.top, 7)
 
-                                RowView(activity: Activity(type: .sleep(duration: 52)))
+                                RowView(activity: BabyActivity(
+                                    activity: Activity(type: .diaper(state: .dirty)),
+                                    date: Date(timeIntervalSinceNow: -389)))
                                     .padding(.horizontal, 5)
 
-                                RowView(activity: Activity(type: .bottle(volume: 120)))
+                                RowView(activity: BabyActivity(
+                                    activity: Activity(type: .sleep(duration: 3555)),
+                                    date: Date(timeIntervalSinceNow: -3897)))
                                     .padding(.horizontal, 5)
 
-                                RowView(activity: Activity(type: .diaper(state: .wet)))
+                                RowView(activity: BabyActivity(
+                                    activity: Activity(type: .bottle(volume: 210, measurementSystem: .metric)),
+                                    date: Date(timeIntervalSinceNow: -320897)))
                                     .padding(.horizontal, 5)
 
-                                RowView(activity: Activity(type: .growth(
-                                    data: GrowthData(
-                                        weight: 9.2,
-                                        height: 70,
-                                        headCircumference: 45))))
+                                RowView(activity: BabyActivity(
+                                    activity: Activity(type: .growth(data: GrowthData(weight: 19, height: 70, headCircumference: nil))),
+                                    date: .now))
                                     .padding(.horizontal, 5)
-                                Spacer()
-
+                                Spacer(minLength: 40)
                             }
-
                         }
                         .cornerRadius(30)
                         .offset(y: -30)
