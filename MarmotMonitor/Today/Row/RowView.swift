@@ -67,5 +67,5 @@ struct RowView: View {
 }
 
 #Preview {
-    RowView(activity: .sleep(duration: 3))
+    RowView(activity: Activity(type: .sleep(duration: 5)))
 }

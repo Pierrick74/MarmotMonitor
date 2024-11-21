@@ -37,16 +37,20 @@ struct TodayView: View {
                                 TodayStripName()
                                     .padding(.top, 7)
 
-                                RowView(activity: .sleep(duration: 3))
+                                RowView(activity: Activity(type: .sleep(duration: 52)))
                                     .padding(.horizontal, 5)
 
-                                RowView(activity: .bottle(quantity: 150))
+                                RowView(activity: Activity(type: .bottle(volume: 120)))
                                     .padding(.horizontal, 5)
 
-                                RowView(activity: .diaper(state: .dirty))
+                                RowView(activity: Activity(type: .diaper(state: .wet)))
                                     .padding(.horizontal, 5)
 
-                                RowView(activity: .growth(data: Activity.GrowthData(weight: 2, height: 2, headCircumference: 2)))
+                                RowView(activity: Activity(type: .growth(
+                                    data: GrowthData(
+                                        weight: 9.2,
+                                        height: 70,
+                                        headCircumference: 45))))
                                     .padding(.horizontal, 5)
                                 Spacer()
 
