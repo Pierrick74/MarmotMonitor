@@ -8,28 +8,76 @@
 import SwiftUI
 import SwiftData
 
-// MARK: - AppStorageManagerProtocol
-protocol SwiftDtaManagerProtocol {
+// MARK: - SwiftDataManagerProtocol
+protocol SwiftDataManagerProtocol {
+    func fetchData() -> [BabyActivity]
+    func addActivity(activity: BabyActivity)
+    func deleteActivity(activity: BabyActivity)
+    func fetchFilteredActivities(selectedActivityTypes: [String]) -> [BabyActivity]
+    func clearAllData()
 }
 
-// MARK: - AppStorageManager
-final class SwiftDataManager: SwiftDtaManagerProtocol {
-    @Environment(\.modelContext) var modelContext
-    var babyActivity: [BabyActivity] = []
+// MARK: - SwiftDataManager
+final class SwiftDataManager: SwiftDataManagerProtocol {
+    private let modelContainer: ModelContainer
+    private let modelContext: ModelContext
 
+    @MainActor
     static let shared = SwiftDataManager()
 
-    init() {
-        fetchData()
-    }
-
-    func fetchData() {
+    @MainActor
+    init(isStoredInMemoryOnly: Bool = false) {
         do {
-            let descriptor = FetchDescriptor<BabyActivity>(sortBy: [SortDescriptor(\.date, order: .forward)])
-            babyActivity = try modelContext.fetch(descriptor)
+            self.modelContainer = try ModelContainer(
+                for: BabyActivity.self,
+                configurations: ModelConfiguration(isStoredInMemoryOnly: isStoredInMemoryOnly)
+            )
+            self.modelContext = modelContainer.mainContext
         } catch {
-            print("Fetch failed")
+            fatalError("Failed to initialize ModelContainer: \(error)")
         }
     }
 
+    func addActivity(activity: BabyActivity) {
+        modelContext.insert(activity)
+        save()
+    }
+
+    func deleteActivity(activity: BabyActivity) {
+        modelContext.delete(activity)
+        save()
+    }
+
+    func save() {
+        try? modelContext.save()
+    }
+
+    func clearAllData() {
+        try? modelContext.delete(model: BabyActivity.self)
+        save()
+    }
+
+    // MARK: - Fetch data
+
+    func fetchData() -> [BabyActivity] {
+        do {
+            let descriptor = FetchDescriptor<BabyActivity>(sortBy: [SortDescriptor(\.date, order: .forward)])
+            return try modelContext.fetch(descriptor)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
+
+    func fetchFilteredActivities(selectedActivityTypes: [String]) -> [BabyActivity] {
+        do {
+            let predicate = #Predicate<BabyActivity> { activity in
+                        selectedActivityTypes.contains(activity.activityCategory)
+                    }
+
+            let descriptor = FetchDescriptor<BabyActivity>(predicate: predicate, sortBy: [SortDescriptor(\.date, order: .forward)])
+            return try modelContext.fetch(descriptor)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
 }

@@ -19,13 +19,15 @@ import SwiftData
 @Model
 class BabyActivity {
     @Attribute(.unique) var id: UUID
-    @Relationship(deleteRule: .cascade) var activity: [Activity]
+    @Relationship(deleteRule: .cascade) var activity: Activity
     var date: Date
+    var activityCategory: String
 
-    init(activity: [Activity], date: Date) {
+    init(activity: Activity, date: Date) {
         self.id = UUID()
         self.activity = activity
         self.date = date
+        self.activityCategory = activity.type.category
     }
 }
 
@@ -78,32 +80,45 @@ enum MeasurementSystem: String, Codable {
     case imperial = "Impérial"
 }
 
-enum ActivityType: Codable {
+enum ActivityType: Codable, Equatable {
     case diaper(state: DiaperState)
     case bottle(volume: Double, measurementSystem: MeasurementSystem = .metric)
     case breast(duration: BreastDuration, lastBreast: BreastType)
     case sleep(duration: TimeInterval)
     case growth(data: GrowthData)
     case solid(composition: SolidQuantity)
+
+    var category: String {
+        switch self {
+        case .sleep:
+            return ActivityCategory.sleep.rawValue
+        case .diaper:
+            return ActivityCategory.diaper.rawValue
+        case .bottle, .breast, .solid:
+            return ActivityCategory.food.rawValue
+        case .growth:
+            return ActivityCategory.growth.rawValue
+        }
+    }
 }
 
-enum DiaperState: String, Codable {
+enum DiaperState: String, Codable, Equatable {
     case wet = "Urine"
     case dirty = "Souillée"
     case both = "Mixte"
 }
 
-struct BreastDuration: Codable {
+struct BreastDuration: Codable, Equatable {
     let leftDuration: TimeInterval
     let rightDuration: TimeInterval
 }
 
-enum BreastType: Codable {
+enum BreastType: Codable, Equatable {
     case left
     case right
 }
 
-struct SolidQuantity: Codable {
+struct SolidQuantity: Codable, Equatable {
     let vegetable: Int
     let meat: Int
     let fruit: Int
@@ -112,9 +127,16 @@ struct SolidQuantity: Codable {
     let other: Int
 }
 
-struct GrowthData: Codable {
+struct GrowthData: Codable, Equatable {
     let weight: Double?
     let height: Double?
     let headCircumference: Double?
     var measurementSystem: MeasurementSystem = .metric
+}
+
+enum ActivityCategory: String {
+    case sleep
+    case diaper
+    case food
+    case growth
 }
