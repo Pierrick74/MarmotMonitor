@@ -57,7 +57,7 @@ struct TodayView: View {
 
                                 RowView(activity: manager.lastGrowthActivity, category: .growth)
                                     .padding(.horizontal, 5)
-                                Spacer(minLength: 40)
+                                Spacer(minLength: 50)
                             }
                         }
                         .cornerRadius(30)
