@@ -8,24 +8,22 @@
 import SwiftUI
 
 final class RowManager {
-    var activity: Activity
-    var date: Date
+    var activity: BabyActivity
 
     init(babyActivity: BabyActivity) {
-        self.activity = babyActivity.activity
-        self.date = babyActivity.date
+        self.activity = babyActivity
     }
 
     var title: String {
-        return activity.title
+        activity.activityTitre
     }
 
     var lastActivity: String {
-        return timeIntervalBetweenNowAnd(date: date)
+        timeIntervalBetweenNowAnd(date: activity.date)
     }
 
     var information: String {
-        return getDescription()
+        getDescription()
     }
 
     var accessibilityDescription: String {
@@ -34,23 +32,25 @@ final class RowManager {
     }
 
     var imageName: String {
-        return activity.imageName
+        activity.activityImageName
     }
 
     var color: Color {
-        return activity.color
+        Color(activity.activityColor)
     }
 
     // MARK: - Functions
     private func timeIntervalBetweenNowAnd(date: Date) -> String {
-        let difference = Calendar.current.dateComponents([.day, .hour, .minute], from: date, to: .now)
+        let difference = Date().timeIntervalSince(date)
+        let minutes = Int(difference / 60) % 60
+        let hours = Int(difference / 3600)
+        let days = Int(difference / 86400)
 
-        if let days = difference.day, days > 0 {
+        if days > 0 {
             return "Il y a \(days) jour\(days > 1 ? "s" : "")"
-        } else if let hours = difference.hour, hours > 0 {
-            let minutes = difference.minute ?? 0
-            return "Il y a \(hours) h \(minutes > 1 ? "et \(minutes) m" : "")"
-        } else if let minutes = difference.minute, minutes > 0 {
+        } else if hours > 0 {
+            return "Il y a \(hours) h\(minutes > 0 ? " \(minutes) min" : "")"
+        } else if minutes > 0 {
             return "Il y a \(minutes) minute\(minutes > 1 ? "s" : "")"
         } else {
             return "Maintenant"
@@ -58,7 +58,7 @@ final class RowManager {
     }
 
     private func getDescription() -> String {
-        switch activity.type {
+        switch activity.activity {
         case .bottle(let volume, let unit ):
             return "\(Int(volume))\n\(unit == .metric ? "ml" : "oz")"
         case .sleep(let duration):

@@ -19,67 +19,25 @@ import SwiftData
 @Model
 class BabyActivity {
     @Attribute(.unique) var id: UUID
-    @Relationship(deleteRule: .cascade) var activity: Activity
+    var activity: ActivityType
     var date: Date
     var activityCategory: String
+    var activityTitre: String
+    var activityColor: String
+    var activityImageName: String
 
-    init(activity: Activity, date: Date) {
+    init(activity: ActivityType, date: Date) {
         self.id = UUID()
         self.activity = activity
         self.date = date
-        self.activityCategory = activity.type.category
-    }
-}
-
-@Model
-class Activity {
-    @Attribute(.unique) var id: UUID
-    var type: ActivityType
-
-    init(type: ActivityType) {
-        self.id = UUID()
-        self.type = type
-    }
-
-    var title: String {
-        switch type {
-           case .diaper: return "Couche"
-           case .bottle: return "Biberon"
-           case .breast: return "Allaitement"
-           case .sleep: return "Sommeil"
-           case .growth: return "Croissance"
-           case .solid: return "Repas"
-           }
-       }
-
-    var imageName: String {
-        switch type {
-        case .diaper: return "couche"
-        case .bottle, .breast: return "biberon"
-        case .sleep: return "sommeil"
-        case .growth: return "croissance"
-        case .solid: return "Repas"
-        }
-    }
-
-    var color: Color {
-        switch type {
-        case .diaper: return .diaper
-        case .bottle: return .feed
-        case .breast: return .feed
-        case .sleep: return .sleep
-        default: return .growth
-        }
+        self.activityCategory = activity.category
+        self.activityTitre = activity.title
+        self.activityColor = activity.color
+        self.activityImageName = activity.imageName
     }
 }
 
 // MARK: - ENUM
-
-enum MeasurementSystem: String, Codable {
-    case metric = "Métrique"
-    case imperial = "Impérial"
-}
-
 enum ActivityType: Codable, Equatable {
     case diaper(state: DiaperState)
     case bottle(volume: Double, measurementSystem: MeasurementSystem = .metric)
@@ -100,6 +58,42 @@ enum ActivityType: Codable, Equatable {
             return ActivityCategory.growth.rawValue
         }
     }
+
+    var title: String {
+        switch self {
+           case .diaper: return "Couche"
+           case .bottle: return "Biberon"
+           case .breast: return "Allaitement"
+           case .sleep: return "Sommeil"
+           case .growth: return "Croissance"
+           case .solid: return "Repas"
+           }
+       }
+
+    var imageName: String {
+        switch self {
+        case .diaper: return "couche"
+        case .bottle, .breast: return "biberon"
+        case .sleep: return "sommeil"
+        case .growth: return "croissance"
+        case .solid: return "Repas"
+        }
+    }
+
+    var color: String {
+        switch self {
+        case .diaper: return "Diaper"
+        case .bottle: return "Feed"
+        case .breast: return "Feed"
+        case .sleep: return "Sleep"
+        default: return "Growth"
+        }
+    }
+}
+
+enum MeasurementSystem: String, Codable {
+    case metric = "Métrique"
+    case imperial = "Impérial"
 }
 
 enum DiaperState: String, Codable, Equatable {
@@ -134,7 +128,7 @@ struct GrowthData: Codable, Equatable {
     var measurementSystem: MeasurementSystem = .metric
 }
 
-enum ActivityCategory: String {
+enum ActivityCategory: String, Codable {
     case sleep
     case diaper
     case food

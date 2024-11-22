@@ -78,5 +78,5 @@ struct RowView: View {
 }
 
 #Preview {
-    RowView(activity: BabyActivity(activity: Activity(type: .growth(data: GrowthData(weight: 19, height: 70, headCircumference: 45))), date: .now))
+    RowView(activity: BabyActivity(activity: .growth(data: GrowthData(weight: 19, height: 70, headCircumference: nil)), date: .now))
 }

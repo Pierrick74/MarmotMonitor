@@ -38,22 +38,22 @@ struct TodayView: View {
                                     .padding(.top, 7)
 
                                 RowView(activity: BabyActivity(
-                                    activity: Activity(type: .diaper(state: .dirty)),
+                                    activity: .diaper(state: .dirty),
                                     date: Date(timeIntervalSinceNow: -389)))
                                     .padding(.horizontal, 5)
 
                                 RowView(activity: BabyActivity(
-                                    activity: Activity(type: .sleep(duration: 3555)),
+                                    activity: .sleep(duration: 3555),
                                     date: Date(timeIntervalSinceNow: -3897)))
                                     .padding(.horizontal, 5)
 
                                 RowView(activity: BabyActivity(
-                                    activity: Activity(type: .bottle(volume: 210, measurementSystem: .metric)),
+                                    activity: .bottle(volume: 210, measurementSystem: .metric),
                                     date: Date(timeIntervalSinceNow: -320897)))
                                     .padding(.horizontal, 5)
 
                                 RowView(activity: BabyActivity(
-                                    activity: Activity(type: .growth(data: GrowthData(weight: 19, height: 70, headCircumference: nil))),
+                                    activity: .growth(data: GrowthData(weight: 19, height: 70, headCircumference: nil)),
                                     date: .now))
                                     .padding(.horizontal, 5)
                                 Spacer(minLength: 40)
