@@ -13,7 +13,7 @@ protocol SwiftDataManagerProtocol {
     func fetchData() -> [BabyActivity]
     func addActivity(activity: BabyActivity)
     func deleteActivity(activity: BabyActivity)
-    func fetchFilteredActivities(selectedActivityTypes: [String]) -> [BabyActivity]
+    func fetchFilteredActivities(with selectedActivityTypes: [ActivityCategory]) -> [BabyActivity]
     func clearAllData()
 }
 
@@ -68,7 +68,8 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
         }
     }
 
-    func fetchFilteredActivities(selectedActivityTypes: [String]) -> [BabyActivity] {
+    func fetchFilteredActivities(with selectedActivityTypes: [ActivityCategory]) -> [BabyActivity] {
+        let selectedActivityTypes = selectedActivityTypes.map { $0.rawValue }
         do {
             let predicate = #Predicate<BabyActivity> { activity in
                         selectedActivityTypes.contains(activity.activityCategory)

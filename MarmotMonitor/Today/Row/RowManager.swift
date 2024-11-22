@@ -8,22 +8,32 @@
 import SwiftUI
 
 final class RowManager {
-    var activity: BabyActivity
+    private var activity: BabyActivity?
+    private var category: ActivityCategory
 
-    init(babyActivity: BabyActivity) {
+    init(babyActivity: BabyActivity?, category: ActivityCategory) {
         self.activity = babyActivity
+        self.category = category
     }
 
     var title: String {
-        activity.activityTitre
+        activity?.activityTitre ?? category.rawValue
     }
 
     var lastActivity: String {
-        timeIntervalBetweenNowAnd(date: activity.date)
+        if let date =  activity?.date {
+            return timeIntervalBetweenNowAnd(date: date)
+        } else {
+            return "Aucune activité renseignée"
+        }
     }
 
     var information: String {
-        getDescription()
+        if  let activity = activity {
+            return getDescription(of: activity.activity)
+        } else {
+            return ""
+        }
     }
 
     var accessibilityDescription: String {
@@ -32,11 +42,11 @@ final class RowManager {
     }
 
     var imageName: String {
-        activity.activityImageName
+        category.rawValue
     }
 
     var color: Color {
-        Color(activity.activityColor)
+        Color(category.rawValue)
     }
 
     // MARK: - Functions
@@ -57,8 +67,8 @@ final class RowManager {
         }
     }
 
-    private func getDescription() -> String {
-        switch activity.activity {
+    private func getDescription(of activity: ActivityType) -> String {
+        switch activity {
         case .bottle(let volume, let unit ):
             return "\(Int(volume))\n\(unit == .metric ? "ml" : "oz")"
         case .sleep(let duration):

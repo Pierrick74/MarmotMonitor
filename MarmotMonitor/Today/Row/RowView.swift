@@ -11,8 +11,8 @@ struct RowView: View {
     var manager: RowManager
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
-    init(activity: BabyActivity) {
-        self.manager = RowManager(babyActivity: activity)
+    init(activity: BabyActivity?, category: ActivityCategory) {
+        self.manager = RowManager(babyActivity: activity, category: category)
     }
 
     var body: some View {
@@ -78,5 +78,8 @@ struct RowView: View {
 }
 
 #Preview {
-    RowView(activity: BabyActivity(activity: .growth(data: GrowthData(weight: 19, height: 70, headCircumference: nil)), date: .now))
+    RowView(activity: BabyActivity(activity: .growth(data: GrowthData(weight: 19,
+                                                                      height: 70,
+                                                                      headCircumference: nil)), date: .now),
+            category: .growth)
 }

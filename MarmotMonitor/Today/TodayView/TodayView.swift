@@ -14,6 +14,15 @@ struct TodayView: View {
 
     @Environment(\.colorScheme) var colorScheme
 
+    var manager = TodayViewManager()
+
+    @MainActor
+    init(manager: TodayViewManager? = nil) {
+        if let unwrapManager = manager {
+            self.manager = unwrapManager
+        }
+    }
+
     var body: some View {
             ScrollView {
                 ZStack(alignment: .top) {
@@ -37,24 +46,16 @@ struct TodayView: View {
                                 TodayStripName()
                                     .padding(.top, 7)
 
-                                RowView(activity: BabyActivity(
-                                    activity: .diaper(state: .dirty),
-                                    date: Date(timeIntervalSinceNow: -389)))
+                                RowView(activity: manager.lastDiaperActivity, category: .diaper)
                                     .padding(.horizontal, 5)
 
-                                RowView(activity: BabyActivity(
-                                    activity: .sleep(duration: 3555),
-                                    date: Date(timeIntervalSinceNow: -3897)))
+                                RowView(activity: manager.lastSleepActivity, category: .sleep)
                                     .padding(.horizontal, 5)
 
-                                RowView(activity: BabyActivity(
-                                    activity: .bottle(volume: 210, measurementSystem: .metric),
-                                    date: Date(timeIntervalSinceNow: -320897)))
+                                RowView(activity: manager.lastFoodActivity, category: .food)
                                     .padding(.horizontal, 5)
 
-                                RowView(activity: BabyActivity(
-                                    activity: .growth(data: GrowthData(weight: 19, height: 70, headCircumference: nil)),
-                                    date: .now))
+                                RowView(activity: manager.lastGrowthActivity, category: .growth)
                                     .padding(.horizontal, 5)
                                 Spacer(minLength: 40)
                             }

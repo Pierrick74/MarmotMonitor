@@ -72,21 +72,21 @@ enum ActivityType: Codable, Equatable {
 
     var imageName: String {
         switch self {
-        case .diaper: return "couche"
-        case .bottle, .breast: return "biberon"
-        case .sleep: return "sommeil"
-        case .growth: return "croissance"
-        case .solid: return "Repas"
+        case .diaper: return ActivityCategory.diaper.rawValue
+        case .bottle, .breast, .solid: return ActivityCategory.food.rawValue
+        case .sleep: return ActivityCategory.sleep.rawValue
+        case .growth: return ActivityCategory.growth.rawValue
         }
     }
 
     var color: String {
         switch self {
-        case .diaper: return "Diaper"
-        case .bottle: return "Feed"
-        case .breast: return "Feed"
-        case .sleep: return "Sleep"
-        default: return "Growth"
+        case .diaper: return ActivityCategory.diaper.rawValue
+        case .bottle: return ActivityCategory.food.rawValue
+        case .breast: return ActivityCategory.food.rawValue
+        case .sleep: return ActivityCategory.sleep.rawValue
+        case .growth: return ActivityCategory.growth.rawValue
+        case .solid: return ActivityCategory.food.rawValue
         }
     }
 }
@@ -129,8 +129,8 @@ struct GrowthData: Codable, Equatable {
 }
 
 enum ActivityCategory: String, Codable {
-    case sleep
-    case diaper
-    case food
-    case growth
+    case sleep = "Sommeil"
+    case diaper = "Couche"
+    case food = "Repas"
+    case growth = "Croissance"
 }

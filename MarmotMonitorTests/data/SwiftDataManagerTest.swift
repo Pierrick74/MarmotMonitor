@@ -102,7 +102,7 @@ struct SwiftDataManagerTest {
         dataSource.addActivity(activity: dataMock.oneGrowthBabyActivity)
 
         // 3. then
-        babyActivity = dataSource.fetchFilteredActivities(selectedActivityTypes: [ActivityCategory.sleep.rawValue])
+        babyActivity = dataSource.fetchFilteredActivities(with: [.sleep])
         #expect(babyActivity.count == 1)
     }
 
@@ -120,7 +120,7 @@ struct SwiftDataManagerTest {
         dataSource.addActivity(activity: dataMock.oneGrowthBabyActivity)
 
         // 3. then
-        babyActivity = dataSource.fetchFilteredActivities(selectedActivityTypes: [ActivityCategory.sleep.rawValue, ActivityCategory.diaper.rawValue])
+        babyActivity = dataSource.fetchFilteredActivities(with: [.sleep, .diaper])
         #expect(babyActivity.count == 2)
     }
 
