@@ -14,6 +14,15 @@ struct TodayView: View {
 
     @Environment(\.colorScheme) var colorScheme
 
+    var manager = TodayViewManager()
+
+    @MainActor
+    init(manager: TodayViewManager? = nil) {
+        if let unwrapManager = manager {
+            self.manager = unwrapManager
+        }
+    }
+
     var body: some View {
             ScrollView {
                 ZStack(alignment: .top) {
@@ -37,25 +46,19 @@ struct TodayView: View {
                                 TodayStripName()
                                     .padding(.top, 7)
 
-                                RowView(activity: Activity(type: .sleep(duration: 52)))
+                                RowView(activity: manager.lastDiaperActivity, category: .diaper)
                                     .padding(.horizontal, 5)
 
-                                RowView(activity: Activity(type: .bottle(volume: 120)))
+                                RowView(activity: manager.lastSleepActivity, category: .sleep)
                                     .padding(.horizontal, 5)
 
-                                RowView(activity: Activity(type: .diaper(state: .wet)))
+                                RowView(activity: manager.lastFoodActivity, category: .food)
                                     .padding(.horizontal, 5)
 
-                                RowView(activity: Activity(type: .growth(
-                                    data: GrowthData(
-                                        weight: 9.2,
-                                        height: 70,
-                                        headCircumference: 45))))
+                                RowView(activity: manager.lastGrowthActivity, category: .growth)
                                     .padding(.horizontal, 5)
-                                Spacer()
-
+                                Spacer(minLength: 40)
                             }
-
                         }
                         .cornerRadius(30)
                         .offset(y: -30)

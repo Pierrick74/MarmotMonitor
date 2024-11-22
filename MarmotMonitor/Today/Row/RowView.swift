@@ -11,8 +11,8 @@ struct RowView: View {
     var manager: RowManager
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
-    init(activity: Activity) {
-        self.manager = RowManager(activity: activity)
+    init(activity: BabyActivity?, category: ActivityCategory) {
+        self.manager = RowManager(babyActivity: activity, category: category)
     }
 
     var body: some View {
@@ -23,8 +23,8 @@ struct RowView: View {
                 .frame(height: 80)
                 .offset(x: 1, y: 2)
 
-            ZStack(alignment: .top) {
-                if dynamicTypeSize < .accessibility3 {
+            ZStack(alignment: .center) {
+                if dynamicTypeSize < .accessibility1 {
                     HStack {
                         Spacer()
                         Spacer()
@@ -35,26 +35,37 @@ struct RowView: View {
                         Spacer()
                     }
                 }
-
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(manager.title)
-                            .font(.title)
-                            .foregroundColor(.primary)
-                        Text("Il y a 3 Heures")
-                            .font(.subheadline)
-                            .foregroundColor(.primary)
+                if dynamicTypeSize < .accessibility1 {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(manager.title)
+                                .font(.title)
+                                .foregroundColor(.primary)
+                            Text(manager.lastActivity)
+                                .font(.subheadline)
+                                .foregroundColor(.primary)
+                        }
+                        .padding(.leading, 10)
+                        Spacer()
+                        VStack(alignment: .center) {
+                            Text(manager.information)
+                                .bold()
+                        }
+                        .padding()
                     }
-                    .padding(.leading, 10)
-                    Spacer()
-                    VStack(alignment: .center) {
-                        Text("30")
-                            .font(.body)
-                            .bold()
-                        Text("min")
-                            .bold()
+                } else {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(manager.title)
+                                .font(.title)
+                                .foregroundColor(.primary)
+                            Text(manager.lastActivity)
+                                .font(.subheadline)
+                                .foregroundColor(.primary)
+                            Text(manager.information.replacingOccurrences(of: "\n", with: " "))
+                        }
+                        Spacer()
                     }
-                    .padding()
                 }
             }
             .padding(.horizontal, 10)
@@ -67,5 +78,8 @@ struct RowView: View {
 }
 
 #Preview {
-    RowView(activity: Activity(type: .sleep(duration: 5)))
+    RowView(activity: BabyActivity(activity: .growth(data: GrowthData(weight: 19,
+                                                                      height: 70,
+                                                                      headCircumference: nil)), date: .now),
+            category: .growth)
 }
