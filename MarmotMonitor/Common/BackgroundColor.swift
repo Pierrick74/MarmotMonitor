@@ -16,7 +16,7 @@ struct BackgroundColor: View {
                                         .whiteToEgiptienBlue]),
             center: .top,
             startRadius: 0,
-            endRadius: 400
+            endRadius: 450
         )
         .edgesIgnoringSafeArea(.all)
     }

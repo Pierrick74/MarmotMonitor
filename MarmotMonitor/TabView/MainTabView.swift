@@ -50,7 +50,7 @@ struct MainTabView: View {
                     Image(systemName: "plus.circle")
                         .foregroundColor(.white)
                         .font(.system(size: 50))
-                        .background(Color.black.opacity(0.5))
+                        .background(gender == "Garçon" ? Color.pastelBlueToEgiptienBlue.mix(with: .black, by: 0.1) : Color.pinkToEgiptienBlue.mix(with: .black, by: 0.1))
                         .clipShape(Circle())
                         .shadow(radius: 5)
                         .padding(10)
