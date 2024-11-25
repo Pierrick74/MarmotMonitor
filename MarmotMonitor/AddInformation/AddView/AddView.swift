@@ -56,42 +56,6 @@ struct AddView: View {
         }
     }
 
-    // Extracted views for better organization
-    struct ItemView: View {
-        let item: GridItemData
-        let width: CGFloat
-
-        var body: some View {
-            VStack(spacing: 0) {
-                Image(decorative: item.icon)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: width / 4, height: width / 4)
-                    .foregroundColor(item.color)
-                    .padding(.top, 5)
-
-                Text(item.text)
-                    .font(.body)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.primary)
-                    .padding(.bottom, 10)
-                    .accessibilityHint("insérer les informations pour \(item.text)")
-            }
-            .background(
-                ZStack {
-                    RoundedRectangle(cornerRadius: 25)
-                        .fill(.black)
-                        .frame(width: width / 3, height: width / 3)
-                        .offset(x: 1, y: 1)
-
-                    RoundedRectangle(cornerRadius: 25)
-                        .fill(item.color)
-                        .frame(width: width / 3, height: width / 3)
-                }
-            )
-        }
-    }
-
 struct GridItemData: Identifiable, Hashable {
     let id = UUID()
     let icon: String
@@ -107,29 +71,6 @@ enum ItemDestination: Hashable {
     case repas
     case allaitement
     case croissance
-}
-
-struct DestinationView: View {
-    let destination: ItemDestination
-
-    var body: some View {
-        Group {
-            switch destination {
-            case .sommeil:
-                SleepView()
-            case .couche:
-                SleepView()
-            case .biberon:
-                SleepView()
-            case .repas:
-                SleepView()
-            case .allaitement:
-                SleepView()
-            case .croissance:
-                SleepView()
-            }
-        }
-    }
 }
 
 #Preview {

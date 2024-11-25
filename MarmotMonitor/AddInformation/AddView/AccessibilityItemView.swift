@@ -30,7 +30,6 @@ struct AccessibilityItemView: View {
     }
 }
 
-
 #Preview {
     AccessibilityItemView(item: GridItemData(icon: "Sommeil", text: "Sommeil", color: .sommeil, destination: .sommeil))
 }
