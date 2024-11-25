@@ -14,17 +14,17 @@ struct DestinationView: View {
         Group {
             switch destination {
             case .sommeil:
-                SleepView()
+                SleepAddView()
             case .couche:
-                SleepView()
+                SleepAddView()
             case .biberon:
-                SleepView()
+                SleepAddView()
             case .repas:
-                SleepView()
+                SleepAddView()
             case .allaitement:
-                SleepView()
+                SleepAddView()
             case .croissance:
-                SleepView()
+                SleepAddView()
             }
         }
     }

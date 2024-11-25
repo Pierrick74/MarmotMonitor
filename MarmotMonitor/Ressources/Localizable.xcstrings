@@ -46,9 +46,6 @@
     "Docteur" : {
 
     },
-    "Heure actuelle : %@" : {
-
-    },
     "Inserer le nom de la petite marmotte ? " : {
       "localizations" : {
         "en" : {
@@ -217,9 +214,6 @@
       }
     },
     "Synthèse de la journée" : {
-
-    },
-    "Valeur Non définie" : {
 
     },
     "Version 2" : {

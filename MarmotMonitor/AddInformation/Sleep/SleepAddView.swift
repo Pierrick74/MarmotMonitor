@@ -7,13 +7,11 @@
 
 import SwiftUI
 
-struct SleepView: View {
+struct SleepAddView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    // date storage
-    @State private var startDate: Date?
-    @State private var endDate: Date?
+    @StateObject var manager = SleepAddViewManager()
 
     // sheet presentation
     @State private var isStartPickerPresented: Bool = false
@@ -41,36 +39,27 @@ struct SleepView: View {
                             // start date section
                             DateSelectionView(
                                 title: "Heure de début",
-                                date: startDate,
+                                date: manager.startDate,
                                 buttonAction: { isStartPickerPresented = true }
                             )
                             .accessibilityLabel("Sélectionnez l'heure de début")
-                            .accessibilityHint(
-                                startDate != nil ?
-                                "Heure actuelle : \(startDate!.formatted(date: .abbreviated, time: .shortened))"
-                                : "Valeur Non définie"
-                            )
+                            .accessibilityHint(manager.accessibilityHintForStartDate)
 
                             DateSelectionView(
                                 title: "Heure de fin",
-                                date: endDate,
+                                date: manager.endDate,
                                 buttonAction: { isEndPickerPresented = true }
                             )
                             .accessibilityLabel("Sélectionnez l'heure de fin")
-                            .accessibilityHint(
-                                endDate != nil ?
-                                "Heure actuelle : \(startDate!.formatted(date: .abbreviated, time: .shortened))"
-                                : "Valeur Non définie"
-                            )
+                            .accessibilityHint(manager.accessibilityHintForEndDate)
 
                             Spacer()
 
                             SaveButtonView {
                                 dismiss()
                             } onSave: {
-                                if startDate != nil && endDate != nil {
-                                    saveNapDetails()
-                                }
+                                manager.saveSleep()
+                                dismiss()
                             }
                         }
                         .padding()
@@ -81,9 +70,9 @@ struct SleepView: View {
                 .sheet(isPresented: $isStartPickerPresented) {
                     PickerDateSheetView(
                         title: "Select Start Time",
-                        selectedDate: $startDate,
+                        selectedDate: $manager.startDate,
                         isPresented: $isStartPickerPresented,
-                        range: Date.distantPast...Date.now
+                        range: manager.startRange
                     )
                     .presentationDetents(dynamicTypeSize < .accessibility1 ? [.medium] : [.large])
                     .environment(\.dynamicTypeSize, dynamicTypeSize)
@@ -93,9 +82,9 @@ struct SleepView: View {
                 .sheet(isPresented: $isEndPickerPresented) {
                     PickerDateSheetView(
                         title: "Select End Time",
-                        selectedDate: $endDate,
+                        selectedDate: $manager.endDate,
                         isPresented: $isEndPickerPresented,
-                        range: (startDate != nil) ? startDate!...Date.distantFuture : nil
+                        range: manager.endRange
                     )
                     .presentationDetents(dynamicTypeSize < .accessibility1 ? [.medium] : [.large])
                     .environment(\.dynamicTypeSize, dynamicTypeSize)
@@ -103,17 +92,6 @@ struct SleepView: View {
                 }
                 .navigationBarBackButtonHidden(true)
             }
-
-    // Fonction pour sauvegarder les détails
-    private func saveNapDetails() {
-        print("Nap Details Saved:")
-        if let startDate = startDate {
-            print("Start: \(startDate)")
-        }
-        if let endDate = endDate {
-            print("End: \(endDate)")
-        }
-    }
 }
 
 struct DateSelectionView: View {
@@ -129,7 +107,6 @@ struct DateSelectionView: View {
             Button(action: buttonAction) {
                 HStack {
                     Text(date != nil ? date!.formatted(date: .abbreviated, time: .shortened) : "Appuyer pour sélectionner")
-//                        .foregroundColor(date != nil ? .primary : .gray)
                         .foregroundColor(.primary.opacity(date != nil ? 1 : 0.8))
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Image(systemName: "calendar")
@@ -146,5 +123,5 @@ struct DateSelectionView: View {
 }
 
 #Preview {
-    SleepView()
+    SleepAddView()
 }
