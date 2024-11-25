@@ -46,13 +46,7 @@
     "Docteur" : {
 
     },
-    "End Time" : {
-
-    },
-    "End: %@" : {
-
-    },
-    "Heure de début" : {
+    "Heure actuelle : %@" : {
 
     },
     "Inserer le nom de la petite marmotte ? " : {
@@ -193,12 +187,6 @@
     "Sauvegarder" : {
 
     },
-    "Sauvegarder la date: %@" : {
-
-    },
-    "Save" : {
-
-    },
     "Séléctionné" : {
       "localizations" : {
         "en" : {
@@ -212,7 +200,10 @@
     "Sélectionne le sommeil" : {
 
     },
-    "Start: %@" : {
+    "Sélectionnez l'heure de début" : {
+
+    },
+    "Sélectionnez l'heure de fin" : {
 
     },
     "Suivant" : {
@@ -226,6 +217,9 @@
       }
     },
     "Synthèse de la journée" : {
+
+    },
+    "Valeur Non définie" : {
 
     },
     "Version 2" : {

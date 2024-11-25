@@ -41,7 +41,7 @@ struct SaveButtonView: View {
                     Text("Sauvegarder")
                 }
             })
-            .buttonStyle(CustomSavelButtonStyle())
+            .buttonStyle(CustomSaveButtonStyle())
             .frame(maxWidth: UIScreen.main.bounds.width / 1.5)
         }
         .padding([.bottom, .horizontal], 20)

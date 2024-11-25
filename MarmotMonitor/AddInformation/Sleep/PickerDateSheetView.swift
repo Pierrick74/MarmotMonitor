@@ -15,6 +15,7 @@ struct PickerDateSheetView: View {
     @Binding var selectedDate: Date?
     @Binding var isPresented: Bool
     @State private var temporaryDate: Date = Date()
+    var range: ClosedRange<Date>?
 
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.colorScheme) var colorScheme
@@ -28,7 +29,10 @@ struct PickerDateSheetView: View {
                         .font(.headline)
                         .padding()
 
-                    DatePicker("", selection: $temporaryDate, displayedComponents: [.date, .hourAndMinute])
+                    DatePicker("",
+                               selection: $temporaryDate,
+                               in: range ?? Date.distantPast...Date.distantFuture,
+                               displayedComponents: [.date, .hourAndMinute])
                         .datePickerStyle(WheelDatePickerStyle())
                         .labelsHidden()
                         .padding(.bottom, 20)

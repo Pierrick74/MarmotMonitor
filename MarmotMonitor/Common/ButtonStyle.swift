@@ -46,7 +46,7 @@ struct CustomCancelButtonStyle: ButtonStyle {
             .padding()
             .background(RoundedRectangle(cornerRadius: 15)
                 .fill(Color.red.mix(with: colorScheme == .light ? .white : .black, by: 0.5))
-                .stroke(colorScheme == .light ? .clear : .white, lineWidth: 2)
+                .stroke(colorScheme == .light ? .clear : .red, lineWidth: 2)
                 .shadow(color: .black.opacity(0.5), radius: 2, x: 0, y: 2)
             )
             .foregroundColor(colorScheme == .light ? .black : .white)
@@ -54,7 +54,7 @@ struct CustomCancelButtonStyle: ButtonStyle {
     }
 }
 
-struct CustomSavelButtonStyle: ButtonStyle {
+struct CustomSaveButtonStyle: ButtonStyle {
     @Environment(\.colorScheme) var colorScheme
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -63,7 +63,7 @@ struct CustomSavelButtonStyle: ButtonStyle {
             .padding()
             .background(RoundedRectangle(cornerRadius: 15)
                 .fill(Color.green.mix(with: colorScheme == .light ? .white : .black, by: 0.5))
-                .stroke(colorScheme == .light ? .clear : .white, lineWidth: 2)
+                .stroke(colorScheme == .light ? .clear : .green, lineWidth: 2)
                 .shadow(color: .black.opacity(0.5), radius: 2, x: 0, y: 2)
             )
             .foregroundColor(.primary)
