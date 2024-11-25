@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "Annuler" : {
+
+    },
     "Auj" : {
 
     },
@@ -43,7 +46,13 @@
     "Docteur" : {
 
     },
-    "Hello, World!" : {
+    "End Time" : {
+
+    },
+    "End: %@" : {
+
+    },
+    "Heure de début" : {
 
     },
     "Inserer le nom de la petite marmotte ? " : {
@@ -181,6 +190,15 @@
     "Réglage" : {
 
     },
+    "Sauvegarder" : {
+
+    },
+    "Sauvegarder la date: %@" : {
+
+    },
+    "Save" : {
+
+    },
     "Séléctionné" : {
       "localizations" : {
         "en" : {
@@ -190,6 +208,12 @@
           }
         }
       }
+    },
+    "Sélectionne le sommeil" : {
+
+    },
+    "Start: %@" : {
+
     },
     "Suivant" : {
       "localizations" : {
