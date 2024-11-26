@@ -100,7 +100,9 @@ struct SleepAddView: View {
                     "Alerte",
                     isPresented: $showingAlert
                 ) {
-                    Button("OK", role: .cancel) { }
+                    Button("OK", role: .cancel) {
+                        showingAlert = false
+                    }
                 } message: {
                     Text("Activité déja présente dans cette horraire")
                 }
