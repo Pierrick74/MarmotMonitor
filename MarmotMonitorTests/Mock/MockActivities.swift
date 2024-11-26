@@ -13,6 +13,7 @@ class MockActivities {
     let oneSleepBabyActivity = BabyActivity(activity: .sleep(duration: 2400), date: .now)
     let  sleepBabyActivityBefore = BabyActivity(activity: .sleep(duration: 2400), date: Date(timeIntervalSinceNow: -86400))
     let oneSleepBabyActivityDuringOneHourAndHalf = BabyActivity(activity: .sleep(duration: 5400), date: .now)
+    let  sleepBabyActivityBeforeOneHourDuringTwo = BabyActivity(activity: .sleep(duration: 7200), date: Date(timeIntervalSinceNow: -3600))
 
     // MARK: - Diaper Activities
     let oneDiaperBabyActivity = BabyActivity(activity: .diaper(state: .wet), date: .now)

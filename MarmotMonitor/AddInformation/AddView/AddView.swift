@@ -57,9 +57,10 @@ struct AddView: View {
 
                         Button(action: {
                             dismiss()
-                        }) {
+                        }, label: {
                             Text("Fermer")
                         }
+                        )
 
                     }
                 }

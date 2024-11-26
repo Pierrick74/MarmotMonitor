@@ -196,4 +196,50 @@ struct SwiftDataManagerTest {
         updateBabyActivity()
         #expect(babyActivity.isEmpty)
     }
+
+    // MARK: - hasSleepActivitOverlapping Tests
+    @MainActor @Test
+    mutating func managerHaveSleeActivities_whenCheckNewactivityWithConflict_thenActivityOverlappingIsTrue() throws {
+        // 1. given
+        #expect(babyActivity.isEmpty)
+        dataSource.addActivity(activity: dataMock.oneSleepBabyActivity)
+        updateBabyActivity()
+        #expect(babyActivity.count == 1)
+
+        // 2. when
+        let overlap = dataSource.hasSleepActivityOverlapping(dataMock.sleepBabyActivityBeforeOneHourDuringTwo)
+
+        // 3. then
+        #expect(overlap == true)
+    }
+
+    @MainActor @Test
+    mutating func managerHaveSleeActivities_whenCheckNewactivityWithNoConflict_thenActivityOverlappingIsFalse() throws {
+        // 1. given
+        #expect(babyActivity.isEmpty)
+        dataSource.addActivity(activity: dataMock.oneSleepBabyActivity)
+        updateBabyActivity()
+        #expect(babyActivity.count == 1)
+
+        // 2. when
+        let overlap = dataSource.hasSleepActivityOverlapping(dataMock.sleepBabyActivityBefore)
+
+        // 3. then
+        #expect(overlap == false)
+    }
+
+    @MainActor @Test
+    mutating func managerHaveBeforeSleeActivities_whenCheckNewactivityWithNoConflict_thenActivityOverlappingIsFalse() throws {
+        // 1. given
+        #expect(babyActivity.isEmpty)
+        dataSource.addActivity(activity: dataMock.sleepBabyActivityBefore)
+        updateBabyActivity()
+        #expect(babyActivity.count == 1)
+
+        // 2. when
+        let overlap = dataSource.hasSleepActivityOverlapping(dataMock.oneSleepBabyActivity)
+
+        // 3. then
+        #expect(overlap == false)
+    }
 }

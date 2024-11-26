@@ -21,7 +21,7 @@ final class RowManager {
     }
 
     var lastActivity: String {
-        if let date =  getLastDateActivity(of : activity) {
+        if let date =  getLastDateActivity(of: activity) {
             return timeIntervalBetweenNowAnd(date: date)
         } else {
             return "Aucune activité renseignée"
