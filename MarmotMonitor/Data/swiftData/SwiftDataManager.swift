@@ -11,11 +11,10 @@ import SwiftData
 // MARK: - SwiftDataManagerProtocol
 protocol SwiftDataManagerProtocol {
     func fetchData() -> [BabyActivity]
-    func addActivity(activity: BabyActivity)
+    func addActivity(_ activity: BabyActivity) throws
     func deleteActivity(activity: BabyActivity)
     func fetchFilteredActivities(with selectedActivityTypes: [ActivityCategory]) -> [BabyActivity]
     func clearAllData()
-    func hasSleepActivityOverlapping(_ newActivity: BabyActivity) -> Bool
 }
 
 // MARK: - SwiftDataManager
@@ -39,7 +38,15 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
         }
     }
 
-    func addActivity(activity: BabyActivity) {
+    func addActivity(_ activity: BabyActivity) throws {
+        switch activity.activity {
+        case .sleep:
+            if hasSleepActivityOverlapping(activity) {
+                throw ActivityError.overlappingActivity
+            }
+        default:
+            break
+        }
         modelContext.insert(activity)
         save()
     }
@@ -84,7 +91,7 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
         }
     }
 
-    func hasSleepActivityOverlapping(_ newActivity: BabyActivity) -> Bool {
+    private func hasSleepActivityOverlapping(_ newActivity: BabyActivity) -> Bool {
         var newActivityEndDate = Date()
         var newActivityStartDate = Date()
 

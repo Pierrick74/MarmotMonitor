@@ -4,6 +4,12 @@
     "" : {
 
     },
+    "Activité déja présente dans cette horraire" : {
+
+    },
+    "Alerte" : {
+
+    },
     "Annuler" : {
 
     },
@@ -124,6 +130,9 @@
           }
         }
       }
+    },
+    "OK" : {
+
     },
     "Page %@" : {
       "localizations" : {

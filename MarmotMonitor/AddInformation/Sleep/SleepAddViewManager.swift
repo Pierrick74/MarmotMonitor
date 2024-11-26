@@ -13,6 +13,7 @@ final class SleepAddViewManager: ObservableObject {
 
     @Published var startDate: Date?
     @Published var endDate: Date?
+    @Published var isSaveError = false
 
     init(dataManager: SwiftDataManagerProtocol? = nil) {
         if let dataManager = dataManager {
@@ -46,6 +47,10 @@ final class SleepAddViewManager: ObservableObject {
         let babyActivity = BabyActivity(
             activity: .sleep(duration: timeInterval),
             date: startDate)
-        dataManager.addActivity(activity: babyActivity)
+        do {
+            try dataManager.addActivity(babyActivity)
+        } catch {
+            isSaveError = true
+        }
     }
 }

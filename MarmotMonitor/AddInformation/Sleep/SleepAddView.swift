@@ -16,6 +16,7 @@ struct SleepAddView: View {
     // sheet presentation
     @State private var isStartPickerPresented: Bool = false
     @State private var isEndPickerPresented: Bool = false
+    @State private var showingAlert: Bool = false
 
     var body: some View {
                 ZStack {
@@ -59,7 +60,12 @@ struct SleepAddView: View {
                                 dismiss()
                             } onSave: {
                                 manager.saveSleep()
-                                dismiss()
+
+                                if manager.isSaveError == false {
+                                    dismiss()
+                                } else {
+                                    showingAlert = true
+                                }
                             }
                         }
                         .padding()
@@ -89,6 +95,14 @@ struct SleepAddView: View {
                     .presentationDetents(dynamicTypeSize < .accessibility1 ? [.medium] : [.large])
                     .environment(\.dynamicTypeSize, dynamicTypeSize)
                     .presentationCornerRadius(30)
+                }
+                .alert(
+                    "Alerte",
+                    isPresented: $showingAlert
+                ) {
+                    Button("OK", role: .cancel) { }
+                } message: {
+                    Text("Activité déja présente dans cette horraire")
                 }
                 .navigationBarBackButtonHidden(true)
             }

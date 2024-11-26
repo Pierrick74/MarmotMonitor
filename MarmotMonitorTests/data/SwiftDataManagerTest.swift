@@ -32,7 +32,7 @@ struct SwiftDataManagerTest {
         #expect(babyActivity.isEmpty)
 
         // 2. when
-        dataSource.addActivity(activity: dataMock.oneSleepBabyActivity)
+        try dataSource.addActivity(dataMock.oneSleepBabyActivity)
         updateBabyActivity()
 
         // 3. then
@@ -45,12 +45,12 @@ struct SwiftDataManagerTest {
         #expect(babyActivity.isEmpty)
 
         // 2. when
-        dataSource.addActivity(activity: dataMock.oneSleepBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneSolidBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneBottleBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneBreastBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneDiaperBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneGrowthBabyActivity)
+        try dataSource.addActivity(dataMock.oneSleepBabyActivity)
+        try dataSource.addActivity(dataMock.oneSolidBabyActivity)
+        try dataSource.addActivity(dataMock.oneBottleBabyActivity)
+        try dataSource.addActivity(dataMock.oneBreastBabyActivity)
+        try dataSource.addActivity(dataMock.oneDiaperBabyActivity)
+        try dataSource.addActivity(dataMock.oneGrowthBabyActivity)
 
         // 3. then
         updateBabyActivity()
@@ -64,7 +64,7 @@ struct SwiftDataManagerTest {
         #expect(babyActivity.isEmpty)
 
         // 2. when
-        dataSource.addActivity(activity: dataMock.oneSleepBabyActivity)
+        try dataSource.addActivity(dataMock.oneSleepBabyActivity)
         updateBabyActivity()
         #expect(babyActivity.count == 1)
         dataSource.deleteActivity(activity: dataMock.oneSleepBabyActivity)
@@ -79,12 +79,12 @@ struct SwiftDataManagerTest {
     mutating func managerHaveActivity_whenActivityIsFetch_thenlastestActivityIsFirst() throws {
         // 1. given
         #expect(babyActivity.isEmpty)
-        dataSource.addActivity(activity: dataMock.oneSleepBabyActivity)
+        try dataSource.addActivity(dataMock.oneSleepBabyActivity)
         updateBabyActivity()
         #expect(babyActivity.count == 1)
         // 2. when
 
-        dataSource.addActivity(activity: dataMock.sleepBabyActivityBefore)
+        try dataSource.addActivity(dataMock.sleepBabyActivityBefore)
         updateBabyActivity()
 
         // 3. then
@@ -96,11 +96,11 @@ struct SwiftDataManagerTest {
     mutating func managerHaveDifferentActivitiesWithNoSleep_whenfetchSleep_thenresultIsEmpty() throws {
         // 1. given
         #expect(babyActivity.isEmpty)
-        dataSource.addActivity(activity: dataMock.oneSolidBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneBottleBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneBreastBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneDiaperBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneGrowthBabyActivity)
+        try dataSource.addActivity(dataMock.oneSolidBabyActivity)
+        try dataSource.addActivity(dataMock.oneBottleBabyActivity)
+        try dataSource.addActivity(dataMock.oneBreastBabyActivity)
+        try dataSource.addActivity(dataMock.oneDiaperBabyActivity)
+        try dataSource.addActivity(dataMock.oneGrowthBabyActivity)
         updateBabyActivity()
         #expect(babyActivity.count == 5)
 
@@ -115,7 +115,7 @@ struct SwiftDataManagerTest {
     mutating func managerHaveDifferentActivitiesWithNoSleep_whenfetchListeIsEmpty_thenresultIsEmpty() throws {
         // 1. given
         #expect(babyActivity.isEmpty)
-        dataSource.addActivity(activity: dataMock.oneSleepBabyActivity)
+        try dataSource.addActivity(dataMock.oneSleepBabyActivity)
         updateBabyActivity()
         #expect(babyActivity.count == 1)
 
@@ -132,12 +132,12 @@ struct SwiftDataManagerTest {
         #expect(babyActivity.isEmpty)
 
         // 2. when
-        dataSource.addActivity(activity: dataMock.oneSleepBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneSolidBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneBottleBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneBreastBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneDiaperBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneGrowthBabyActivity)
+        try dataSource.addActivity(dataMock.oneSleepBabyActivity)
+        try dataSource.addActivity(dataMock.oneSolidBabyActivity)
+        try dataSource.addActivity(dataMock.oneBottleBabyActivity)
+        try dataSource.addActivity(dataMock.oneBreastBabyActivity)
+        try dataSource.addActivity(dataMock.oneDiaperBabyActivity)
+        try dataSource.addActivity(dataMock.oneGrowthBabyActivity)
 
         // 3. then
         babyActivity = dataSource.fetchFilteredActivities(with: [.sleep])
@@ -150,12 +150,12 @@ struct SwiftDataManagerTest {
         #expect(babyActivity.isEmpty)
 
         // 2. when
-        dataSource.addActivity(activity: dataMock.oneSleepBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneSolidBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneBottleBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneBreastBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneDiaperBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneGrowthBabyActivity)
+        try dataSource.addActivity(dataMock.oneSleepBabyActivity)
+        try dataSource.addActivity(dataMock.oneSolidBabyActivity)
+        try dataSource.addActivity(dataMock.oneBottleBabyActivity)
+        try dataSource.addActivity(dataMock.oneBreastBabyActivity)
+        try dataSource.addActivity(dataMock.oneDiaperBabyActivity)
+        try dataSource.addActivity(dataMock.oneGrowthBabyActivity)
 
         // 3. then
         babyActivity = dataSource.fetchFilteredActivities(with: [.sleep, .diaper])
@@ -166,8 +166,8 @@ struct SwiftDataManagerTest {
     mutating func managerHaveDifferentActivities_whenfetchSleep_thenresultIsSleepWithLastestActivityInFirst() throws {
         // 1. given
         #expect(babyActivity.isEmpty)
-        dataSource.addActivity(activity: dataMock.oneSleepBabyActivity)
-        dataSource.addActivity(activity: dataMock.sleepBabyActivityBefore)
+        try dataSource.addActivity(dataMock.oneSleepBabyActivity)
+        try dataSource.addActivity(dataMock.sleepBabyActivityBefore)
         updateBabyActivity()
         #expect(babyActivity.count == 2)
 
@@ -184,8 +184,8 @@ struct SwiftDataManagerTest {
     mutating func managerHaveDifferentActivities_whenClear_thenDataIsEmpty() throws {
         // 1. given
         #expect(babyActivity.isEmpty)
-        dataSource.addActivity(activity: dataMock.oneSleepBabyActivity)
-        dataSource.addActivity(activity: dataMock.oneSolidBabyActivity)
+        try dataSource.addActivity(dataMock.oneSleepBabyActivity)
+        try dataSource.addActivity(dataMock.oneSolidBabyActivity)
         updateBabyActivity()
         #expect(babyActivity.count == 2)
 
@@ -202,44 +202,53 @@ struct SwiftDataManagerTest {
     mutating func managerHaveSleeActivities_whenCheckNewactivityWithConflict_thenActivityOverlappingIsTrue() throws {
         // 1. given
         #expect(babyActivity.isEmpty)
-        dataSource.addActivity(activity: dataMock.oneSleepBabyActivity)
+        try dataSource.addActivity(dataMock.oneSleepBabyActivity)
         updateBabyActivity()
         #expect(babyActivity.count == 1)
 
         // 2. when
-        let overlap = dataSource.hasSleepActivityOverlapping(dataMock.sleepBabyActivityBeforeOneHourDuringTwo)
-
-        // 3. then
-        #expect(overlap == true)
+        do {
+            try dataSource.addActivity(dataMock.sleepBabyActivityBeforeOneHourDuringTwo)
+        } catch {
+            // 3. then
+            #expect(error as? ActivityError == ActivityError.overlappingActivity)
+        }
+        #expect(babyActivity.count == 1)
     }
 
     @MainActor @Test
     mutating func managerHaveSleeActivities_whenCheckNewactivityWithNoConflict_thenActivityOverlappingIsFalse() throws {
         // 1. given
         #expect(babyActivity.isEmpty)
-        dataSource.addActivity(activity: dataMock.oneSleepBabyActivity)
+        try dataSource.addActivity(dataMock.oneSleepBabyActivity)
         updateBabyActivity()
         #expect(babyActivity.count == 1)
 
         // 2. when
-        let overlap = dataSource.hasSleepActivityOverlapping(dataMock.sleepBabyActivityBefore)
-
-        // 3. then
-        #expect(overlap == false)
+        do {
+            try dataSource.addActivity(dataMock.sleepBabyActivityBefore)
+        } catch {
+            // 3. then
+            #expect(error as? ActivityError == ActivityError.overlappingActivity)
+        }
+        #expect(babyActivity.count == 1)
     }
 
     @MainActor @Test
     mutating func managerHaveBeforeSleeActivities_whenCheckNewactivityWithNoConflict_thenActivityOverlappingIsFalse() throws {
         // 1. given
         #expect(babyActivity.isEmpty)
-        dataSource.addActivity(activity: dataMock.sleepBabyActivityBefore)
+        try dataSource.addActivity(dataMock.sleepBabyActivityBefore)
         updateBabyActivity()
         #expect(babyActivity.count == 1)
 
         // 2. when
-        let overlap = dataSource.hasSleepActivityOverlapping(dataMock.oneSleepBabyActivity)
-
-        // 3. then
-        #expect(overlap == false)
+        do {
+            try dataSource.addActivity(dataMock.oneSleepBabyActivity)
+        } catch {
+            // 3. then
+            #expect(error as? ActivityError == ActivityError.overlappingActivity)
+        }
+        #expect(babyActivity.count == 1)
     }
 }
