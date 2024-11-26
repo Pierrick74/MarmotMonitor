@@ -21,7 +21,7 @@ final class RowManager {
     }
 
     var lastActivity: String {
-        if let date =  activity?.date {
+        if let date =  getLastDateActivity(of: activity) {
             return timeIntervalBetweenNowAnd(date: date)
         } else {
             return "Aucune activité renseignée"
@@ -76,7 +76,7 @@ final class RowManager {
             let minutes = (Int(duration) % 3600) / 60
 
             if hours > 0 {
-                return "\(hours) h\n\(minutes) min"
+                return "\(hours) h\(minutes > 0 ? " \(minutes) min" : "")"
             } else {
                 return "\(minutes)\nmin"
             }
@@ -94,6 +94,17 @@ final class RowManager {
             }
             return  weight + "\n" + height
         default: return ""
+        }
+    }
+
+    private func getLastDateActivity(of babyActivity: BabyActivity?) -> Date? {
+        guard let babyActivity = babyActivity else { return nil }
+
+        switch babyActivity.activity {
+        case .sleep(let duration):
+            return babyActivity.date.addingTimeInterval(duration)
+        default:
+            return babyActivity.date
         }
     }
 }

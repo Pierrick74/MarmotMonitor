@@ -8,34 +8,48 @@
 import SwiftUI
 
 @MainActor
-final class TodayViewManager {
+final class TodayViewManager: ObservableObject {
     private var dataManager: SwiftDataManagerProtocol = SwiftDataManager.shared
+
+    @Published var lastSleepActivity: BabyActivity?
+    @Published var lastDiaperActivity: BabyActivity?
+    @Published var lastFoodActivity: BabyActivity?
+    @Published var lastGrowthActivity: BabyActivity?
 
     init(dataManager: SwiftDataManagerProtocol? = nil) {
         if let dataManager = dataManager {
             self.dataManager = dataManager
         }
+        refreshData()
+
+        NotificationCenter.default.addObserver(
+                    self,
+                    selector: #selector(handleDataUpdate),
+                    name: .dataUpdated,
+                    object: nil
+                )
     }
 
+    deinit {
+            // Retirez l'observateur à la destruction
+            NotificationCenter.default.removeObserver(self)
+        }
+
     // MARK: - Functions
-    func getLastActivity(of category: ActivityCategory) -> BabyActivity? {
+    private func getLastActivity(of category: ActivityCategory) -> BabyActivity? {
         let activities = dataManager.fetchFilteredActivities(with: [category])
         return activities.first
     }
 
-    var lastSleepActivity: BabyActivity? {
-        getLastActivity(of: .sleep)
+    func refreshData() {
+        lastSleepActivity = getLastActivity(of: .sleep)
+        lastDiaperActivity = getLastActivity(of: .diaper)
+        lastFoodActivity = getLastActivity(of: .food)
+        lastGrowthActivity = getLastActivity(of: .growth)
     }
 
-    var lastDiaperActivity: BabyActivity? {
-        getLastActivity(of: .diaper)
-    }
-
-    var lastFoodActivity: BabyActivity? {
-        getLastActivity(of: .food)
-    }
-
-    var lastGrowthActivity: BabyActivity? {
-        getLastActivity(of: .growth)
-    }
+    @objc private func handleDataUpdate(_ notification: Notification) {
+            refreshData()
+        print("Data updated")
+        }
 }

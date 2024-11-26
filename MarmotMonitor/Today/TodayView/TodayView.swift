@@ -14,14 +14,7 @@ struct TodayView: View {
 
     @Environment(\.colorScheme) var colorScheme
 
-    var manager = TodayViewManager()
-
-    @MainActor
-    init(manager: TodayViewManager? = nil) {
-        if let unwrapManager = manager {
-            self.manager = unwrapManager
-        }
-    }
+    @StateObject var manager = TodayViewManager()
 
     var body: some View {
             ScrollView {
@@ -57,7 +50,7 @@ struct TodayView: View {
 
                                 RowView(activity: manager.lastGrowthActivity, category: .growth)
                                     .padding(.horizontal, 5)
-                                Spacer(minLength: 40)
+                                Spacer(minLength: 50)
                             }
                         }
                         .cornerRadius(30)
@@ -101,6 +94,9 @@ struct TodayView: View {
             }
             .scrollBounceBehavior(.basedOnSize)
             .ignoresSafeArea()
+            .onAppear {
+                manager.refreshData()
+            }
         }
 }
 

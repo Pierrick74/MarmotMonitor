@@ -11,7 +11,9 @@ import Foundation
 class MockActivities {
     // MARK: - Sleep Activities
     let oneSleepBabyActivity = BabyActivity(activity: .sleep(duration: 2400), date: .now)
-    let  sleepBabyActivityBefore = BabyActivity(activity: .sleep(duration: 2400), date: Date(timeIntervalSinceNow: 86400))
+    let  sleepBabyActivityBefore = BabyActivity(activity: .sleep(duration: 2400), date: Date(timeIntervalSinceNow: -86400))
+    let oneSleepBabyActivityDuringOneHourAndHalf = BabyActivity(activity: .sleep(duration: 5400), date: .now)
+    let  sleepBabyActivityBeforeOneHourDuringTwo = BabyActivity(activity: .sleep(duration: 7200), date: Date(timeIntervalSinceNow: -3600))
 
     // MARK: - Diaper Activities
     let oneDiaperBabyActivity = BabyActivity(activity: .diaper(state: .wet), date: .now)
@@ -47,7 +49,7 @@ class MockActivities {
     let oneMinuteActivity = BabyActivity(activity: .bottle(volume: 120), date: Date(timeIntervalSinceNow: -60))
     let twoMinutesActivity = BabyActivity(activity: .bottle(volume: 120), date: Date(timeIntervalSinceNow: -120))
     let oneHourActivity = BabyActivity(activity: .bottle(volume: 120), date: Date(timeIntervalSinceNow: -3600))
-    let oneHourAndAndHalfActivity = BabyActivity(activity: .sleep(duration: 5400), date: Date(timeIntervalSinceNow: -5400))
+    let oneHourAndAndHalfActivity = BabyActivity(activity: .sleep(duration: 3600), date: Date(timeIntervalSinceNow: -5400))
     let twoHoursActivity = BabyActivity(activity: .bottle(volume: 120), date: Date(timeIntervalSinceNow: -7200))
 
     // MARK: - unit Imperials

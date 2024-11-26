@@ -123,7 +123,7 @@ struct RowManagerTest {
         let manager = RowManager(babyActivity: dataMock.oneHourAndAndHalfActivity, category: .sleep)
 
         // 2. then
-        #expect(manager.lastActivity == "Il y a 1 h 30 min")
+        #expect(manager.lastActivity == "Il y a 30 minutes")
     }
 
     // MARK: - Tests information
@@ -135,12 +135,20 @@ struct RowManagerTest {
         #expect(manager.information == "40\nmin")
     }
 
-    @Test mutating func whenInitWithActivitySleepOneHrAndHalf_thenInformationIsDescription() async throws {
+    @Test mutating func whenInitWithActivitySleepOneHr_thenInformationIsDescription() async throws {
         // 1. when
         let manager = RowManager(babyActivity: dataMock.oneHourAndAndHalfActivity, category: .sleep)
 
         // 2. then
-        #expect(manager.information == "1 h\n30 min")
+        #expect(manager.information == "1 h")
+    }
+
+    @Test mutating func whenInitWithActivitySleepOneHrAndHalf_thenInformationIsDescription() async throws {
+        // 1. when
+        let manager = RowManager(babyActivity: dataMock.oneSleepBabyActivityDuringOneHourAndHalf, category: .sleep)
+
+        // 2. then
+        #expect(manager.information == "1 h 30 min")
     }
 
     @Test mutating func whenInitWithActivityDiaper_thenInformationIsDescription() async throws {

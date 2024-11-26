@@ -4,6 +4,15 @@
     "" : {
 
     },
+    "Activité déja présente dans cette horraire" : {
+
+    },
+    "Alerte" : {
+
+    },
+    "Annuler" : {
+
+    },
     "Auj" : {
 
     },
@@ -43,6 +52,9 @@
     "Docteur" : {
 
     },
+    "Fermer" : {
+
+    },
     "Inserer le nom de la petite marmotte ? " : {
       "localizations" : {
         "en" : {
@@ -62,6 +74,9 @@
           }
         }
       }
+    },
+    "insérer les informations pour %@" : {
+
     },
     "Je vais t'aider à créer ton espace personnalisé." : {
       "localizations" : {
@@ -115,6 +130,9 @@
           }
         }
       }
+    },
+    "OK" : {
+
     },
     "Page %@" : {
       "localizations" : {
@@ -175,6 +193,9 @@
     "Réglage" : {
 
     },
+    "Sauvegarder" : {
+
+    },
     "Séléctionné" : {
       "localizations" : {
         "en" : {
@@ -184,6 +205,15 @@
           }
         }
       }
+    },
+    "Sélectionne le sommeil" : {
+
+    },
+    "Sélectionnez l'heure de début" : {
+
+    },
+    "Sélectionnez l'heure de fin" : {
+
     },
     "Suivant" : {
       "localizations" : {
