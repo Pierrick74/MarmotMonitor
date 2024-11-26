@@ -20,36 +20,47 @@ struct AddView: View {
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
             NavigationStack {
                 ZStack {
                     BackgroundColor()
-                    if dynamicTypeSize < .accessibility1 {
-                        ScrollView {
-                            GeometryReader { geo in
-                                LazyVGrid(columns: columns, spacing: 30) {
-                                    ForEach(items) { item in
-                                        NavigationLink(destination: DestinationView(destination: item.destination)) {
-                                            ItemView(item: item, width: geo.size.width)
+
+                    VStack {
+                        if dynamicTypeSize < .accessibility1 {
+                            ScrollView {
+                                GeometryReader { geo in
+                                    LazyVGrid(columns: columns, spacing: 30) {
+                                        ForEach(items) { item in
+                                            NavigationLink(destination: DestinationView(destination: item.destination)) {
+                                                ItemView(item: item, width: geo.size.width)
+                                            }
                                         }
                                     }
+                                    .padding()
                                 }
-                                .padding()
+                                .scrollBounceBehavior(.basedOnSize)
+                                .ignoresSafeArea()
                             }
-                            .scrollBounceBehavior(.basedOnSize)
-                            .ignoresSafeArea()
-                        }
-                    } else {
-                        List(items) { item in
-                            NavigationLink(destination: DestinationView(destination: item.destination)) {
-                                AccessibilityItemView(item: item)
+                        } else {
+                            List(items) { item in
+                                NavigationLink(destination: DestinationView(destination: item.destination)) {
+                                    AccessibilityItemView(item: item)
+                                }
+                                .padding(.vertical, 5)
+                                .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
                             }
-                            .padding(.vertical, 5)
-                            .listRowBackground(Color.clear)
-                            .listRowSeparator(.hidden)
+                            .scrollContentBackground(.hidden)
                         }
-                        .scrollContentBackground(.hidden)
+
+                        Button(action: {
+                            dismiss()
+                        }) {
+                            Text("Fermer")
+                        }
+
                     }
                 }
             }

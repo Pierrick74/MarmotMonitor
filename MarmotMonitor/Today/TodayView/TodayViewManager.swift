@@ -21,18 +21,23 @@ final class TodayViewManager: ObservableObject {
             self.dataManager = dataManager
         }
         refreshData()
+
+        NotificationCenter.default.addObserver(
+                    self,
+                    selector: #selector(handleDataUpdate),
+                    name: .dataUpdated,
+                    object: nil
+                )
     }
+
+    deinit {
+            // Retirez l'observateur à la destruction
+            NotificationCenter.default.removeObserver(self)
+        }
 
     // MARK: - Functions
     private func getLastActivity(of category: ActivityCategory) -> BabyActivity? {
         let activities = dataManager.fetchFilteredActivities(with: [category])
-        if category == .sleep {
-            print(activities.count)
-            for activity in activities {
-                print(activity.date)
-            }
-            print(activities.first?.date as Any)
-    }
         return activities.first
     }
 
@@ -42,4 +47,9 @@ final class TodayViewManager: ObservableObject {
         lastFoodActivity = getLastActivity(of: .food)
         lastGrowthActivity = getLastActivity(of: .growth)
     }
+
+    @objc private func handleDataUpdate(_ notification: Notification) {
+            refreshData()
+        print("Data updated")
+        }
 }

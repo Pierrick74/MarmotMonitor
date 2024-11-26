@@ -14,14 +14,7 @@ struct TodayView: View {
 
     @Environment(\.colorScheme) var colorScheme
 
-    var manager = TodayViewManager()
-
-    @MainActor
-    init(manager: TodayViewManager? = nil) {
-        if let unwrapManager = manager {
-            self.manager = unwrapManager
-        }
-    }
+    @StateObject var manager = TodayViewManager()
 
     var body: some View {
             ScrollView {
@@ -105,7 +98,6 @@ struct TodayView: View {
                 manager.refreshData()
             }
         }
-        
 }
 
 #Preview {

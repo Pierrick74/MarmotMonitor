@@ -28,7 +28,7 @@ final class SleepAddViewManager: ObservableObject {
 
     var accessibilityHintForEndDate: String {
         endDate != nil ?
-        "Heure actuelle : \(startDate!.formatted(date: .abbreviated, time: .shortened))"
+        "Heure actuelle : \(endDate!.formatted(date: .abbreviated, time: .shortened))"
         : "Valeur Non définie"
     }
 
