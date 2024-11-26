@@ -101,7 +101,11 @@ struct TodayView: View {
             }
             .scrollBounceBehavior(.basedOnSize)
             .ignoresSafeArea()
+            .onAppear {
+                manager.refreshData()
+            }
         }
+        
 }
 
 #Preview {

@@ -75,7 +75,7 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
                         selectedActivityTypes.contains(activity.activityCategory)
                     }
 
-            let descriptor = FetchDescriptor<BabyActivity>(predicate: predicate, sortBy: [SortDescriptor(\.date, order: .forward)])
+            let descriptor = FetchDescriptor<BabyActivity>(predicate: predicate, sortBy: [SortDescriptor(\.date, order: .reverse)])
             return try modelContext.fetch(descriptor)
         } catch {
             fatalError(error.localizedDescription)
