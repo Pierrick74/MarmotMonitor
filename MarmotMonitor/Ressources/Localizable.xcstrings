@@ -10,9 +10,6 @@
     "Alerte" : {
 
     },
-    "Annuler" : {
-
-    },
     "Auj" : {
 
     },
@@ -169,6 +166,9 @@
           }
         }
       }
+    },
+    "Quelle est l'état de la couche" : {
+
     },
     "Quelle est le nom de la petite marmotte ? " : {
       "localizations" : {

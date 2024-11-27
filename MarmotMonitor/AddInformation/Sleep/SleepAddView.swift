@@ -57,8 +57,6 @@ struct SleepAddView: View {
                             Spacer()
 
                             SaveButtonView {
-                                dismiss()
-                            } onSave: {
                                 manager.saveSleep()
 
                                 if manager.isSaveError == false {
@@ -105,6 +103,20 @@ struct SleepAddView: View {
                     }
                 } message: {
                     Text("Activité déja présente dans cette horraire")
+                }
+                .overlay(alignment: .topLeading) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.backward")
+                            .font(.body)
+                            .padding(8)
+                            .tint(.primary)
+                            .background(Color.white.opacity(0.7))
+                            .clipShape(Circle())
+                            .padding(.horizontal, 10)
+                            .shadow(radius: 3, x: 3, y: 3)
+                    }
                 }
                 .navigationBarBackButtonHidden(true)
             }

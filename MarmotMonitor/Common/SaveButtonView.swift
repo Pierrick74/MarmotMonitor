@@ -8,30 +8,11 @@
 import SwiftUI
 
 struct SaveButtonView: View {
-    var onCancel: () -> Void
     var onSave: () -> Void
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
     var body: some View {
         HStack(spacing: 10) {
-            Button(action: {
-                onCancel()
-            }, label: {
-                Group {
-                    if dynamicTypeSize >= .accessibility1 {
-                        Image(systemName: "xmark")
-                            .imageScale(.large)
-                    } else {
-                        Text("Annuler")
-                            .font(.system(.body, design: .default))
-                    }
-                }
-            })
-            .buttonStyle(CustomCancelButtonStyle())
-            .frame(maxWidth: UIScreen.main.bounds.width / 3)
-
-            Spacer()
-
             Button(action: {
                 onSave()
             }, label: {
@@ -49,5 +30,5 @@ struct SaveButtonView: View {
 }
 
 #Preview {
-    SaveButtonView(onCancel: {}, onSave: {})
+    SaveButtonView(onSave: {})
 }
