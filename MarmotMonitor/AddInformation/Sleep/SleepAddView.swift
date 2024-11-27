@@ -107,7 +107,7 @@ struct SleepAddView: View {
                 .overlay(alignment: .topLeading) {
                     Button(action: {
                         dismiss()
-                    }) {
+                    }, label: {
                         Image(systemName: "chevron.backward")
                             .font(.body)
                             .padding(8)
@@ -116,7 +116,7 @@ struct SleepAddView: View {
                             .clipShape(Circle())
                             .padding(.horizontal, 10)
                             .shadow(radius: 3, x: 3, y: 3)
-                    }
+                    })
                 }
                 .navigationBarBackButtonHidden(true)
             }
