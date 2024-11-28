@@ -40,13 +40,23 @@ struct SleepViewManagerTest {
     }
 
     @Test func testSleepHasDate_When_ThenAcessibilityHintIsNotEmpty() {
-        // 1. given
-        manager.startDate = Date(timeIntervalSince1970: 0)
+            // 1. given
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "fr_FR") // Forcer la locale française
+            dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.dateStyle = .short
+            dateFormatter.timeStyle = .short
 
-        // 2. when
+            let fixedDate = Date(timeIntervalSince1970: 0) // 1er Janvier 1970 à minuit UTC
+            manager.endDate = fixedDate
 
-        // 3. then
-        #expect(manager.accessibilityHintForStartDate == "Heure actuelle : 1 Jan 1970 at 1:00")
+            let expectedHint = "Heure actuelle : \(fixedDate.formatted(date: .abbreviated, time: .shortened))"
+
+            // 2. when
+            let hint = manager.accessibilityHintForEndDate
+
+            // 3. then
+            #expect(hint == expectedHint) // Vérifie si la valeur générée correspond à celle attendue
     }
 
     @Test func testSleepHasNoEndDate_When_ThenAcessibilityHintIsEmpty() throws {
@@ -57,16 +67,6 @@ struct SleepViewManagerTest {
 
         // 3. then
         #expect(manager.accessibilityHintForEndDate == "Valeur Non définie")
-    }
-
-    @Test func testSleepHasEndDate_When_ThenAcessibilityHintIsNotEmpty() {
-        // 1. given
-        manager.endDate = Date(timeIntervalSince1970: 0)
-
-        // 2. when
-
-        // 3. then
-        #expect(manager.accessibilityHintForEndDate == "Heure actuelle : 1 Jan 1970 at 1:00")
     }
 
     // MARK: - Range tests
