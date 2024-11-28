@@ -65,6 +65,7 @@ struct SleepAddView: View {
                                     showingAlert = true
                                 }
                             }
+                            .allowsHitTesting(manager.isActiveButtonSave)
                         }
                         .padding()
                         .scrollBounceBehavior(.basedOnSize)
@@ -102,7 +103,7 @@ struct SleepAddView: View {
                         showingAlert = false
                     }
                 } message: {
-                    Text("Activité déja présente dans cette horraire")
+                    Text(manager.alertMessage)
                 }
                 .overlay(alignment: .topLeading) {
                     Button(action: {
