@@ -5,13 +5,34 @@
 
     },
     "Alerte" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alert"
+          }
+        }
+      }
     },
     "Auj" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        }
+      }
     },
     "Aujourd'hui" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        }
+      }
     },
     "Bienvenue" : {
       "localizations" : {
@@ -44,10 +65,24 @@
       }
     },
     "Docteur" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doctor"
+          }
+        }
+      }
     },
     "Fermer" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Closed"
+          }
+        }
+      }
     },
     "Inserer le nom de la petite marmotte ? " : {
       "localizations" : {
@@ -70,7 +105,14 @@
       }
     },
     "insérer les informations pour %@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "insert information for %@"
+          }
+        }
+      }
     },
     "Je vais t'aider à créer ton espace personnalisé." : {
       "localizations" : {
@@ -113,10 +155,23 @@
       }
     },
     "Monitor" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monitor"
+          }
+        }
+      }
     },
     "nous sommes le %@ %@" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "we are %1$@ %2$@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
@@ -126,7 +181,14 @@
       }
     },
     "OK" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
     },
     "Page %@" : {
       "localizations" : {
@@ -165,7 +227,14 @@
       }
     },
     "Quelle est l'état de la couche" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What is the condition of the Diaper?"
+          }
+        }
+      }
     },
     "Quelle est le nom de la petite marmotte ? " : {
       "localizations" : {
@@ -188,10 +257,24 @@
       }
     },
     "Réglage" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup"
+          }
+        }
+      }
     },
     "Sauvegarder" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
     },
     "Séléctionné" : {
       "localizations" : {
@@ -204,13 +287,34 @@
       }
     },
     "Sélectionne le sommeil" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select sleep"
+          }
+        }
+      }
     },
     "Sélectionnez l'heure de début" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select start time"
+          }
+        }
+      }
     },
     "Sélectionnez l'heure de fin" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select end time"
+          }
+        }
+      }
     },
     "Suivant" : {
       "localizations" : {
@@ -223,7 +327,14 @@
       }
     },
     "Synthèse de la journée" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Summary of the day"
+          }
+        }
+      }
     },
     "Version 2" : {
 
