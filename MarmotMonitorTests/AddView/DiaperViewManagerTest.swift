@@ -93,6 +93,12 @@ struct DiaperViewManagerTest {
     // MARK: - Accessibility hint tests
     @Test func testDiaperColor_WhenDateisSet_ThenReturnFormattedString() {
         // 1. given
+        let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "fr_FR") // Forcer la locale française
+            dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .short
+
         let date = Date(timeIntervalSince1970: 0)
         manager.date = date
 
