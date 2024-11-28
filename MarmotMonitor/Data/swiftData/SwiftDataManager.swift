@@ -87,51 +87,6 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
         }
     }
 
-//    private func hasSleepActivityOverlapping(_ newActivity: BabyActivity) -> Bool {
-//        var newActivityEndDate = Date()
-//        var newActivityStartDate = Date()
-//
-//        switch newActivity.activity {
-//        case .sleep(let duration):
-//            newActivityEndDate = newActivity.date.addingTimeInterval(duration)
-//            newActivityStartDate = newActivity.date
-//
-//        default:
-//            return false
-//        }
-//
-//        let activities = fetchFilteredActivities(with: [.sleep])
-//        for activity in activities {
-//            switch activity.activity {
-//            case .sleep(let duration):
-//                let endDate = activity.date.addingTimeInterval(duration)
-//                let startDate = activity.date
-//
-//                let isOverlapping = newActivityStartDate <= endDate && newActivityEndDate >= startDate
-//
-//                if isOverlapping {
-//                    return true
-//                }
-//
-//            default:
-//                continue
-//            }
-//        }
-//
-//        return false
-//    }
-//
-//    private func hasDiaperActivityOverlapping(_ newActivity: BabyActivity) -> Bool {
-//        var result = false
-//        let activities = fetchFilteredActivities(with: [.diaper])
-//        for activity in activities {
-//            if areDatesEqualIgnoringSeconds(activity.date, newActivity.date) {
-//                result = true
-//            }
-//        }
-//        return result
-//    }
-
     private func hasActivityOverlapping(_ newActivity: BabyActivity) -> Bool {
 
         let activities = fetchFilteredActivities(with: [newActivity.getCategory()])

@@ -23,17 +23,16 @@ final class TodayViewManager: ObservableObject {
         refreshData()
 
         NotificationCenter.default.addObserver(
-                    self,
-                    selector: #selector(handleDataUpdate),
-                    name: .dataUpdated,
-                    object: nil
-                )
+            self,
+            selector: #selector(handleDataUpdate),
+            name: .dataUpdated,
+            object: nil
+        )
     }
 
     deinit {
-            // Retirez l'observateur à la destruction
-            NotificationCenter.default.removeObserver(self)
-        }
+        NotificationCenter.default.removeObserver(self)
+    }
 
     // MARK: - Functions
     private func getLastActivity(of category: ActivityCategory) -> BabyActivity? {

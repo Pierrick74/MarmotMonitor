@@ -64,10 +64,23 @@ struct TodayStripNameManagerTest {
 
         // 2. when
         storage.babyBirthday = Calendar.current.date(byAdding: .year, value: -2, to: Date()) ?? Date()
-        // = Date correspondant à hier à la même heure
 
         // 3. then
         #expect(manager.babyAge == "2 ans et 0 mois")
     }
 
+    @Test mutating func whenSetBabyAgeOf2year3Month15Days_thenDayIsInPluriel() async throws {
+        // 1. given
+
+        let years = 2 * 12 * 30 * 24 * 60 * 60
+        let months = 3 * 30 * 24 * 60 * 60
+        let days = 15 * 24 * 60 * 60
+        let date = Date(timeIntervalSinceNow: -Double(years + months + days))
+
+        // 2. when
+        storage.babyBirthday = date
+
+        // 3. then
+        #expect(manager.babyAge == "2 ans et 3 mois")
+    }
 }

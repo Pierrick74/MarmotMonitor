@@ -28,6 +28,19 @@ struct DiaperViewManagerTest {
         babyActivity = dataSource.fetchData()
     }
 
+    // MARK: - Diaper range tests
+    @Test func testRange_WhenInit_ThenReturnPastToNow() {
+        // 1. given
+
+        // 2. when
+        let range = manager.range
+
+        // 3. then
+        #expect(range.lowerBound == Date.distantPast)
+        #expect(range.upperBound > Date.now.addingTimeInterval(-11))
+        #expect(range.upperBound < Date.now.addingTimeInterval(11))
+    }
+
     // MARK: - Color tests
     @Test func testDiaperColor_WhenWetAndDirty_ThenReturnMixedColors() throws {
         // 1. given
@@ -154,7 +167,7 @@ struct DiaperViewManagerTest {
         manager.date = Date(timeIntervalSince1970: 0)
         #expect(babyActivity.isEmpty)
         #expect(manager.isSaveError == false)
-        #expect(manager.alertMessage.isEmpty)
+        #expect(manager.alertMessage == "Erreur inconnue")
 
         // 2. when
         manager.saveDiaper()
@@ -173,7 +186,7 @@ struct DiaperViewManagerTest {
         manager.date = Date(timeIntervalSince1970: 0)
         #expect(babyActivity.isEmpty)
         #expect(manager.isSaveError == false)
-        #expect(manager.alertMessage.isEmpty)
+        #expect(manager.alertMessage == "Erreur inconnue")
         manager.saveDiaper()
         updateBabyActivity()
         #expect(babyActivity.count == 1)
@@ -195,7 +208,7 @@ struct DiaperViewManagerTest {
         manager.date = Date(timeIntervalSince1970: 0)
         #expect(babyActivity.isEmpty)
         #expect(manager.isSaveError == false)
-        #expect(manager.alertMessage.isEmpty)
+        #expect(manager.alertMessage == "Erreur inconnue")
         manager.saveDiaper()
         updateBabyActivity()
         #expect(babyActivity.count == 1)
@@ -218,7 +231,7 @@ struct DiaperViewManagerTest {
         manager.date = Date(timeIntervalSince1970: 0)
         #expect(babyActivity.isEmpty)
         #expect(manager.isSaveError == false)
-        #expect(manager.alertMessage.isEmpty)
+        #expect(manager.alertMessage == "Erreur inconnue")
         manager.saveDiaper()
         updateBabyActivity()
         #expect(babyActivity.count == 1)
@@ -231,6 +244,6 @@ struct DiaperViewManagerTest {
         // 3. then
         #expect(babyActivity.count == 2)
         #expect(manager.isSaveError == false)
-        #expect(manager.alertMessage.isEmpty)
+        #expect(manager.alertMessage == "Erreur inconnue")
     }
 }

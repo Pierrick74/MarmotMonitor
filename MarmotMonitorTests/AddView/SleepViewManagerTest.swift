@@ -5,7 +5,6 @@
 //  Created by pierrick viret on 27/11/2024.
 //
 
-
 import Testing
 import SwiftUI
 import SwiftData
@@ -70,7 +69,7 @@ struct SleepViewManagerTest {
         #expect(manager.accessibilityHintForEndDate == "Heure actuelle : 1 Jan 1970 at 1:00")
     }
 
-    // MARK : - Range tests
+    // MARK: - Range tests
     @Test func testEndRange_WhenStartDateIsNil_ThenRangeIsNil() {
         // 1. given
         manager.startDate = nil
@@ -88,13 +87,39 @@ struct SleepViewManagerTest {
         // 2. when
 
         // 3. then
-        #expect(manager.endRange == Date(timeIntervalSince1970: 0)...Date.distantFuture)
+        let startDateRange = Date(timeIntervalSince1970: 0).addingTimeInterval(60)
+        #expect(manager.endRange == startDateRange...Date.distantFuture)
     }
 
+    @Test func testStartRange_WhenEndDateIsNotSet_ThenRangeIsCorrect() {
+        // 1. given
+        manager.endDate = nil
+
+        // 2. when
+
+        // 3. then
+        let startRange = manager.startRange
+        #expect(startRange.lowerBound == Date.distantPast)
+        #expect(startRange.upperBound > Date.now.addingTimeInterval(-11))
+        #expect(startRange.upperBound < Date.now.addingTimeInterval(11))
+    }
+
+    @Test func testStartRange_WhenEndDateIstSet_ThenRangeIsCorrect() {
+        // 1. given
+        let date = Date(timeIntervalSince1970: 0)
+        manager.endDate = date
+
+        // 2. when
+
+        // 3. then
+        let startRange = manager.startRange
+        #expect(startRange.lowerBound == Date.distantPast)
+        #expect(startRange.upperBound == date.addingTimeInterval(-60))
+    }
     // MARK: - Save Sleep tests
     @Test mutating func testManagerHaveSleep_WhenSleepIsSave_ThenDataIsSave() {
         // 1. given
-        manager.endDate = Date(timeIntervalSince1970: 0)
+        manager.endDate = Date(timeIntervalSince1970: 120)
         manager.startDate = Date(timeIntervalSince1970: 0)
         #expect(babyActivity.isEmpty)
 
@@ -168,11 +193,12 @@ struct SleepViewManagerTest {
         // 3. then
         #expect(babyActivity.isEmpty)
         #expect(manager.isSaveError == true)
+        #expect(manager.alertMessage == "Veuillez sélectionner une date de début et de fin")
     }
 
     @Test mutating func testManagerHaveData_WhenSleepIsSaveInSameTime_ThenDataIsNotSave() {
         // 1. given
-        manager.endDate = Date(timeIntervalSince1970: 0)
+        manager.endDate = Date(timeIntervalSince1970: 120)
         manager.startDate = Date(timeIntervalSince1970: 0)
         manager.saveSleep()
         updateBabyActivity()
@@ -185,5 +211,6 @@ struct SleepViewManagerTest {
         // 3. then
         #expect(babyActivity.count == 1)
         #expect(manager.isSaveError == true)
+        #expect(manager.alertMessage == "Activité Sommeil déja présente dans cette plage horraire")
     }
 }
