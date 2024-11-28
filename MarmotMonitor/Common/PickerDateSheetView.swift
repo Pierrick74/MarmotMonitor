@@ -37,10 +37,7 @@ struct PickerDateSheetView: View {
                         .labelsHidden()
                         .padding(.bottom, 20)
 
-                    SaveButtonView(onCancel: {
-                        isPresented = false
-                    },
-                    onSave: {
+                    SaveButtonView(onSave: {
                         selectedDate = temporaryDate
                         isPresented = false
                     })

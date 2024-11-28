@@ -25,12 +25,10 @@ final class TodayStripNameManager: ObservableObject {
     var babyAge: String {
         let components = Calendar.current.dateComponents([.year, .month, .day], from: storageManager.babyBirthday, to: .now)
 
-        // Extraire les années et mois, avec des valeurs par défaut de 0 si elles sont nulles
         let years = components.year ?? 0
         let months = components.month ?? 0
         let day = components.day ?? 0
 
-        // Gérer les pluriels
         let yearsText = years > 1 ? "ans" : "an"
         let dayText = day > 1 ? "jours" : "jour"
 

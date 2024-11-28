@@ -57,8 +57,6 @@ struct SleepAddView: View {
                             Spacer()
 
                             SaveButtonView {
-                                dismiss()
-                            } onSave: {
                                 manager.saveSleep()
 
                                 if manager.isSaveError == false {
@@ -67,6 +65,7 @@ struct SleepAddView: View {
                                     showingAlert = true
                                 }
                             }
+                            .allowsHitTesting(manager.isActiveButtonSave)
                         }
                         .padding()
                         .scrollBounceBehavior(.basedOnSize)
@@ -104,7 +103,21 @@ struct SleepAddView: View {
                         showingAlert = false
                     }
                 } message: {
-                    Text("Activité déja présente dans cette horraire")
+                    Text(manager.alertMessage)
+                }
+                .overlay(alignment: .topLeading) {
+                    Button(action: {
+                        dismiss()
+                    }, label: {
+                        Image(systemName: "chevron.backward")
+                            .font(.body)
+                            .padding(8)
+                            .tint(.primary)
+                            .background(Color.white.opacity(0.7))
+                            .clipShape(Circle())
+                            .padding(.horizontal, 10)
+                            .shadow(radius: 3, x: 3, y: 3)
+                    })
                 }
                 .navigationBarBackButtonHidden(true)
             }

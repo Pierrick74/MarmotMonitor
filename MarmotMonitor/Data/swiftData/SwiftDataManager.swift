@@ -39,16 +39,12 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
     }
 
     func addActivity(_ activity: BabyActivity) throws {
-        switch activity.activity {
-        case .sleep:
-            if hasSleepActivityOverlapping(activity) {
-                throw ActivityError.overlappingActivity
-            }
-        default:
-            break
+        if hasActivityOverlapping(activity) {
+            throw ActivityError.overlappingActivity
+        } else {
+            modelContext.insert(activity)
+            save()
         }
-        modelContext.insert(activity)
-        save()
     }
 
     func deleteActivity(activity: BabyActivity) {
@@ -91,29 +87,26 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
         }
     }
 
-    private func hasSleepActivityOverlapping(_ newActivity: BabyActivity) -> Bool {
-        var newActivityEndDate = Date()
-        var newActivityStartDate = Date()
+    private func hasActivityOverlapping(_ newActivity: BabyActivity) -> Bool {
 
-        switch newActivity.activity {
-        case .sleep(let duration):
-            newActivityEndDate = newActivity.date.addingTimeInterval(duration)
-            newActivityStartDate = newActivity.date
+        let activities = fetchFilteredActivities(with: [newActivity.getCategory()])
 
-        default:
-            return false
-        }
-
-        let activities = fetchFilteredActivities(with: [.sleep])
         for activity in activities {
-            switch activity.activity {
-            case .sleep(let duration):
-                let endDate = activity.date.addingTimeInterval(duration)
-                let startDate = activity.date
+            switch (newActivity.activity, activity.activity) {
+            case (.sleep(let newDuration), .sleep(let existingDuration)):
 
-                let isOverlapping = newActivityStartDate <= endDate && newActivityEndDate >= startDate
+                let newStart = newActivity.date
+                let newEnd = newActivity.date.addingTimeInterval(newDuration)
+                let existingStart = activity.date
+                let existingEnd = activity.date.addingTimeInterval(existingDuration)
 
-                if isOverlapping {
+                if newStart <= existingEnd && newEnd >= existingStart {
+                    return true
+                }
+
+            case (.diaper, .diaper):
+
+                if areDatesEqualIgnoringSeconds(newActivity.date, activity.date) {
                     return true
                 }
 
@@ -123,5 +116,17 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
         }
 
         return false
+    }
+}
+
+// MARK: - Date extension
+extension SwiftDataManager {
+    func areDatesEqualIgnoringSeconds(_ date1: Date, _ date2: Date) -> Bool {
+        let calendar = Calendar.current
+
+        let components1 = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date1)
+        let components2 = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date2)
+
+        return components1 == components2
     }
 }

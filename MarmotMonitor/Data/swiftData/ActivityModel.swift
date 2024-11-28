@@ -35,6 +35,21 @@ class BabyActivity {
         self.activityColor = activity.color
         self.activityImageName = activity.imageName
     }
+
+    func getCategory() -> ActivityCategory {
+        switch activityCategory {
+        case "Sommeil":
+            return ActivityCategory.sleep
+        case "Couche":
+            return ActivityCategory.diaper
+        case "Repas":
+            return ActivityCategory.food
+        case "Croissance":
+            return ActivityCategory.growth
+        default:
+            return ActivityCategory.food
+        }
+    }
 }
 
 // MARK: - ENUM
