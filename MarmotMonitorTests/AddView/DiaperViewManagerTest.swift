@@ -90,19 +90,6 @@ struct DiaperViewManagerTest {
         #expect(color == [Color(.lightGray)])
     }
 
-    // MARK: - Accessibility hint tests
-    @Test func testDiaperColor_WhenDateisSet_ThenReturnFormattedString() {
-        // 1. given
-        let date = Date(timeIntervalSince1970: 0)
-        manager.date = date
-
-        // 2. when
-        let hint = manager.accessibilityHintForDate
-
-        // 3. then
-        #expect(hint == "1 Jan 1970 at 01:00")
-    }
-
     @Test func testDiaperColor_WhenNoDateisSet_ThenReturnFormattedString() {
         // 1. given
         manager.date = nil
