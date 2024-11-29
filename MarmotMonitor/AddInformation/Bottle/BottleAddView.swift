@@ -64,7 +64,14 @@ struct BottleAddView: View {
 
                                     Spacer()
 
-                                    SaveButtonView(onSave: {})
+                                    SaveButtonView {
+                                        manager.saveBottle()
+                                        if manager.isSaveError == false {
+                                            dismiss()
+                                        } else {
+                                            showingAlert = true
+                                        }
+                                    }
                                 }
                             }
                             .compositingGroup()

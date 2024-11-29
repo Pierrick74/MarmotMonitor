@@ -40,18 +40,22 @@ final class BottleAddViewManager: ObservableObject {
     func setPercent(_ amount: Double) {
         self.percent = amount
     }
-//
-//    func saveBottle() {
-//        let bottle = BabyActivity(activity: .bottle, volume: percent * 3.6, date: Date())
-//
-//        do {
-//            try dataManager.addActivity(babyActivity)
-//        } catch let error as LocalizedError {
-//            isSaveError = true
-//            alertMessage = "\(error.errorDescription ?? "Une erreur inconnue s'est produite.")"
-//        } catch {
-//            isSaveError = true
-//            alertMessage = "Une erreur inattendue s'est produite : \(error)"
-//        }
-//    }
+
+    func saveBottle() {
+        isSaveError = false
+        let activityDate = date ?? .now
+        let volume = percent * 3.6
+        let unit: MeasurementSystem = storageManager.isMetricUnit ? .metric : .imperial
+        let bottle = BabyActivity(activity: .bottle(volume: volume, measurementSystem: unit), date: activityDate)
+
+        do {
+            try dataManager.addActivity(bottle)
+        } catch let error as LocalizedError {
+            isSaveError = true
+            alertMessage = "\(error.errorDescription ?? "Une erreur inconnue s'est produite.")"
+        } catch {
+            isSaveError = true
+            alertMessage = "Une erreur inattendue s'est produite : \(error)"
+        }
+    }
 }
