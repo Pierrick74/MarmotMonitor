@@ -14,6 +14,7 @@ protocol AppStorageManagerProtocol {
     var parentName: String { get set }
     var gender: String { get set }
     var babyBirthday: Date { get set }
+    var isMetricUnit: Bool { get set }
 }
 
 // MARK: - AppStorageManager
@@ -25,6 +26,7 @@ final class AppStorageManager: AppStorageManagerProtocol {
         case parentName
         case gender
         case babyBirthday
+        case isMetricUnit
     }
 
     @AppStorage(AppStorageKeys.gender.rawValue) var gender: String = GenderType.boy.rawValue
@@ -32,6 +34,7 @@ final class AppStorageManager: AppStorageManagerProtocol {
     @AppStorage(AppStorageKeys.parentName.rawValue) var parentName: String = ""
     @AppStorage(AppStorageKeys.isOnBoardingFinished.rawValue) var isOnBoardingFinished: Bool = false
     @AppStorage(AppStorageKeys.babyBirthday.rawValue) var babyBirthday: Date = Date()
+    @AppStorage(AppStorageKeys.isMetricUnit.rawValue) var isMetricUnit: Bool = true
 
     static let shared = AppStorageManager()
 }
@@ -44,6 +47,7 @@ class MockAppStorageManager: AppStorageManagerProtocol {
     var parentName: String = "Pierrick"
     var gender: String = "girl"
     var babyBirthday: Date = Date()
+    var isMetricUnit: Bool = true
 }
 
 class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
@@ -52,4 +56,5 @@ class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
     var parentName: String = "Pierrick"
     var gender: String = "girl"
     var babyBirthday: Date = Date.init(timeIntervalSinceNow: -8952485962)
+    var isMetricUnit: Bool = true
 }
