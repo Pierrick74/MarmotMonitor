@@ -43,6 +43,13 @@ final class BottleAddViewManager: ObservableObject {
 
     func saveBottle() {
         isSaveError = false
+
+        guard percent > 0 else {
+            isSaveError = true
+            alertMessage = "Veuillez sélectionner un volume"
+            return
+        }
+
         let activityDate = date ?? .now
         let volume = percent * 3.6
         let unit: MeasurementSystem = storageManager.isMetricUnit ? .metric : .imperial
