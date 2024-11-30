@@ -15,9 +15,11 @@ final class BottleAddViewManager: ObservableObject {
     @Published var percent: Double = 20.0 {
         didSet {
             self.volume = "\(Int(percent * 3.6))" + (storageManager.isMetricUnit ? " ml" : " oz")
+            self.heightIndicator = percent * 3
         }
     }
 
+    @Published var heightIndicator: Double
     @Published var volume: String
     @Published var isSaveError = false
     @Published var alertMessage = "Erreur inconnue"
@@ -34,6 +36,7 @@ final class BottleAddViewManager: ObservableObject {
         }
         self.storageManager = storageManager
         volume = "72" + (storageManager.isMetricUnit ? " ml" : " oz")
+        heightIndicator = 60
     }
 
     // MARK: - Functions

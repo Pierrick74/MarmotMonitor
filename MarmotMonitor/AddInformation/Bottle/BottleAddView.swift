@@ -32,12 +32,6 @@ struct BottleAddView: View {
 
                             WaveAnimation(percent: $manager.percent)
                                 .frame(height: geo.size.height * 0.45)
-                                .overlay {
-                                    Text(manager.volume)
-                                        .font(.title)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.black)
-                                }
 
                             Rectangle()
                                 .frame(height: geo.size.height * 0.25)
@@ -49,10 +43,14 @@ struct BottleAddView: View {
 
                                 VStack {
                                     Spacer()
-                                    Image(decorative: "biberonForFill")
-                                        .resizable()
-                                        .frame(width: 200, height: geo.size.height * 0.7)
-                                        .blendMode(.destinationOut)
+                                    HStack {
+                                        Image(decorative: "biberonForFill")
+                                            .resizable()
+                                            .frame(width: 200, height: geo.size.height * 0.7)
+                                            .blendMode(.destinationOut)
+
+                                        BottleIndicator(height: manager.heightIndicator, texte: manager.volume)
+                                    }
 
                                     DateSelectionView(
                                         title: "Heure du change",
@@ -72,6 +70,7 @@ struct BottleAddView: View {
                                             showingAlert = true
                                         }
                                     }
+                                    .padding(.top, 20)
                                 }
                             }
                             .compositingGroup()
