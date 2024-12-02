@@ -11,19 +11,25 @@ import SwiftUI
 final class BottleAddViewManager: ObservableObject {
     private var dataManager: SwiftDataManagerProtocol = SwiftDataManager.shared
     private var storageManager: AppStorageManagerProtocol
+    private let maxVolume: Double = 360
 
     @Published var percent: Double = 20.0 {
         didSet {
-            self.volume = "\(Int(percent * 3.6))" + (storageManager.isMetricUnit ? " ml" : " oz")
+            self.volume = Int(percent * (maxVolume / 100))
             self.heightIndicator = percent * 3
         }
     }
 
     @Published var heightIndicator: Double
-    @Published var volume: String
+    @Published var volume: Int {
+        didSet {
+            self.volumeInformation = "\(Int(volume))" + (storageManager.isMetricUnit ? " ml" : " oz")
+        }
+    }
     @Published var isSaveError = false
     @Published var alertMessage = "Erreur inconnue"
     @Published var date: Date?
+    @Published var volumeInformation: String
 
     var range: ClosedRange<Date> {
         Date.distantPast...Date.now
@@ -35,8 +41,9 @@ final class BottleAddViewManager: ObservableObject {
             self.dataManager = dataManager
         }
         self.storageManager = storageManager
-        volume = "72" + (storageManager.isMetricUnit ? " ml" : " oz")
+        volume = 70
         heightIndicator = 60
+        volumeInformation = "\(70)" + (storageManager.isMetricUnit ? " ml" : " oz")
     }
 
     // MARK: - Functions
@@ -54,9 +61,9 @@ final class BottleAddViewManager: ObservableObject {
         }
 
         let activityDate = date ?? .now
-        let volume = percent * 3.6
+
         let unit: MeasurementSystem = storageManager.isMetricUnit ? .metric : .imperial
-        let bottle = BabyActivity(activity: .bottle(volume: volume, measurementSystem: unit), date: activityDate)
+        let bottle = BabyActivity(activity: .bottle(volume: Double(volume), measurementSystem: unit), date: activityDate)
 
         do {
             try dataManager.addActivity(bottle)
@@ -67,5 +74,15 @@ final class BottleAddViewManager: ObservableObject {
             isSaveError = true
             alertMessage = "Une erreur inattendue s'est produite : \(error)"
         }
+    }
+
+    func incrementVolume() {
+        print(volume)
+        volume = min(volume + 10, Int(maxVolume))
+        print(volume)
+    }
+
+    func decrementVolume() {
+        volume = max(volume - 10, 0)
     }
 }

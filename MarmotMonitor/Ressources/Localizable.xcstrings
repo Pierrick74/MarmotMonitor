@@ -4,7 +4,7 @@
     "" : {
 
     },
-    "72 ml" : {
+    "Ajouter 10 ml" : {
 
     },
     "Alerte" : {
@@ -268,6 +268,9 @@
           }
         }
       }
+    },
+    "Retirer 10 ml" : {
+
     },
     "Sauvegarder" : {
       "localizations" : {

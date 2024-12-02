@@ -43,13 +43,20 @@ struct BottleAddView: View {
 
                                 VStack {
                                     Spacer()
-                                    HStack {
-                                        Image(decorative: "biberonForFill")
-                                            .resizable()
-                                            .frame(width: 200, height: geo.size.height * 0.7)
-                                            .blendMode(.destinationOut)
+                                    if dynamicTypeSize < .accessibility1 {
+                                        HStack {
+                                            Image(decorative: "biberonForFill")
+                                                .resizable()
+                                                .frame(width: 200, height: geo.size.height * 0.7)
+                                                .blendMode(.destinationOut)
 
-                                        BottleIndicator(height: manager.heightIndicator, texte: manager.volume)
+                                            BottleIndicator(height: manager.heightIndicator, texte: manager.volumeInformation)
+                                        }
+                                    } else {
+                                        AccessibilityBottle(volume: $manager.volume,
+                                                            actionPlus: manager.incrementVolume,
+                                                            actionMinus: manager.decrementVolume)
+                                            .padding()
                                     }
 
                                     DateSelectionView(
@@ -77,12 +84,14 @@ struct BottleAddView: View {
                         }
                         .shadow(radius: 20, x: 5, y: 5)
 
-                        VStack {
-                            Rectangle()
-                                .opacity(0.00001)
-                                .frame(width: geo.size.width, height: geo.size.height * 0.75)
-                                .gesture(dragGesture)
-                            Spacer()
+                        if dynamicTypeSize < .accessibility1 {
+                            VStack {
+                                Rectangle()
+                                    .opacity(0.00001)
+                                    .frame(width: geo.size.width, height: geo.size.height * 0.75)
+                                    .gesture(dragGesture)
+                                Spacer()
+                            }
                         }
                     }
                 }
@@ -90,7 +99,7 @@ struct BottleAddView: View {
         }
         .sheet(isPresented: $isEndPickerPresented) {
             PickerDateSheetView(
-                title: "Select End Time",
+                title: "Selectionnez l'heure du biberon",
                 selectedDate: $manager.date,
                 isPresented: $isEndPickerPresented,
                 range: manager.range
