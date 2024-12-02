@@ -94,7 +94,6 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
         for activity in activities {
             switch (newActivity.activity, activity.activity) {
             case (.sleep(let newDuration), .sleep(let existingDuration)):
-
                 let newStart = newActivity.date
                 let newEnd = newActivity.date.addingTimeInterval(newDuration)
                 let existingStart = activity.date
@@ -105,7 +104,11 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
                 }
 
             case (.diaper, .diaper):
+                if areDatesEqualIgnoringSeconds(newActivity.date, activity.date) {
+                    return true
+                }
 
+            case (.bottle, .bottle):
                 if areDatesEqualIgnoringSeconds(newActivity.date, activity.date) {
                     return true
                 }
