@@ -59,12 +59,12 @@ struct BottleViewAddManagerTest {
     @Test func test_WhenSetPercent_ThenVolumeIsModifie() {
         // 1. given
 
-        let oldVolume = manager.volume
+        let oldVolume = manager.volumeInformation
         // 2. when
         manager.setPercent(50)
 
         // 3. then
-        let newVolume = manager.volume
+        let newVolume = manager.volumeInformation
         #expect(oldVolume != newVolume)
         #expect(newVolume == "180 ml")
     }
@@ -72,12 +72,12 @@ struct BottleViewAddManagerTest {
     @Test mutating func testInImperialUnit_WhenSetPercent_ThenVolumeIsModifie() {
         // 1. given
         manager = BottleAddViewManager(dataManager: dataSource, storageManager: MockAppStorageManagerInImperial())
-        let oldVolume = manager.volume
+        let oldVolume = manager.volumeInformation
         // 2. when
         manager.setPercent(50)
 
         // 3. then
-        let newVolume = manager.volume
+        let newVolume = manager.volumeInformation
         #expect(oldVolume != newVolume)
         #expect(newVolume == "180 oz")
     }
@@ -168,4 +168,55 @@ struct BottleViewAddManagerTest {
         #expect(manager.isSaveError == true)
     }
 
+    // MARK: - Bottle increase tests
+    @Test mutating func test_WhenIncrease_ThenVolumeIsIncrease() {
+        // 1. given
+        let oldVolume = manager.volume
+
+        // 2. when
+        manager.incrementVolume()
+
+        // 3. then
+        let newVolume = manager.volume
+        #expect(oldVolume != newVolume)
+        #expect(newVolume == oldVolume + 10)
+    }
+
+    @Test mutating func testVolumeIsMaxVolume_WhenIncrease_ThenVolumeIsMax() {
+        // 1. given
+        manager.volume = 360
+
+        // 2. when
+        manager.incrementVolume()
+
+        // 3. then
+        let newVolume = manager.volume
+        #expect(newVolume == 360)
+    }
+
+    // MARK: - Bottle decrement tests
+    @Test mutating func test_WhenDecrease_ThenVolumeIsDecrease() {
+        // 1. given
+        let oldVolume = manager.volume
+
+        // 2. when
+        manager.decrementVolume()
+
+        // 3. then
+        let newVolume = manager.volume
+        #expect(oldVolume != newVolume)
+        #expect(newVolume == oldVolume - 10)
+    }
+
+    @Test mutating func testVolumeIsMaxVolume_WhenDecrease_ThenVolumeIsMin() {
+        // 1. given
+        manager.volume = 0
+
+        // 2. when
+        manager.decrementVolume()
+
+        // 3. then
+        let newVolume = manager.volume
+        #expect(newVolume == 0)
+    }
 }

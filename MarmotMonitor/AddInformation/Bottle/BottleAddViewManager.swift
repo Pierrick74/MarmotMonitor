@@ -77,9 +77,7 @@ final class BottleAddViewManager: ObservableObject {
     }
 
     func incrementVolume() {
-        print(volume)
         volume = min(volume + 10, Int(maxVolume))
-        print(volume)
     }
 
     func decrementVolume() {
