@@ -17,12 +17,8 @@ struct DestinationView: View {
                 SleepAddView()
             case .couche:
                 DiaperAddView()
-            case .biberon:
-                BottleAddView()
             case .repas:
-                SleepAddView()
-            case .allaitement:
-                SleepAddView()
+                BottleAddView()
             case .croissance:
                 SleepAddView()
             }

@@ -10,7 +10,9 @@ import SwiftUI
 struct MainTabView: View {
     private let gender = AppStorageManager.shared.gender
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Namespace private var namespace
+    @State private var isPresented: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -45,8 +47,9 @@ struct MainTabView: View {
             }
             .overlay(VStack {
                 Spacer()
-                NavigationLink(destination: AddView()
-                    .navigationTransition(.zoom(sourceID: "zoom", in: namespace))) {
+//                NavigationLink(destination: AddView()
+//                    .navigationTransition(.zoom(sourceID: "zoom", in: namespace))) {
+                Button(action: { isPresented.toggle() }) {
                     Image(systemName: "plus.circle")
                         .foregroundColor(.white)
                         .font(.system(size: 50))
@@ -62,6 +65,13 @@ struct MainTabView: View {
                 }
             }
             )
+            .sheet(isPresented: $isPresented) {
+                AddView()
+                    .navigationTransition(.zoom(sourceID: "zoom", in: namespace))
+                .presentationCornerRadius(30)
+//                .presentationDetents(dynamicTypeSize < .accessibility1 ? [.medium] : [.large])
+                .environment(\.dynamicTypeSize, dynamicTypeSize)
+            }
         }
     }
 }

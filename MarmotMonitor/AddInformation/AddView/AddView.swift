@@ -11,9 +11,7 @@ struct AddView: View {
     let items: [GridItemData] = [
         GridItemData(icon: "Sommeil", text: "Sommeil", color: .sommeil, destination: .sommeil),
         GridItemData(icon: "Couche", text: "Couche", color: .couche, destination: .couche),
-        GridItemData(icon: "Repas", text: "Biberon", color: .repas, destination: .biberon),
-        GridItemData(icon: "cuillere", text: "Repas", color: .repas, destination: .repas),
-        GridItemData(icon: "allaitement", text: "Allaitement", color: .repas, destination: .allaitement),
+        GridItemData(icon: "Repas", text: "Lait", color: .repas, destination: .repas),
         GridItemData(icon: "Croissance", text: "Croissance", color: .croissance, destination: .croissance)
     ]
 
@@ -23,50 +21,57 @@ struct AddView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-            NavigationStack {
-                ZStack {
-                    BackgroundColor()
+        NavigationStack {
+            ZStack {
+                BackgroundColor()
 
-                    VStack {
-                        if dynamicTypeSize < .accessibility1 {
-                            ScrollView {
-                                GeometryReader { geo in
-                                    LazyVGrid(columns: columns, spacing: 30) {
-                                        ForEach(items) { item in
-                                            NavigationLink(destination: DestinationView(destination: item.destination)) {
-                                                ItemView(item: item, width: geo.size.width)
-                                            }
+                VStack(alignment: .center) {
+                    Text("Ajouter une activité")
+                        .font(.title)
+                        .foregroundColor(.primary)
+                    if dynamicTypeSize < .accessibility1 {
+                        Image("folder")
+                            .resizable()
+                            .scaledToFit()
+                    }
+
+                    if dynamicTypeSize < .accessibility1 {
+                        ScrollView {
+                            GeometryReader { geo in
+                                LazyVGrid(columns: columns, spacing: 32) {
+                                    ForEach(items) { item in
+                                        NavigationLink(destination: DestinationView(destination: item.destination)) {
+                                            ItemView(item: item, width: geo.size.width)
                                         }
                                     }
-                                    .padding()
                                 }
-                                .scrollBounceBehavior(.basedOnSize)
-                                .ignoresSafeArea()
+                                .padding()
                             }
-                        } else {
-                            List(items) { item in
-                                NavigationLink(destination: DestinationView(destination: item.destination)) {
-                                    AccessibilityItemView(item: item)
-                                }
-                                .padding(.vertical, 5)
-                                .listRowBackground(Color.clear)
-                                .listRowSeparator(.hidden)
+                            .scrollBounceBehavior(.basedOnSize)
+                            .ignoresSafeArea()
+                        }
+                    } else {
+                        List(items) { item in
+                            NavigationLink(destination: DestinationView(destination: item.destination)) {
+                                AccessibilityItemView(item: item)
                             }
-                            .scrollContentBackground(.hidden)
+                            .padding(.vertical, 5)
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
                         }
-
-                        Button(action: {
-                            dismiss()
-                        }, label: {
-                            Text("Fermer")
-                        }
-                        )
-
+                        .scrollContentBackground(.hidden)
                     }
                 }
+                .padding()
+            }
+        }
+        .overlay(alignment: .topLeading) {
+            BackButton {
+                dismiss()
             }
         }
     }
+}
 
 struct GridItemData: Identifiable, Hashable {
     let id = UUID()
@@ -79,9 +84,7 @@ struct GridItemData: Identifiable, Hashable {
 enum ItemDestination: Hashable {
     case sommeil
     case couche
-    case biberon
     case repas
-    case allaitement
     case croissance
 }
 

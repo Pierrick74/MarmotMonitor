@@ -7,6 +7,9 @@
     "Ajouter 10 ml" : {
 
     },
+    "Ajouter une activité" : {
+
+    },
     "Alerte" : {
       "localizations" : {
         "en" : {
@@ -78,6 +81,7 @@
       }
     },
     "Fermer" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

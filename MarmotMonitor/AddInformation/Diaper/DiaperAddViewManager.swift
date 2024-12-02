@@ -45,6 +45,7 @@ final class DiaperAddViewManager: ObservableObject {
     }
 
     func saveDiaper() {
+        isSaveError = false
         guard let state = getDiaperState()
         else {
             isSaveError = true
