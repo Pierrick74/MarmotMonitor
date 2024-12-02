@@ -11,13 +11,21 @@ struct BackgroundColor: View {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        RadialGradient(
-            gradient: Gradient(colors: [manager.gender == GenderType.boy.rawValue ?  .pastelBlueToEgiptienBlue : .pinkToEgiptienBlue,
-                                        .whiteToEgiptienBlue]),
-            center: .top,
-            startRadius: 0,
-            endRadius: 450
-        )
+//        RadialGradient(
+//            gradient: Gradient(colors: [manager.gender == GenderType.boy.rawValue ?  .pastelBlueToEgiptienBlue : .pinkToEgiptienBlue,
+//                                        .whiteToEgiptienBlue]),
+//            center: .top,
+//            startRadius: 0,
+//            endRadius: 450
+//        )
+//        .edgesIgnoringSafeArea(.all)
+
+        LinearGradient(
+            gradient: Gradient(colors:
+                                [manager.gender == GenderType.boy.rawValue ?  .pastelBlueToEgiptienBlue : .pinkToEgiptienBlue,
+                                    .whiteToEgiptienBlue]),
+                          startPoint: .top,
+                            endPoint: .bottom)
         .edgesIgnoringSafeArea(.all)
     }
 }

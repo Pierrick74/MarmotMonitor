@@ -20,6 +20,9 @@
         }
       }
     },
+    "Allaitement" : {
+
+    },
     "Auj" : {
       "localizations" : {
         "en" : {
@@ -39,6 +42,9 @@
           }
         }
       }
+    },
+    "Biberon" : {
+
     },
     "Bienvenue" : {
       "localizations" : {

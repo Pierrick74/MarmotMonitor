@@ -108,11 +108,6 @@ struct BottleAddView: View {
             .environment(\.dynamicTypeSize, dynamicTypeSize)
             .presentationCornerRadius(30)
         }
-        .overlay(alignment: .topLeading) {
-            BackButton {
-                dismiss()
-            }
-        }
         .alert(
             "Alerte",
             isPresented: $showingAlert

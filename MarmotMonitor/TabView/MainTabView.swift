@@ -49,7 +49,8 @@ struct MainTabView: View {
                 Spacer()
 //                NavigationLink(destination: AddView()
 //                    .navigationTransition(.zoom(sourceID: "zoom", in: namespace))) {
-                Button(action: { isPresented.toggle() }) {
+                Button(action: { isPresented.toggle() },
+                       label: {
                     Image(systemName: "plus.circle")
                         .foregroundColor(.white)
                         .font(.system(size: 50))
@@ -62,7 +63,7 @@ struct MainTabView: View {
                         .background(Circle().fill(colorScheme == .dark ? Color.black : Color.white))
                         .padding(10)
                         .matchedTransitionSource(id: "zoom", in: namespace)
-                }
+                })
             }
             )
             .sheet(isPresented: $isPresented) {
