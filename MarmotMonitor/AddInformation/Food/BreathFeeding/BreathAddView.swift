@@ -41,30 +41,59 @@ struct BreathAddView: View {
                             .frame(height: 50)
                             .foregroundColor(.clear)
 
-                        HStack {
-                            VStack {
-                                TimerView(timer: manager.timerG, color: .pastelBlueToEgiptienBlue, title: "Gauche")
-                                    .padding(.horizontal, 10)
+                        if dynamicTypeSize < .accessibility1 {
+                            HStack {
+                                VStack {
+                                    TimerView(timer: manager.timerG, color: .pastelBlueToEgiptienBlue, title: "Gauche")
+                                        .padding(.horizontal, 10)
+                                        .environment(\.dynamicTypeSize, dynamicTypeSize)
 
-                                Button (action: { isLeftManuallySet = true
-                                }, label: {
-                                    Text("saisir manuellement")
-                                })
-                                .buttonStyle(.bordered)
-                                .foregroundColor(.primary)
+                                    Button(action: { isLeftManuallySet = true
+                                    }, label: {
+                                        Text("saisir manuellement")
+                                    })
+                                    .buttonStyle(.bordered)
+                                    .foregroundColor(.primary)
+                                }
+                                VStack {
+                                    TimerView(timer: manager.timerD, color: .pastelBlueToEgiptienBlue, title: "Droite")
+                                        .padding(.horizontal, 10)
+                                    Button(action: { isRightManuallySet = true
+                                    }, label: {
+                                        Text("saisir manuellement")
+                                    })
+                                    .buttonStyle(.bordered)
+                                    .foregroundColor(.primary)
+                                }
                             }
+                            .padding(.bottom)
+                        } else {
                             VStack {
-                                TimerView(timer: manager.timerD, color: .pastelBlueToEgiptienBlue, title: "Droite")
-                                    .padding(.horizontal, 10)
-                                Button (action: { isRightManuallySet = true
-                                }, label: {
-                                    Text("saisir manuellement")
-                                })
-                                .buttonStyle(.bordered)
-                                .foregroundColor(.primary)
+                                VStack {
+                                    TimerView(timer: manager.timerG, color: .pastelBlueToEgiptienBlue, title: "Gauche")
+                                        .padding(.horizontal, 10)
+                                        .environment(\.dynamicTypeSize, dynamicTypeSize)
+
+                                    Button(action: { isLeftManuallySet = true
+                                    }, label: {
+                                        Text("saisir manuellement")
+                                    })
+                                    .buttonStyle(.bordered)
+                                    .foregroundColor(.primary)
+                                }
+                                VStack {
+                                    TimerView(timer: manager.timerD, color: .pastelBlueToEgiptienBlue, title: "Droite")
+                                        .padding(.horizontal, 10)
+                                    Button(action: { isRightManuallySet = true
+                                    }, label: {
+                                        Text("saisir manuellement")
+                                    })
+                                    .buttonStyle(.bordered)
+                                    .foregroundColor(.primary)
+                                }
                             }
+                            .padding(.bottom)
                         }
-                        .padding(.bottom)
 
                         Spacer()
 

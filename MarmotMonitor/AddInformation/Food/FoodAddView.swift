@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FoodAddView: View {
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @State private var tab = 0
     private var manager = AppStorageManager.shared
 
@@ -21,9 +22,11 @@ struct FoodAddView: View {
                     case 0:
                         BreathAddView()
                             .frame(maxHeight: .infinity)
+                            .environment(\.dynamicTypeSize, dynamicTypeSize)
                     case 1:
                         BottleAddView()
                             .frame(maxHeight: .infinity)
+                            .environment(\.dynamicTypeSize, dynamicTypeSize)
                     default:
                         BottleAddView()
                     }
