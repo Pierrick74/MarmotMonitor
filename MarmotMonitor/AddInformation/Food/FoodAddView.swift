@@ -19,7 +19,7 @@ struct FoodAddView: View {
                 Group {
                     switch tab {
                     case 0:
-                        BottleAddView()
+                        BreathAddView()
                             .frame(maxHeight: .infinity)
                     case 1:
                         BottleAddView()

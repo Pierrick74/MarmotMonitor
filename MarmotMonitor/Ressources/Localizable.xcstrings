@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "00:00" : {
+
+    },
     "Ajouter 10 ml" : {
 
     },
@@ -157,6 +160,9 @@
         }
       }
     },
+    "manager.accessibilityHintForDate" : {
+
+    },
     "MarmotMonitor est une application qui vous permet de suivre la croissance de votre bébé." : {
       "localizations" : {
         "en" : {
@@ -279,7 +285,13 @@
         }
       }
     },
+    "Reset" : {
+
+    },
     "Retirer 10 ml" : {
+
+    },
+    "saisir manuellement" : {
 
     },
     "Sauvegarder" : {
@@ -351,6 +363,9 @@
           }
         }
       }
+    },
+    "Temps total" : {
+
     },
     "Version 2" : {
 
