@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct BreathAddView: View {
-    @State private var timerG: TimerObject = TimerObject()
-    @State private var timerD: TimerObject = TimerObject()
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @StateObject private var manager = BreathAddViewManager()
+
+    @State private var isEndPickerPresented: Bool = false
+    @State private var isLeftManuallySet: Bool = false
+    @State private var isRightManuallySet: Bool = false
+    @State private var showingAlert: Bool = false
 
     var body: some View {
-          
+
                 ZStack {
                     BackgroundColor()
                     ScrollView {
@@ -22,9 +27,11 @@ struct BreathAddView: View {
                             .font(.title)
                             .fontWeight(.bold)
 
-                        Text("00:00")
+                        Text(manager.totalTime)
                             .font(.title)
                             .fontWeight(.bold)
+                            .contentTransition(.numericText())
+                            .animation(.linear, value: manager.totalTime)
 
                         Rectangle()
                             .frame(width: 100, height: 1)
@@ -36,11 +43,10 @@ struct BreathAddView: View {
 
                         HStack {
                             VStack {
-                                TimerView(timer: timerG, color: .pastelBlueToEgiptienBlue, title: "Gauche")
+                                TimerView(timer: manager.timerG, color: .pastelBlueToEgiptienBlue, title: "Gauche")
                                     .padding(.horizontal, 10)
 
-                                Button (action: {
-                                    
+                                Button (action: { isLeftManuallySet = true
                                 }, label: {
                                     Text("saisir manuellement")
                                 })
@@ -48,10 +54,9 @@ struct BreathAddView: View {
                                 .foregroundColor(.primary)
                             }
                             VStack {
-                                TimerView(timer: timerD, color: .pastelBlueToEgiptienBlue, title: "Droite")
+                                TimerView(timer: manager.timerD, color: .pastelBlueToEgiptienBlue, title: "Droite")
                                     .padding(.horizontal, 10)
-                                Button (action: {
-                                    
+                                Button (action: { isRightManuallySet = true
                                 }, label: {
                                     Text("saisir manuellement")
                                 })
@@ -65,8 +70,8 @@ struct BreathAddView: View {
 
                         DateSelectionView(
                             title: "Heure du change",
-                            date: Date(),
-                            buttonAction: {  }
+                            date: manager.date,
+                            buttonAction: {  isEndPickerPresented = true  }
                         )
                         .accessibilityLabel("Sélectionnez l'heure de fin")
                         .accessibilityHint("manager.accessibilityHintForDate")
@@ -79,6 +84,37 @@ struct BreathAddView: View {
                 }
                     .navigationBarBackButtonHidden(true)
             }
+                .sheet(isPresented: $isEndPickerPresented) {
+                    PickerDateSheetView(
+                        title: "Select End Time",
+                        selectedDate: $manager.date,
+                        isPresented: $isEndPickerPresented,
+                        range: manager.range
+                    )
+                    .presentationDetents(dynamicTypeSize < .accessibility1 ? [.medium] : [.large])
+                    .environment(\.dynamicTypeSize, dynamicTypeSize)
+                    .presentationCornerRadius(30)
+                }
+                .sheet(isPresented: $isLeftManuallySet) {
+                    PickerTimeSheetView(
+                        title: "Selectionne le temps à gauche",
+                        selectedTime: $manager.timerG.timeElapsed,
+                        isPresented: $isLeftManuallySet
+                    )
+                    .presentationDetents(dynamicTypeSize < .accessibility1 ? [.medium] : [.large])
+                    .environment(\.dynamicTypeSize, dynamicTypeSize)
+                    .presentationCornerRadius(30)
+                }
+                .sheet(isPresented: $isRightManuallySet) {
+                    PickerTimeSheetView(
+                        title: "Selectionne le temps à droite",
+                        selectedTime: $manager.timerD.timeElapsed,
+                        isPresented: $isRightManuallySet
+                    )
+                    .presentationDetents(dynamicTypeSize < .accessibility1 ? [.medium] : [.large])
+                    .environment(\.dynamicTypeSize, dynamicTypeSize)
+                    .presentationCornerRadius(30)
+                }
         }
 }
 

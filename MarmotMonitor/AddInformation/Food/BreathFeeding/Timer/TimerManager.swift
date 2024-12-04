@@ -6,10 +6,9 @@
 //
 
 import SwiftUI
-
 @Observable
-class TimerObject {
-    var timer: Timer?
+final class TimerObject {
+    private var timer: Timer?
     var isRunning = false
     var timeElapsed = 0
 
