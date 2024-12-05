@@ -46,7 +46,6 @@ struct SwiftDataManagerTest {
 
         // 2. when
         try dataSource.addActivity(dataMock.oneSleepBabyActivity)
-        try dataSource.addActivity(dataMock.oneSolidBabyActivity)
         try dataSource.addActivity(dataMock.oneBottleBabyActivity)
         try dataSource.addActivity(dataMock.oneBreastBabyActivity)
         try dataSource.addActivity(dataMock.oneDiaperBabyActivity)
@@ -54,7 +53,7 @@ struct SwiftDataManagerTest {
 
         // 3. then
         updateBabyActivity()
-        #expect(babyActivity.count == 6)
+        #expect(babyActivity.count == 5)
     }
 
     // MARK: - Remove Tests
@@ -96,13 +95,12 @@ struct SwiftDataManagerTest {
     mutating func managerHaveDifferentActivitiesWithNoSleep_whenfetchSleep_thenresultIsEmpty() throws {
         // 1. given
         #expect(babyActivity.isEmpty)
-        try dataSource.addActivity(dataMock.oneSolidBabyActivity)
         try dataSource.addActivity(dataMock.oneBottleBabyActivity)
         try dataSource.addActivity(dataMock.oneBreastBabyActivity)
         try dataSource.addActivity(dataMock.oneDiaperBabyActivity)
         try dataSource.addActivity(dataMock.oneGrowthBabyActivity)
         updateBabyActivity()
-        #expect(babyActivity.count == 5)
+        #expect(babyActivity.count == 4)
 
         // 2. when
         babyActivity = dataSource.fetchFilteredActivities(with: [.sleep])
@@ -133,7 +131,6 @@ struct SwiftDataManagerTest {
 
         // 2. when
         try dataSource.addActivity(dataMock.oneSleepBabyActivity)
-        try dataSource.addActivity(dataMock.oneSolidBabyActivity)
         try dataSource.addActivity(dataMock.oneBottleBabyActivity)
         try dataSource.addActivity(dataMock.oneBreastBabyActivity)
         try dataSource.addActivity(dataMock.oneDiaperBabyActivity)
@@ -151,7 +148,6 @@ struct SwiftDataManagerTest {
 
         // 2. when
         try dataSource.addActivity(dataMock.oneSleepBabyActivity)
-        try dataSource.addActivity(dataMock.oneSolidBabyActivity)
         try dataSource.addActivity(dataMock.oneBottleBabyActivity)
         try dataSource.addActivity(dataMock.oneBreastBabyActivity)
         try dataSource.addActivity(dataMock.oneDiaperBabyActivity)
@@ -185,7 +181,7 @@ struct SwiftDataManagerTest {
         // 1. given
         #expect(babyActivity.isEmpty)
         try dataSource.addActivity(dataMock.oneSleepBabyActivity)
-        try dataSource.addActivity(dataMock.oneSolidBabyActivity)
+        try dataSource.addActivity(dataMock.oneBottleBabyActivity)
         updateBabyActivity()
         #expect(babyActivity.count == 2)
 

@@ -11,9 +11,15 @@ final class TimerObject {
     private var timer: Timer?
     var isRunning = false
     var timeElapsed = 0
+    var onTimerStateStart: (() -> Void)?
+
+    init(onTimerStateStart: (() -> Void)? = nil) {
+        self.onTimerStateStart = onTimerStateStart
+    }
 
     func startTimer() {
         if timer == nil {
+            onTimerStateStart?()
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 self.timeElapsed += 1
             }

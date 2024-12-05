@@ -20,7 +20,7 @@ struct FoodAddView: View {
                 Group {
                     switch tab {
                     case 0:
-                        BreathAddView()
+                        BreastAddView()
                             .frame(maxHeight: .infinity)
                             .environment(\.dynamicTypeSize, dynamicTypeSize)
                     case 1:

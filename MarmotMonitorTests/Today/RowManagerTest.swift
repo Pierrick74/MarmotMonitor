@@ -175,14 +175,6 @@ struct RowManagerTest {
         #expect(manager.information.isEmpty)
     }
 
-    @Test mutating func whenInitWithActivityFood_thenInformationIsDescription() async throws {
-        // 1. when
-        let manager = RowManager(babyActivity: dataMock.oneSolidBabyActivity, category: .food)
-
-        // 2. then
-        #expect(manager.information.isEmpty)
-    }
-
     @Test mutating func whenInitWithActivityGrowth_thenInformationIsDescription() async throws {
         // 1. when
         let manager = RowManager(babyActivity: dataMock.oneGrowthBabyActivity, category: .growth)

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TimerView: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
-    let timer: TimerObject
+    @Binding var timer: TimerObject
     let color: Color
     let title: String
 
@@ -132,5 +132,6 @@ struct AccessibilityShadowToggleButtonStyle: ButtonStyle {
 }
 
 #Preview {
-    TimerView(timer: TimerObject(), color: .blue, title: "Gauche")
+    @Previewable @State var timer = TimerObject()
+    TimerView(timer: $timer, color: .blue, title: "Gauche")
 }

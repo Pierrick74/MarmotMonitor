@@ -89,6 +89,9 @@
         }
       }
     },
+    "Droit" : {
+
+    },
     "Fermer" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -99,6 +102,9 @@
           }
         }
       }
+    },
+    "Gauche" : {
+
     },
     "Inserer le nom de la petite marmotte ? " : {
       "localizations" : {
@@ -326,6 +332,9 @@
           }
         }
       }
+    },
+    "Séléctionner le premier sein" : {
+
     },
     "Sélectionnez l'heure de début" : {
       "localizations" : {

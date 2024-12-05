@@ -1,5 +1,5 @@
 //
-//  BreathAddView.swift
+//  BreastAddView.swift
 //  MarmotMonitor
 //
 //  Created by pierrick viret on 03/12/2024.
@@ -7,14 +7,23 @@
 
 import SwiftUI
 
-struct BreathAddView: View {
+struct BreastAddView: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
-    @StateObject private var manager = BreathAddViewManager()
+    @Environment(\.dismiss) private var dismiss
+
+    @StateObject private var manager = BreastAddViewManager()
 
     @State private var isEndPickerPresented: Bool = false
     @State private var isLeftManuallySet: Bool = false
     @State private var isRightManuallySet: Bool = false
     @State private var showingAlert: Bool = false
+
+    private var breastBinding: Binding<Int> {
+            Binding(
+                get: { manager.firstBreast == .left ? 0 : 1 },
+                set: { manager.firstBreast = $0 == 0 ? .left : .right }
+            )
+        }
 
     var body: some View {
 
@@ -37,14 +46,23 @@ struct BreathAddView: View {
                             .frame(width: 100, height: 1)
                             .foregroundColor(.primary)
 
-                        Rectangle()
-                            .frame(height: 50)
-                            .foregroundColor(.clear)
+                        Text("Séléctionner le premier sein")
+                            .font(.body)
+                            .fontWeight(.bold)
+                            .padding(.top, 10)
+                        Picker("", selection: breastBinding) {
+                            Text("Gauche")
+                                .tag(0)
+                            Text("Droit")
+                                .tag(1)
+                        }
+                        .pickerStyle(.segmented)
+                        .padding(.horizontal, 10)
 
                         if dynamicTypeSize < .accessibility1 {
                             HStack {
                                 VStack {
-                                    TimerView(timer: manager.timerG, color: .pastelBlueToEgiptienBlue, title: "Gauche")
+                                    TimerView(timer: $manager.timerLeft, color: .pastelBlueToEgiptienBlue, title: "Gauche")
                                         .padding(.horizontal, 10)
                                         .environment(\.dynamicTypeSize, dynamicTypeSize)
 
@@ -56,7 +74,7 @@ struct BreathAddView: View {
                                     .foregroundColor(.primary)
                                 }
                                 VStack {
-                                    TimerView(timer: manager.timerD, color: .pastelBlueToEgiptienBlue, title: "Droite")
+                                    TimerView(timer: $manager.timerRight, color: .pastelBlueToEgiptienBlue, title: "Droite")
                                         .padding(.horizontal, 10)
                                     Button(action: { isRightManuallySet = true
                                     }, label: {
@@ -70,7 +88,7 @@ struct BreathAddView: View {
                         } else {
                             VStack {
                                 VStack {
-                                    TimerView(timer: manager.timerG, color: .pastelBlueToEgiptienBlue, title: "Gauche")
+                                    TimerView(timer: $manager.timerLeft, color: .pastelBlueToEgiptienBlue, title: "Gauche")
                                         .padding(.horizontal, 10)
                                         .environment(\.dynamicTypeSize, dynamicTypeSize)
 
@@ -82,7 +100,7 @@ struct BreathAddView: View {
                                     .foregroundColor(.primary)
                                 }
                                 VStack {
-                                    TimerView(timer: manager.timerD, color: .pastelBlueToEgiptienBlue, title: "Droite")
+                                    TimerView(timer: $manager.timerRight, color: .pastelBlueToEgiptienBlue, title: "Droite")
                                         .padding(.horizontal, 10)
                                     Button(action: { isRightManuallySet = true
                                     }, label: {
@@ -106,6 +124,12 @@ struct BreathAddView: View {
                         .accessibilityHint("manager.accessibilityHintForDate")
 
                         SaveButtonView {
+                            manager.saveBreast()
+                            if manager.isSaveError == false {
+                                dismiss()
+                            } else {
+                                showingAlert = true
+                            }
                         }
                         .padding()
                     }
@@ -127,7 +151,7 @@ struct BreathAddView: View {
                 .sheet(isPresented: $isLeftManuallySet) {
                     PickerTimeSheetView(
                         title: "Selectionne le temps à gauche",
-                        selectedTime: $manager.timerG.timeElapsed,
+                        selectedTime: $manager.timerLeft.timeElapsed,
                         isPresented: $isLeftManuallySet
                     )
                     .presentationDetents(dynamicTypeSize < .accessibility1 ? [.medium] : [.large])
@@ -137,7 +161,7 @@ struct BreathAddView: View {
                 .sheet(isPresented: $isRightManuallySet) {
                     PickerTimeSheetView(
                         title: "Selectionne le temps à droite",
-                        selectedTime: $manager.timerD.timeElapsed,
+                        selectedTime: $manager.timerRight.timeElapsed,
                         isPresented: $isRightManuallySet
                     )
                     .presentationDetents(dynamicTypeSize < .accessibility1 ? [.medium] : [.large])
@@ -148,5 +172,5 @@ struct BreathAddView: View {
 }
 
 #Preview {
-    BreathAddView()
+    BreastAddView()
 }
