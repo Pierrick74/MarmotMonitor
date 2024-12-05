@@ -4,6 +4,12 @@
     "" : {
 
     },
+    "." : {
+
+    },
+    "%lld" : {
+
+    },
     "%lld min" : {
 
     },
@@ -78,6 +84,9 @@
           }
         }
       }
+    },
+    "Croissance" : {
+
     },
     "Docteur" : {
       "localizations" : {
@@ -207,6 +216,9 @@
           }
         }
       }
+    },
+    "Number of people" : {
+
     },
     "OK" : {
       "localizations" : {
