@@ -113,6 +113,11 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
                     return true
                 }
 
+            case (.breast, .breast):
+                if areDatesEqualIgnoringSeconds(newActivity.date, activity.date) {
+                    return true
+                }
+
             default:
                 continue
             }

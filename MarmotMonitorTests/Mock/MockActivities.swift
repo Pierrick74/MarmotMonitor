@@ -32,16 +32,6 @@ class MockActivities {
                                                                                     lastBreast: .left),
                                              date: .now)
 
-    // MARK: - Solid Activities
-    let oneSolidBabyActivity = BabyActivity(activity: .solid(composition:
-                                                                            SolidQuantity(vegetable: 20,
-                                                                                          meat: 20,
-                                                                                          fruit: 20,
-                                                                                          dairyProduct: 20,
-                                                                                          cereal: 20,
-                                                                                          other: 20)),
-                                            date: .now)
-
     // MARK: - Date Activities
     let nowActivity = BabyActivity(activity: .bottle(volume: 120), date: .now)
     let oneDayActivity = BabyActivity(activity: .bottle(volume: 120), date: Date(timeIntervalSinceNow: -86400))

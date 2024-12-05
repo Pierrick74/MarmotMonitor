@@ -59,7 +59,6 @@ enum ActivityType: Codable, Equatable {
     case breast(duration: BreastDuration, lastBreast: BreastType)
     case sleep(duration: TimeInterval)
     case growth(data: GrowthData)
-    case solid(composition: SolidQuantity)
 
     var category: String {
         switch self {
@@ -67,7 +66,7 @@ enum ActivityType: Codable, Equatable {
             return ActivityCategory.sleep.rawValue
         case .diaper:
             return ActivityCategory.diaper.rawValue
-        case .bottle, .breast, .solid:
+        case .bottle, .breast:
             return ActivityCategory.food.rawValue
         case .growth:
             return ActivityCategory.growth.rawValue
@@ -81,14 +80,13 @@ enum ActivityType: Codable, Equatable {
            case .breast: return "Allaitement"
            case .sleep: return "Sommeil"
            case .growth: return "Croissance"
-           case .solid: return "Repas"
            }
        }
 
     var imageName: String {
         switch self {
         case .diaper: return ActivityCategory.diaper.rawValue
-        case .bottle, .breast, .solid: return ActivityCategory.food.rawValue
+        case .bottle, .breast: return ActivityCategory.food.rawValue
         case .sleep: return ActivityCategory.sleep.rawValue
         case .growth: return ActivityCategory.growth.rawValue
         }
@@ -101,7 +99,6 @@ enum ActivityType: Codable, Equatable {
         case .breast: return ActivityCategory.food.rawValue
         case .sleep: return ActivityCategory.sleep.rawValue
         case .growth: return ActivityCategory.growth.rawValue
-        case .solid: return ActivityCategory.food.rawValue
         }
     }
 }
@@ -125,15 +122,6 @@ struct BreastDuration: Codable, Equatable {
 enum BreastType: Codable, Equatable {
     case left
     case right
-}
-
-struct SolidQuantity: Codable, Equatable {
-    let vegetable: Int
-    let meat: Int
-    let fruit: Int
-    let dairyProduct: Int
-    let cereal: Int
-    let other: Int
 }
 
 struct GrowthData: Codable, Equatable {
