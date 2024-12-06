@@ -34,7 +34,7 @@ struct GrowthAddView: View {
                             title: "Taille",
                             action: {isSizePresented = true},
                             placeholder: "Appuyer pour entrer la taille",
-                            value: manager.sizeDescription
+                            value: manager.heightDescription
                         )
 
                         CustomTextField(

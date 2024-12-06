@@ -247,4 +247,37 @@ struct SwiftDataManagerTest {
         }
         #expect(babyActivity.count == 1)
     }
+
+    // MARK: - Growth Tests
+
+    @MainActor @Test
+    mutating func managerHaveNoActivities_whenSaveGrowthActivity_thenActivitIsSaved() throws {
+        // 1. given
+        #expect(babyActivity.isEmpty)
+
+        // 2. when
+        try dataSource.addActivity(dataMock.oneGrowthBabyActivity)
+
+        // 3. then
+        updateBabyActivity()
+        #expect(babyActivity.count == 1)
+    }
+
+    @MainActor @Test
+    mutating func managerHaveGrowthActivities_whenSaveGrowthActivity_thenActivitIsNotSaved() throws {
+        // 1. given
+        #expect(babyActivity.isEmpty)
+        try dataSource.addActivity(dataMock.oneGrowthBabyActivity)
+        updateBabyActivity()
+        #expect(babyActivity.count == 1)
+
+        // 2. when
+        do {
+            try dataSource.addActivity(dataMock.oneGrowthBabyActivity)
+        } catch {
+            // 3. then
+            #expect(error as? ActivityError == ActivityError.overlappingActivity)
+        }
+        #expect(babyActivity.count == 1)
+    }
 }

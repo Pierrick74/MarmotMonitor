@@ -34,7 +34,7 @@ final class GrowthAddViewManager: ObservableObject {
     @Published var date: Date?
 
     @Published var height: Double?
-    var sizeDescription: String? {
+    var heightDescription: String? {
         (height != nil) ? "\(height!)" + " " + sizeUnit : nil
     }
 
