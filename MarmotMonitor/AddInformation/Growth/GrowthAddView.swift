@@ -9,11 +9,14 @@ import SwiftUI
 
 struct GrowthAddView: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.dismiss) var dismiss
 
     @State private var isEndPickerPresented: Bool = false
     @State private var isSizePresented: Bool = false
     @State private var isWeightPresented: Bool = false
     @State private var isHeadSizePresented: Bool = false
+
+    @State private var showingAlert: Bool = false
 
     @StateObject var manager = GrowthAddViewManager()
 
@@ -58,6 +61,12 @@ struct GrowthAddView: View {
                         .padding(.top, 20)
 
                         SaveButtonView {
+                            manager.saveGrowth()
+                            if manager.isSaveError == false {
+                                dismiss()
+                            } else {
+                                showingAlert = true
+                            }
                         }
                         .padding(.top, 20)
                     }
@@ -78,8 +87,8 @@ struct GrowthAddView: View {
             }
             .sheet(isPresented: $isSizePresented) {
                 ValueSelectionView(
-                    title: "Taille en cm",
-                    selectedNumber: $manager.size,
+                    title: "Taille en " + manager.sizeUnit,
+                    selectedNumber: $manager.height,
                     isPresented: $isSizePresented
                 )
                 .presentationDetents(dynamicTypeSize < .accessibility1 ? [.medium] : [.large])
@@ -88,7 +97,7 @@ struct GrowthAddView: View {
             }
             .sheet(isPresented: $isWeightPresented) {
                 ValueSelectionView(
-                    title: "Poids en kg",
+                    title: "Poids en " + manager.weightUnit,
                     selectedNumber: $manager.weight,
                     isPresented: $isWeightPresented
                 )
@@ -98,13 +107,23 @@ struct GrowthAddView: View {
             }
             .sheet(isPresented: $isHeadSizePresented) {
                 ValueSelectionView(
-                    title: "Taille en cm",
+                    title: "Taille en " + manager.sizeUnit,
                     selectedNumber: $manager.headSize,
                     isPresented: $isHeadSizePresented
                 )
                 .presentationDetents(dynamicTypeSize < .accessibility1 ? [.medium] : [.large])
                 .environment(\.dynamicTypeSize, dynamicTypeSize)
                 .presentationCornerRadius(30)
+            }
+            .alert(
+                "Alerte",
+                isPresented: $showingAlert
+            ) {
+                Button("OK", role: .cancel) {
+                    showingAlert = false
+                }
+            } message: {
+                Text(manager.alertMessage)
             }
         }
         .navigationBarBackButtonHidden(true)
