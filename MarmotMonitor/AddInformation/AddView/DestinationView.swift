@@ -20,7 +20,7 @@ struct DestinationView: View {
             case .repas:
                 FoodAddView()
             case .croissance:
-                SleepAddView()
+                GrowthAddView()
             }
         }
     }
