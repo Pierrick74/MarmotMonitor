@@ -49,7 +49,7 @@ final class ActivityLegendViewManager {
     }
 }
 
-struct ActivityLegendData {
+struct ActivityLegendData: Equatable {
     var type: ActivityCategory
     var recurency: Int
     var total: Int?

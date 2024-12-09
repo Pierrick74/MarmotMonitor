@@ -9,8 +9,12 @@ import SwiftUI
 
 struct ActivityView: View {
     let date: Date
-    let hourlyColors: [Color]
-    let activityLegende: [ActivityLegendData]
+    let manager: ActivityViewManager
+
+    init(data: [ActivityRange], date: Date) {
+        self.manager = ActivityViewManager(data: data)
+        self.date = date
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -32,7 +36,7 @@ struct ActivityView: View {
                 HStack(spacing: 3) {
                     ForEach(0..<48) { hour in
                         RoundedRectangle(cornerRadius: 2)
-                            .fill(hourlyColors[hour])
+                            .fill(manager.color(for: hour))
                             .frame(height: 50)
                             .shadow(radius: 1, x: 1, y: 1)
                     }
@@ -49,11 +53,8 @@ struct ActivityView: View {
             .padding(.horizontal, 10)
 
             HStack {
-                ForEach(activityLegende, id: \.type) { legend in
-//                    ActivityLegendView(type: legend.type,
-//                                   time: "\(legend.recurency) fois",
-//                                   frequency: legend.total != nil ? "\(legend.total!) fois" : "",
-//                                   color: .blue)
+                ForEach(manager.generateLegend(), id: \.type) { legend in
+                    ActivityLegendView(data: legend)
                 }
                 .frame(maxWidth: .infinity)
             }
@@ -69,16 +70,14 @@ struct ActivityView: View {
     }
 }
 
-
-
 #Preview {
     ActivityView(
-        date: Date(),
-        hourlyColors: Array(repeating: .green, count: 48),
-        activityLegende: [
-            ActivityLegendData(type: .sleep, recurency: 1, total: 3),
-            ActivityLegendData(type: .diaper, recurency: 1, total: nil),
-            ActivityLegendData(type: .food, recurency: 1, total: nil)
-        ]
+        data: [
+            ActivityRange(startHour: 28, endHour: 29, type: .food, value: 200, unit: .metric),
+            ActivityRange(startHour: 17, endHour: 18, type: .food, value: 200, unit: .metric),
+            ActivityRange(startHour: 27, endHour: 30, type: .diaper, value: 200, unit: .metric),
+            ActivityRange(startHour: 0, endHour: 15, type: .sleep, value: 15, unit: .metric),
+            ActivityRange(startHour: 24, endHour: 38, type: .sleep, value: 15, unit: .metric)
+        ], date: Date()
     )
 }
