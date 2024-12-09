@@ -9,7 +9,7 @@ import SwiftUI
 
 final class ActivityLegendViewManager {
 
-    var activity: ActivityLegendData
+    private var activity: ActivityLegendData
 
     init(activity: ActivityLegendData) {
         self.activity = activity
@@ -20,16 +20,7 @@ final class ActivityLegendViewManager {
     }
 
     var color: Color {
-        switch activity.type {
-        case .sleep:
-            return .blue.mix(with: .white, by: 0.5)
-        case .food:
-            return .green.mix(with: .white, by: 0.5)
-        case .diaper:
-            return .yellow.mix(with: .white, by: 0.5)
-        case .growth:
-            return .purple.mix(with: .white, by: 0.5)
-        }
+        activity.type.color
     }
 
     var recurency: String {
@@ -41,7 +32,7 @@ final class ActivityLegendViewManager {
         case .sleep:
             return activity.total != nil ? "\(activity.total!) h" : nil
         case .food:
-            let unit = activity.unit == .metric ? "ml" : "oz"
+            let unit = activity.unit == .imperial ? "oz" : "ml"
             return activity.total != nil ? "\(activity.total!)" + " " + unit : nil
         default:
             return nil

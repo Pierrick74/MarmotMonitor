@@ -47,5 +47,5 @@ struct ActivityLegendView: View {
 }
 
 #Preview {
-    ActivityLegendView(data: ActivityLegendData(type: .sleep, recurency: 3, total: 10))
+    ActivityLegendView(data: ActivityLegendData(type: .food, recurency: 3, total: 10))
 }

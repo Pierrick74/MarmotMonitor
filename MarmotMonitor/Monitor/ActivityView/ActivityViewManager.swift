@@ -27,7 +27,7 @@ struct ActivityViewManager {
 
         for range in sortedData {
             if hour >= range.startHour && hour < range.endHour {
-                return color(for: range.type)
+                return range.type.color
             }
         }
 
@@ -40,15 +40,6 @@ struct ActivityViewManager {
         case .diaper: return 2
         case .sleep: return 1
         case .growth: return 0
-        }
-    }
-
-    private func color(for type: ActivityCategory) -> Color {
-        switch type {
-        case .sleep: return .blue
-        case .diaper: return .yellow
-        case .food: return .green
-        case .growth: return .purple
         }
     }
 }

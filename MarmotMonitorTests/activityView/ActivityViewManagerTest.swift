@@ -26,8 +26,8 @@ struct ActivityViewManagerTest {
 
         // 3. then
         #expect(color0 == .white)
-        #expect(color2 == .blue)
-        #expect(color4 == .blue)
+        #expect(color2 == ActivityCategory.sleep.color)
+        #expect(color4 == ActivityCategory.sleep.color)
         #expect(color5 == .white)
         #expect(color6 == .white)
     }
@@ -46,11 +46,11 @@ struct ActivityViewManagerTest {
 
         // 3. then
         #expect(color0 == .white)
-        #expect(color1 == .blue)
-        #expect(color2 == .green)
-        #expect(color3 == .green)
-        #expect(color4 == .yellow)
-        #expect(color5 == .blue)
+        #expect(color1 == ActivityCategory.sleep.color)
+        #expect(color2 == ActivityCategory.food.color)
+        #expect(color3 == ActivityCategory.food.color)
+        #expect(color4 == ActivityCategory.diaper.color)
+        #expect(color5 == ActivityCategory.sleep.color)
         #expect(color6 == .white)
     }
 

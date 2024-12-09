@@ -136,4 +136,8 @@ enum ActivityCategory: String, Codable {
     case diaper = "Couche"
     case food = "Repas"
     case growth = "Croissance"
+
+    var color: Color {
+        Color(self.rawValue)
+    }
 }
