@@ -12,6 +12,7 @@ struct ActivityRow: View {
     let manager: ActivityRowManager
 
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.colorScheme) var colorScheme
 
     init(data: [ActivityRange], date: Date) {
         self.manager = ActivityRowManager(data: data)
@@ -24,6 +25,7 @@ struct ActivityRow: View {
                 Text(date, style: .date)
                     .font(.headline)
                     .padding(.horizontal)
+                    .foregroundColor(.primary)
                 Spacer()
                 Button(action: {
                     // Action d'édition ici
@@ -36,12 +38,12 @@ struct ActivityRow: View {
 
             if dynamicTypeSize < .accessibility1 {
                 VStack {
-                    HStack(spacing: 3) {
+                    HStack(spacing: 4) {
                         ForEach(0..<48) { hour in
                             RoundedRectangle(cornerRadius: 2)
                                 .fill(manager.color(for: hour))
                                 .frame(height: 50)
-                                .shadow(radius: 1, x: 1, y: 1)
+                                .shadow(color: .black.opacity(0.8), radius: 0.5, x: 1, y: 1)
                         }
                     }
 
@@ -78,7 +80,8 @@ struct ActivityRow: View {
         .padding(.vertical)
         .background(
             RoundedRectangle(cornerRadius: 30)
-                .fill(Color.white)
+                .fill(colorScheme == .dark ? Color.secondary.opacity(0.2) : Color.white)
+                .stroke(colorScheme == .dark ? Color.white : .clear, lineWidth: 1)
                 .shadow(radius: 5, x: 5, y: 5)
         )
     }

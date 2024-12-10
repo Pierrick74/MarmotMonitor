@@ -31,7 +31,7 @@ struct ActivityRowManager {
             }
         }
 
-        return .white
+        return .gray.mix(with: .white, by: 0.5)
     }
 
     private func priority(for type: ActivityCategory) -> Int {

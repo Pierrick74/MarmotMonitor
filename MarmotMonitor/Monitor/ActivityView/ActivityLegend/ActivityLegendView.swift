@@ -49,7 +49,7 @@ struct ActivityLegendView: View {
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(colorScheme == .light ? manager.color : Color.primary.opacity(0.1))
+                .fill(colorScheme == .light ? manager.color : manager.color.mix(with: .black, by: 0.1))
                 .stroke(colorScheme == .light ? .clear : Color.primary.opacity(0.5), lineWidth: 1)
                 .shadow(radius: 1, x: 1, y: 1)
         )
