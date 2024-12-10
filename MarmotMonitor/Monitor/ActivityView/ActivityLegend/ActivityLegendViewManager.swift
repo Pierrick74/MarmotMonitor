@@ -43,6 +43,6 @@ final class ActivityLegendViewManager {
 struct ActivityLegendData: Equatable {
     var type: ActivityCategory
     var recurency: Int
-    var total: Int?
+    var total: Double?
     var unit: MeasurementSystem?
 }

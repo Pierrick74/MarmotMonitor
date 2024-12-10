@@ -46,7 +46,7 @@ struct ActivityRowManager {
 
 extension ActivityRowManager {
     func generateLegend() -> [ActivityLegendData] {
-        var legendData: [ActivityCategory: (recurency: Int, total: Int?, unit: MeasurementSystem?)] = [:]
+        var legendData: [ActivityCategory: (recurency: Int, total: Double?, unit: MeasurementSystem?)] = [:]
 
         for range in data {
             let current = legendData[range.type] ?? (recurency: 0, total: nil, unit: nil)
@@ -97,6 +97,6 @@ struct ActivityRange {
     let startHour: Int
     let endHour: Int
     let type: ActivityCategory
-    let value: Int?
+    let value: Double?
     let unit: MeasurementSystem?
 }

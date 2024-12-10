@@ -8,17 +8,8 @@
 import SwiftUI
 
 struct MonitorView: View {
-    var data: [Date: [ActivityRange]] = [
-            Calendar.current.startOfDay(for: Date()): [
-                ActivityRange(startHour: 10, endHour: 15, type: .sleep, value: 4, unit: nil),
-                ActivityRange(startHour: 24, endHour: 25, type: .diaper, value: nil, unit: nil),
-                ActivityRange(startHour: 29, endHour: 30, type: .food, value: 5, unit: nil)
-            ],
-            Calendar.current.date(byAdding: .day, value: -1, to: Date())!: [
-                ActivityRange(startHour: 10, endHour: 15, type: .sleep, value: 4, unit: nil),
-                ActivityRange(startHour: 24, endHour: 25, type: .diaper, value: nil, unit: nil)
-            ]
-        ]
+
+    @StateObject var manager = MonitorViewManager()
 
     var body: some View {
         ZStack {
@@ -76,8 +67,8 @@ struct MonitorView: View {
                 .padding(.top, 20)
 
                 List {
-                    ForEach(data.keys.sorted(by: >), id: \.self) { date in
-                        if let activities = data[date] {
+                    ForEach(manager.formattedActivityData.keys.sorted(by: >), id: \.self) { date in
+                        if let activities = manager.formattedActivityData[date] {
                             ActivityRow(data: activities, date: date)
                         }
                     }
