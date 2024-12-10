@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  ActivityRow.swift
 //  MarmotMonitor
 //
 //  Created by pierrick viret on 06/12/2024.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct ActivityView: View {
+struct ActivityRow: View {
     let date: Date
-    let manager: ActivityViewManager
+    let manager: ActivityRowManager
 
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
     init(data: [ActivityRange], date: Date) {
-        self.manager = ActivityViewManager(data: data)
+        self.manager = ActivityRowManager(data: data)
         self.date = date
     }
 
@@ -44,7 +44,7 @@ struct ActivityView: View {
                                 .shadow(radius: 1, x: 1, y: 1)
                         }
                     }
-                    
+
                     HStack {
                         ForEach(["2h", "6h", "10h", "14h", "18h", "22h"], id: \.self) { hour in
                             Text(hour)
@@ -85,7 +85,7 @@ struct ActivityView: View {
 }
 
 #Preview {
-    ActivityView(
+    ActivityRow(
         data: [
             ActivityRange(startHour: 28, endHour: 29, type: .food, value: 200, unit: .metric),
             ActivityRange(startHour: 17, endHour: 18, type: .food, value: 200, unit: .metric),

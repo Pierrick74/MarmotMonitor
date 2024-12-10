@@ -11,12 +11,12 @@ import SwiftData
 @testable import MarmotMonitor
 
 struct ActivityViewManagerTest {
-    var manager = ActivityViewManager(data: MockRanges().oneDateSleepOf4Hoursbetween1and5)
+    var manager = ActivityRowManager(data: MockRanges().oneDateSleepOf4Hoursbetween1and5)
 
     // MARK: - Color tests
     @Test mutating func testColor_WhenOneData_ThenColorIsPainting() {
         // 1. given
-        manager = ActivityViewManager(data: MockRanges().oneDateSleepOf4Hoursbetween1and5)
+        manager = ActivityRowManager(data: MockRanges().oneDateSleepOf4Hoursbetween1and5)
         // 2. when
         let color0 = manager.color(for: 0)
         let color2 = manager.color(for: 2)
@@ -34,7 +34,7 @@ struct ActivityViewManagerTest {
 
     @Test mutating func testDataHaveManyType_WhenCallColor_ColorIsSortedByPriority() {
         // 1. given
-        manager = ActivityViewManager(data: MockRanges().manyDateInSameRange)
+        manager = ActivityRowManager(data: MockRanges().manyDateInSameRange)
         // 2. when
         let color0 = manager.color(for: 0)
         let color1 = manager.color(for: 1)
@@ -57,7 +57,7 @@ struct ActivityViewManagerTest {
     // MARK: - Data Legend tests
     @Test mutating func testLegendData_WhenOneData_ThenLegendIsCreated() {
         // 1. given
-        manager = ActivityViewManager(data: MockRanges().oneDateSleepOf4Hoursbetween1and5)
+        manager = ActivityRowManager(data: MockRanges().oneDateSleepOf4Hoursbetween1and5)
         // 2. when
         let legend = manager.generateLegend()
 
@@ -67,7 +67,7 @@ struct ActivityViewManagerTest {
 
     @Test mutating func testLegendData_WhenManyData_ThenLegendIsCreated() {
         // 1. given
-        manager = ActivityViewManager(data: MockRanges().manyDateInSameRange)
+        manager = ActivityRowManager(data: MockRanges().manyDateInSameRange)
         // 2. when
         let legend = manager.generateLegend()
         let result = [ActivityLegendData(type: .sleep, recurency: 2, total: 8, unit: .metric),

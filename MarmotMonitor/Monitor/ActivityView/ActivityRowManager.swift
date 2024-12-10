@@ -1,5 +1,5 @@
 //
-//  ActivityViewManager.swift
+//  ActivityRowManager.swift
 //  MarmotMonitor
 //
 //  Created by pierrick viret on 09/12/2024.
@@ -13,7 +13,7 @@ import SwiftUI
 ///  - Returns: a color of the hour in the day
 ///
 ///  - Returns: a legend : an array of ActivityLegendData with the type, the recurency, the total and the unit
-struct ActivityViewManager {
+struct ActivityRowManager {
     private let data: [ActivityRange]
 
     init(data: [ActivityRange]) {
@@ -44,7 +44,7 @@ struct ActivityViewManager {
     }
 }
 
-extension ActivityViewManager {
+extension ActivityRowManager {
     func generateLegend() -> [ActivityLegendData] {
         var legendData: [ActivityCategory: (recurency: Int, total: Int?, unit: MeasurementSystem?)] = [:]
 
