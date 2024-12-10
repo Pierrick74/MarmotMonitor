@@ -26,14 +26,57 @@ class MonitorViewManager: ObservableObject {
 
         for data in babyActivities {
             var range: ActivityRange?
+            var rangeDayPlusOne: ActivityRange?
+
             switch data.activity {
             case .sleep(let duration):
-                let startHour = transformInRange(data.date)
-                let endDate = data.date.addingTimeInterval(TimeInterval(duration))
-                let endHour = transformInRange(endDate)
-                let durationInMinutes = formatDuration(duration)
+                if checkIfDayNotChanged(with: data.date, duration: duration) {
+                    // Le sommeil ne dépasse pas minuit
+                    let startHour = transformInRange(data.date)
+                    let endDate = data.date.addingTimeInterval(TimeInterval(duration))
+                    let endHour = transformInRange(endDate)
+                    let durationInMinutes = formatDuration(duration)
 
-                range = ActivityRange(startHour: startHour, endHour: endHour, type: .sleep, value: durationInMinutes, unit: nil)
+                    range = ActivityRange(
+                        startHour: startHour,
+                        endHour: endHour,
+                        type: .sleep,
+                        value: durationInMinutes,
+                        unit: nil
+                    )
+                } else {
+                    // Le sommeil dépasse minuit
+                    let calendar = Calendar.current
+                    let midnight = calendar.startOfDay(for: calendar.date(byAdding: .day, value: 1, to: data.date)!)
+
+                    // Première portion jusqu'à minuit
+                    let firstDuration = midnight.timeIntervalSince(data.date)
+                    let startHour = transformInRange(data.date)
+                    let endHour = 48
+                    let durationInMinutes = formatDuration(firstDuration)
+
+                    range = ActivityRange(
+                        startHour: startHour,
+                        endHour: endHour,
+                        type: .sleep,
+                        value: durationInMinutes,
+                        unit: nil
+                    )
+
+                    // Deuxième portion à partir de minuit
+                    let secondDuration = duration - firstDuration
+                    let startHourDayPlusOne = 0
+                    let endHourDayPlusOne = transformInRange(midnight.addingTimeInterval(secondDuration))
+                    let durationInMinutesDayPlusOne = formatDuration(secondDuration)
+
+                    rangeDayPlusOne = ActivityRange(
+                        startHour: startHourDayPlusOne,
+                        endHour: endHourDayPlusOne,
+                        type: .sleep,
+                        value: durationInMinutesDayPlusOne,
+                        unit: nil
+                    )
+                }
 
             case .diaper:
                 let startHour = transformInRange(data.date)
@@ -75,17 +118,22 @@ class MonitorViewManager: ObservableObject {
 
             let savedData = Calendar.current.startOfDay(for: data.date)
             if let unwrappRange = range {
-                print("je suis passé ici")
                 if formattedActivityData[savedData] != nil {
-                    print("diff de nil")
                     formattedActivityData[savedData]?.append(unwrappRange)
                 } else {
-                    print("nil")
                     formattedActivityData[savedData] = [unwrappRange]
                 }
             }
+
+            if let unwrappedRangeDayPlusOne = rangeDayPlusOne {
+                let savedDataPlusOne = Calendar.current.startOfDay(for: data.date.addingTimeInterval(86400))
+                if formattedActivityData[savedDataPlusOne] != nil {
+                    formattedActivityData[savedDataPlusOne]?.append(unwrappedRangeDayPlusOne)
+                } else {
+                    formattedActivityData[savedDataPlusOne] = [unwrappedRangeDayPlusOne]
+                }
+            }
         }
-        print("formattedActivityData: \(formattedActivityData)")
     }
 
     private func transformInRange(_ date: Date) -> Int {
@@ -108,5 +156,12 @@ class MonitorViewManager: ObservableObject {
         } else {
             return Double(hours + 1)
         }
+    }
+
+    private func checkIfDayNotChanged(with date: Date, duration: TimeInterval) -> Bool {
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: date)
+        let endOfDay = calendar.startOfDay(for: date.addingTimeInterval(duration))
+        return startOfDay == endOfDay
     }
 }
