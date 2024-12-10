@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ActivityLegendView: View {
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dynamicTypeSize) var dyynamicTypeSize
 
     var manager: ActivityLegendViewManager
 
@@ -18,11 +19,19 @@ struct ActivityLegendView: View {
 
     var body: some View {
         HStack(spacing: 8) {
-            Image(manager.name)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 30, height: 30)
-                .foregroundColor(.primary)
+            if dyynamicTypeSize < .accessibility1 {
+                Image(manager.name)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30)
+                    .foregroundColor(.primary)
+            } else {
+                Text(manager.name)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                Spacer()
+            }
+
             VStack(alignment: .trailing) {
                 if !manager.recurency.isEmpty {
                     Text(manager.recurency)
@@ -37,6 +46,7 @@ struct ActivityLegendView: View {
             }
         }
         .padding(5)
+        .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .fill(colorScheme == .light ? manager.color : Color.primary.opacity(0.1))

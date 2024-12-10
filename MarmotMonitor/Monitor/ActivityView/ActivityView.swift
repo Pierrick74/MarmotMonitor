@@ -11,6 +11,8 @@ struct ActivityView: View {
     let date: Date
     let manager: ActivityViewManager
 
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+
     init(data: [ActivityRange], date: Date) {
         self.manager = ActivityViewManager(data: data)
         self.date = date
@@ -32,34 +34,46 @@ struct ActivityView: View {
             }
             .padding(.horizontal)
 
-            VStack {
-                HStack(spacing: 3) {
-                    ForEach(0..<48) { hour in
-                        RoundedRectangle(cornerRadius: 2)
-                            .fill(manager.color(for: hour))
-                            .frame(height: 50)
-                            .shadow(radius: 1, x: 1, y: 1)
+            if dynamicTypeSize < .accessibility1 {
+                VStack {
+                    HStack(spacing: 3) {
+                        ForEach(0..<48) { hour in
+                            RoundedRectangle(cornerRadius: 2)
+                                .fill(manager.color(for: hour))
+                                .frame(height: 50)
+                                .shadow(radius: 1, x: 1, y: 1)
+                        }
+                    }
+                    
+                    HStack {
+                        ForEach(["2h", "6h", "10h", "14h", "18h", "22h"], id: \.self) { hour in
+                            Text(hour)
+                                .font(.caption)
+                                .frame(maxWidth: .infinity)
+                        }
                     }
                 }
-
-                HStack {
-                    ForEach(["2h", "6h", "10h", "14h", "18h", "22h"], id: \.self) { hour in
-                        Text(hour)
-                            .font(.caption)
-                            .frame(maxWidth: .infinity)
-                    }
-                }
+                .padding(.horizontal, 10)
             }
-            .padding(.horizontal, 10)
 
-            HStack {
-                ForEach(manager.generateLegend(), id: \.type) { legend in
-                    ActivityLegendView(data: legend)
+            if dynamicTypeSize < .accessibility1 {
+                HStack {
+                    ForEach(manager.generateLegend(), id: \.type) { legend in
+                        ActivityLegendView(data: legend)
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal)
+            } else {
+                VStack {
+                    ForEach(manager.generateLegend(), id: \.type) { legend in
+                        ActivityLegendView(data: legend)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
                 .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal)
         }
         .padding(.vertical)
         .background(
