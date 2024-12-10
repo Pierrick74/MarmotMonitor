@@ -140,4 +140,8 @@ enum ActivityCategory: String, Codable {
     var color: Color {
         Color(self.rawValue)
     }
+
+    var colorBarre: Color {
+        Color(self.rawValue+"Barre")
+    }
 }

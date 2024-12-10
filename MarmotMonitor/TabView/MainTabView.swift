@@ -23,7 +23,7 @@ struct MainTabView: View {
                             .accessibility(label: Text("Aujourd'hui"))
                             .accessibilityHint("Synthèse de la journée")
                     }
-                Text("Version 2")
+                MonitorView()
                     .tabItem {
                         Label("Monitor", systemImage: "waveform.path.ecg")
                     }

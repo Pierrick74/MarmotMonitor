@@ -42,8 +42,8 @@ struct ActivityRow: View {
                         ForEach(0..<48) { hour in
                             RoundedRectangle(cornerRadius: 2)
                                 .fill(manager.color(for: hour))
+                                .stroke(colorScheme == .dark ? Color.white : .black, lineWidth: 0.3)
                                 .frame(height: 50)
-                                .shadow(color: .black.opacity(0.8), radius: 0.5, x: 1, y: 1)
                         }
                     }
 
@@ -80,7 +80,7 @@ struct ActivityRow: View {
         .padding(.vertical)
         .background(
             RoundedRectangle(cornerRadius: 30)
-                .fill(colorScheme == .dark ? Color.secondary.opacity(0.2) : Color.white)
+                .fill(colorScheme == .dark ? Color.secondary.opacity(0.2) : Color.gray.mix(with: .white, by: 0.9))
                 .stroke(colorScheme == .dark ? Color.white : .clear, lineWidth: 1)
                 .shadow(radius: 5, x: 5, y: 5)
         )

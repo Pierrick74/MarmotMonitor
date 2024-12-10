@@ -27,11 +27,11 @@ struct ActivityRowManager {
 
         for range in sortedData {
             if hour >= range.startHour && hour < range.endHour {
-                return range.type.color
+                return range.type.colorBarre
             }
         }
 
-        return .gray.mix(with: .white, by: 0.5)
+        return .clear
     }
 
     private func priority(for type: ActivityCategory) -> Int {
