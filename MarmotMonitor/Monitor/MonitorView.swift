@@ -80,6 +80,9 @@ struct MonitorView: View {
                 .listStyle(PlainListStyle())
             }
         }
+        .onAppear {
+            manager.createActivityDataInRange()
+        }
     }
 }
 

@@ -46,7 +46,6 @@ struct ActivityLegendView: View {
             }
         }
         .padding(5)
-        .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .fill(colorScheme == .light ? manager.color : manager.color.mix(with: .black, by: 0.1))
