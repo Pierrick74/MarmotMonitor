@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ActivityRow: View {
     let date: Date
-    let manager: ActivityRowManager
+    var manager: ActivityRowManager
 
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.colorScheme) var colorScheme
@@ -33,6 +33,7 @@ struct ActivityRow: View {
                     Image(systemName: "pencil")
                         .foregroundColor(.primary)
                 })
+                .accessibilityHidden(true)
             }
             .padding(.horizontal)
 
@@ -56,6 +57,7 @@ struct ActivityRow: View {
                     }
                 }
                 .padding(.horizontal, 10)
+                .accessibilityHidden(true)
             }
 
             if dynamicTypeSize < .accessibility1 {

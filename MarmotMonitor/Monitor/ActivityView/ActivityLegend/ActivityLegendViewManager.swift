@@ -38,6 +38,11 @@ final class ActivityLegendViewManager {
             return nil
         }
     }
+
+    var accessibilityDescription: String {
+        let total = totalValue != nil ? " avec un total de \(totalValue!)" : ""
+        return "Activité \(name) répétée \(recurency)" + total
+    }
 }
 
 struct ActivityLegendData: Equatable {

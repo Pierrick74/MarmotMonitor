@@ -20,7 +20,7 @@ struct ActivityLegendView: View {
     var body: some View {
         HStack(spacing: 8) {
             if dyynamicTypeSize < .accessibility1 {
-                Image(manager.name)
+                Image(decorative: manager.name)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 30, height: 30)
@@ -52,6 +52,8 @@ struct ActivityLegendView: View {
                 .stroke(colorScheme == .light ? .clear : Color.primary.opacity(0.5), lineWidth: 1)
                 .shadow(radius: 1, x: 1, y: 1)
         )
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(manager.accessibilityDescription)
     }
 }
 

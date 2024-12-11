@@ -34,6 +34,7 @@ struct MonitorView: View {
                             )
                             .frame(maxWidth: .infinity)
                     })
+                    .accessibilityLabel("Filtre sommeil \(manager.isSleepSelected ? "activé" : "désactivé")")
 
                     Button(action: {
                         withAnimation {
@@ -51,6 +52,8 @@ struct MonitorView: View {
                             )
                             .frame(maxWidth: .infinity)
                     })
+                    .accessibilityLabel("Filtre couche \(manager.isDiaperSelected ? "activé" : "désactivé")")
+
                     Button(action: {
                         withAnimation {
                             manager.toggleFilter(.food)
@@ -67,6 +70,8 @@ struct MonitorView: View {
                             )
                             .frame(maxWidth: .infinity)
                     })
+                    .accessibilityLabel("Filtre repas \(manager.isFoodSelected ? "activé" : "désactivé")")
+
                     Spacer()
                 }
                 .padding(.top, 20)

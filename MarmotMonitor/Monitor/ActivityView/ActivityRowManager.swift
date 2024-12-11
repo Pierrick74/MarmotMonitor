@@ -42,6 +42,8 @@ struct ActivityRowManager {
         case .growth: return 0
         }
     }
+
+    var accessibilitéInformation: String = ""
 }
 
 extension ActivityRowManager {
