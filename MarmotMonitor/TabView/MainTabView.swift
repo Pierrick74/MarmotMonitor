@@ -28,7 +28,7 @@ struct MainTabView: View {
                         Label("Monitor", systemImage: "waveform.path.ecg")
                     }
                 Spacer()
-                Text("Version 2")
+                GrowthView()
                     .tabItem {
                         Label("Docteur", systemImage: "stethoscope")
                     }
