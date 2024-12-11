@@ -19,10 +19,16 @@ class MonitorViewManager: ObservableObject {
     }
 
     @Published var formattedActivityData: [Date: [ActivityRange]] = [:]
+    @Published private var filter: [ActivityCategory] = [.diaper, .food, .sleep]
 
+    var isSleepSelected: Bool { filter.contains(.sleep) }
+    var isDiaperSelected: Bool {filter.contains(.diaper) }
+    var isFoodSelected: Bool { filter.contains(.food) }
+
+    // MARK: - Functions
     func createActivityDataInRange() {
         formattedActivityData = [:]
-        let babyActivities = dataManager.fetchData()
+        let babyActivities = dataManager.fetchFilteredActivities(with: filter)
 
         for data in babyActivities {
             var range: ActivityRange?
@@ -163,5 +169,14 @@ class MonitorViewManager: ObservableObject {
         let startOfDay = calendar.startOfDay(for: date)
         let endOfDay = calendar.startOfDay(for: date.addingTimeInterval(duration))
         return startOfDay == endOfDay
+    }
+
+    func toggleFilter(_ category: ActivityCategory) {
+        if filter.contains(category) {
+            filter.removeAll { $0 == category }
+        } else {
+            filter.append(category)
+        }
+        createActivityDataInRange()
     }
 }

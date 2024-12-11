@@ -19,7 +19,9 @@ struct MonitorView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        print("Previous day")
+                        withAnimation {
+                            manager.toggleFilter(.sleep)
+                        }
                     }, label: {
                         Image("Sommeil")
                             .resizable()
@@ -27,15 +29,16 @@ struct MonitorView: View {
                             .padding(10)
                             .background(
                                 Circle()
-                                    .fill(ActivityCategory.sleep.color)
+                                    .fill(manager.isSleepSelected ? ActivityCategory.sleep.color : .gray)
                                     .shadow(color: .primary, radius: 2)
                             )
                             .frame(maxWidth: .infinity)
                     })
-                    .disabled(true)
 
                     Button(action: {
-                        print("Previous day")
+                        withAnimation {
+                            manager.toggleFilter(.diaper)
+                        }
                     }, label: {
                         Image("Couche")
                             .resizable()
@@ -43,13 +46,15 @@ struct MonitorView: View {
                             .padding(10)
                             .background(
                                 Circle()
-                                    .fill(ActivityCategory.diaper.color)
+                                    .fill(manager.isDiaperSelected ? ActivityCategory.diaper.color : .gray)
                                     .shadow(color: .primary, radius: 2)
                             )
                             .frame(maxWidth: .infinity)
                     })
                     Button(action: {
-                        print("Previous day")
+                        withAnimation {
+                            manager.toggleFilter(.food)
+                        }
                     }, label: {
                         Image("Repas")
                             .resizable()
@@ -57,7 +62,7 @@ struct MonitorView: View {
                             .padding(10)
                             .background(
                                 Circle()
-                                    .fill(ActivityCategory.food.color)
+                                    .fill(manager.isFoodSelected ? ActivityCategory.food.color : .gray)
                                     .shadow(color: .primary, radius: 2)
                             )
                             .frame(maxWidth: .infinity)
