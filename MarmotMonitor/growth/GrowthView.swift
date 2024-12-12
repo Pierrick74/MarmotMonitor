@@ -50,7 +50,7 @@ struct GrowthView: View {
                                 x: .value("Mois", month),
                                 y: .value("Height", height)
                             )
-                            .foregroundStyle(.black)
+                            .foregroundStyle(.primary)
                             .interpolationMethod(.catmullRom)
                             .lineStyle(.init(lineWidth: 1))
                         }
@@ -74,7 +74,7 @@ struct GrowthView: View {
                         .foregroundStyle(.secondary)
                     Spacer()
                 }
-                .padding(.bottom, 30)
+                .padding(.bottom, 40)
             }
             .padding(.horizontal, 20)
         }
