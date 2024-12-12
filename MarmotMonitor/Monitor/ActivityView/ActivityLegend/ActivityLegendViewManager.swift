@@ -28,12 +28,14 @@ final class ActivityLegendViewManager {
     }
 
     var totalValue: String? {
+        guard let totalValue = activity.total else { return nil }
+        let total = Int(totalValue)
         switch activity.type {
         case .sleep:
-            return activity.total != nil ? "\(activity.total!) h" : nil
+            return "\(total) h"
         case .food:
             let unit = activity.unit == .imperial ? "oz" : "ml"
-            return activity.total != nil ? "\(activity.total!)" + " " + unit : nil
+            return "\(total)" + " " + unit
         default:
             return nil
         }

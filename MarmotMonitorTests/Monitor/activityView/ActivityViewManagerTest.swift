@@ -25,11 +25,11 @@ struct ActivityViewManagerTest {
         let color6 = manager.color(for: 6)
 
         // 3. then
-        #expect(color0 == .white)
-        #expect(color2 == ActivityCategory.sleep.color)
-        #expect(color4 == ActivityCategory.sleep.color)
-        #expect(color5 == .white)
-        #expect(color6 == .white)
+        #expect(color0 == .clear)
+        #expect(color2 == ActivityCategory.sleep.colorBarre)
+        #expect(color4 == ActivityCategory.sleep.colorBarre)
+        #expect(color5 == .clear)
+        #expect(color6 == .clear)
     }
 
     @Test mutating func testDataHaveManyType_WhenCallColor_ColorIsSortedByPriority() {
@@ -45,13 +45,13 @@ struct ActivityViewManagerTest {
         let color6 = manager.color(for: 6)
 
         // 3. then
-        #expect(color0 == .white)
-        #expect(color1 == ActivityCategory.sleep.color)
-        #expect(color2 == ActivityCategory.food.color)
-        #expect(color3 == ActivityCategory.food.color)
-        #expect(color4 == ActivityCategory.diaper.color)
-        #expect(color5 == ActivityCategory.sleep.color)
-        #expect(color6 == .white)
+        #expect(color0 == .clear)
+        #expect(color1 == ActivityCategory.sleep.colorBarre)
+        #expect(color2 == ActivityCategory.food.colorBarre)
+        #expect(color3 == ActivityCategory.food.colorBarre)
+        #expect(color4 == ActivityCategory.diaper.colorBarre)
+        #expect(color5 == ActivityCategory.sleep.colorBarre)
+        #expect(color6 == .clear)
     }
 
     // MARK: - Data Legend tests
