@@ -20,7 +20,7 @@ class DetailViewManager: ObservableObject {
 
     @Published var formattedActivityData: [ActivityDetail] = []
     var date: Date
-    
+
     func fetchActivityData() {
         let activities = dataManager.fetchFiltered(with: date)
         formattedActivityData = formatActivityData(activities)
@@ -29,13 +29,13 @@ class DetailViewManager: ObservableObject {
     private func formatActivityData(_ activities: [BabyActivity]) -> [ActivityDetail] {
         activities.compactMap { activity in
             guard activity.activityCategory != ActivityCategory.growth.rawValue else { return nil }
-            
+
             let icon = activity.activityImageName
             let color = Color(activity.activityColor)
             let type = activity.activityTitre
             let startHour = activity.date.toHourMinuteString()
             let value = getValue(for: activity)
-            
+
             return ActivityDetail(icon: icon, color: color, type: type, startHour: startHour, value: value)
         }
     }

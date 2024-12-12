@@ -15,7 +15,7 @@ class MonitorViewManager: ObservableObject {
         if let dataManager = dataManager {
             self.dataManager = dataManager
         }
-        createActivityDataInRange()
+        loadActivitiesInDateRange()
     }
 
     @Published var formattedActivityData: [Date: [ActivityRange]] = [:]
@@ -26,7 +26,7 @@ class MonitorViewManager: ObservableObject {
     var isFoodSelected: Bool { filter.contains(.food) }
 
     // MARK: - Functions
-    func createActivityDataInRange() {
+    func loadActivitiesInDateRange() {
         formattedActivityData = [:]
         let babyActivities = dataManager.fetchFilteredActivities(with: filter)
 
@@ -177,6 +177,6 @@ class MonitorViewManager: ObservableObject {
         } else {
             filter.append(category)
         }
-        createActivityDataInRange()
+        loadActivitiesInDateRange()
     }
 }

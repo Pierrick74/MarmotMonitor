@@ -18,60 +18,17 @@ struct MonitorView: View {
             VStack {
                 HStack {
                     Spacer()
-                    Button(action: {
-                        withAnimation {
-                            manager.toggleFilter(.sleep)
-                        }
-                    }, label: {
-                        Image("Sommeil")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .padding(10)
-                            .background(
-                                Circle()
-                                    .fill(manager.isSleepSelected ? ActivityCategory.sleep.color : .gray)
-                                    .shadow(color: .primary, radius: 2)
-                            )
-                            .frame(maxWidth: .infinity)
-                    })
-                    .accessibilityLabel("Filtre sommeil \(manager.isSleepSelected ? "activé" : "désactivé")")
+                    FilterButton(category: .sleep, isSelected: manager.isSleepSelected) {
+                        withAnimation {manager.toggleFilter(.sleep)}
+                    }
 
-                    Button(action: {
-                        withAnimation {
-                            manager.toggleFilter(.diaper)
-                        }
-                    }, label: {
-                        Image("Couche")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .padding(10)
-                            .background(
-                                Circle()
-                                    .fill(manager.isDiaperSelected ? ActivityCategory.diaper.color : .gray)
-                                    .shadow(color: .primary, radius: 2)
-                            )
-                            .frame(maxWidth: .infinity)
-                    })
-                    .accessibilityLabel("Filtre couche \(manager.isDiaperSelected ? "activé" : "désactivé")")
+                    FilterButton(category: .diaper, isSelected: manager.isDiaperSelected) {
+                        withAnimation {manager.toggleFilter(.diaper)}
+                    }
 
-                    Button(action: {
-                        withAnimation {
-                            manager.toggleFilter(.food)
-                        }
-                    }, label: {
-                        Image("Repas")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .padding(10)
-                            .background(
-                                Circle()
-                                    .fill(manager.isFoodSelected ? ActivityCategory.food.color : .gray)
-                                    .shadow(color: .primary, radius: 2)
-                            )
-                            .frame(maxWidth: .infinity)
-                    })
-                    .accessibilityLabel("Filtre repas \(manager.isFoodSelected ? "activé" : "désactivé")")
-
+                    FilterButton(category: .food, isSelected: manager.isFoodSelected) {
+                        withAnimation {manager.toggleFilter(.food)}
+                    }
                     Spacer()
                 }
                 .padding(.top, 20)
@@ -91,7 +48,7 @@ struct MonitorView: View {
             }
         }
         .onAppear {
-            manager.createActivityDataInRange()
+            manager.loadActivitiesInDateRange()
         }
     }
 }
