@@ -13,6 +13,9 @@
     "%lld min" : {
 
     },
+    "Âge" : {
+
+    },
     "Ajouter 10 ml" : {
 
     },
@@ -101,6 +104,9 @@
     "Droit" : {
 
     },
+    "en Mois" : {
+
+    },
     "Fermer" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -112,7 +118,19 @@
         }
       }
     },
+    "Filtre couche %@" : {
+
+    },
+    "Filtre repas %@" : {
+
+    },
+    "Filtre sommeil %@" : {
+
+    },
     "Gauche" : {
+
+    },
+    "Height" : {
 
     },
     "Inserer le nom de la petite marmotte ? " : {
@@ -191,6 +209,9 @@
     "Minutes" : {
 
     },
+    "Mois" : {
+
+    },
     "Monitor" : {
       "localizations" : {
         "en" : {
@@ -255,6 +276,12 @@
           }
         }
       }
+    },
+    "Périmètre" : {
+
+    },
+    "Poids" : {
+
     },
     "Quand est née la petite marmotte ?" : {
       "localizations" : {
@@ -388,10 +415,10 @@
         }
       }
     },
-    "Temps total" : {
+    "taille" : {
 
     },
-    "Version 2" : {
+    "Temps total" : {
 
     }
   },

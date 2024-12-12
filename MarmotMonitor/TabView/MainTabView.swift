@@ -23,12 +23,12 @@ struct MainTabView: View {
                             .accessibility(label: Text("Aujourd'hui"))
                             .accessibilityHint("Synthèse de la journée")
                     }
-                Text("Version 2")
+                MonitorView()
                     .tabItem {
                         Label("Monitor", systemImage: "waveform.path.ecg")
                     }
                 Spacer()
-                Text("Version 2")
+                GrowthView()
                     .tabItem {
                         Label("Docteur", systemImage: "stethoscope")
                     }
@@ -43,7 +43,10 @@ struct MainTabView: View {
                 appearance.configureWithOpaqueBackground()
                 appearance.stackedLayoutAppearance.normal.iconColor = UIColor.label
                 appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.label]
+
                 UITabBar.appearance().standardAppearance = appearance
+                UITabBar.appearance().isTranslucent = false
+                UITabBar.appearance().backgroundColor = UIColor.systemBackground
             }
             .overlay(VStack {
                 Spacer()
@@ -61,7 +64,7 @@ struct MainTabView: View {
                         .shadow(radius: 5)
                         .padding(10)
                         .background(Circle().fill(colorScheme == .dark ? Color.black : Color.white))
-                        .padding(10)
+                        .padding(5)
                         .matchedTransitionSource(id: "zoom", in: namespace)
                 })
             }
