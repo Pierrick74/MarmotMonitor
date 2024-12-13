@@ -31,106 +31,105 @@ class MonitorViewManager: ObservableObject {
         let babyActivities = dataManager.fetchFilteredActivities(with: filter)
 
         for data in babyActivities {
-            var range: ActivityRange?
-            var rangeNextDay: ActivityRange?
-
-            switch data.activity {
-            case .sleep(let duration):
-                if checkIfDayNotChanged(with: data.date, duration: duration) {
-                    // Le sommeil ne dépasse pas minuit
-                    let startHour = transformInRange(data.date)
-                    let endDate = data.date.addingTimeInterval(TimeInterval(duration))
-                    let endHour = transformInRange(endDate)
-                    let durationInMinutes = formatDuration(duration)
-
-                    range = ActivityRange(
-                        startHour: startHour,
-                        endHour: endHour,
-                        type: .sleep,
-                        value: durationInMinutes,
-                        unit: nil
-                    )
-                } else {
-                    // Le sommeil dépasse minuit
-                    let calendar = Calendar.current
-                    let midnight = calendar.startOfDay(for: calendar.date(byAdding: .day, value: 1, to: data.date)!)
-
-                    // Première portion jusqu'à minuit
-                    let firstDuration = midnight.timeIntervalSince(data.date)
-                    let startHour = transformInRange(data.date)
-                    let endHour = 48
-                    let durationInMinutes = formatDuration(firstDuration)
-
-                    range = ActivityRange(
-                        startHour: startHour,
-                        endHour: endHour,
-                        type: .sleep,
-                        value: durationInMinutes,
-                        unit: nil
-                    )
-
-                    // Deuxième portion à partir de minuit
-                    let secondDuration = duration - firstDuration
-                    let startHourDayPlusOne = 0
-                    let endHourDayPlusOne = transformInRange(midnight.addingTimeInterval(secondDuration))
-                    let durationInMinutesDayPlusOne = formatDuration(secondDuration)
-
-                    rangeNextDay = ActivityRange(
-                        startHour: startHourDayPlusOne,
-                        endHour: endHourDayPlusOne,
-                        type: .sleep,
-                        value: durationInMinutesDayPlusOne,
-                        unit: nil
-                    )
-                }
-
-            case .diaper:
-                let startHour = transformInRange(data.date)
-                let endHour = startHour + 1
-                range = ActivityRange(
-                    startHour: startHour,
-                    endHour: endHour,
-                    type: .diaper,
-                    value: nil,
-                    unit: nil)
-
-            case .bottle(volume: let volume, measurementSystem: let measurementSystem):
-                let startHour = transformInRange(data.date)
-                let endHour = startHour + 1
-                range = ActivityRange(
-                    startHour: startHour,
-                    endHour: endHour,
-                    type: .food,
-                    value: Double(Int(volume)),
-                    unit: measurementSystem)
-
-            case .breast(duration: let duration, lastBreast: _):
-                let startHour = transformInRange(data.date)
-                let interval = duration.leftDuration + duration.rightDuration
-
-                let endDate = data.date.addingTimeInterval(TimeInterval(interval))
-                let endHour = transformInRange(endDate)
-
-                range = ActivityRange(
-                    startHour: startHour,
-                    endHour: endHour,
-                    type: .food,
-                    value: nil,
-                    unit: nil)
-
-            case .growth:
-                range = nil
-            }
-
+            let ranges = createActivityRange(for: data)
             let savedData = Calendar.current.startOfDay(for: data.date)
-            if let unwrappRange = range {
-                addToFormattedActivityData(unwrappRange, for: savedData)
+            
+            if let mainRange = ranges.main {
+                addToFormattedActivityData(mainRange, for: savedData)
             }
 
-            if let unwrapRangeNextDay = rangeNextDay {
+            if let nextDayRange = ranges.nextDay {
                 let savedDataPlusOne = Calendar.current.startOfDay(for: data.date.addingTimeInterval(86400))
-                addToFormattedActivityData(unwrapRangeNextDay, for: savedDataPlusOne)
+                addToFormattedActivityData(nextDayRange, for: savedDataPlusOne)
             }
+        }
+    }
+
+    
+    func toggleFilter(_ category: ActivityCategory) {
+        if filter.contains(category) {
+            filter.removeAll { $0 == category }
+        } else {
+            filter.append(category)
+        }
+        loadActivitiesInDateRange()
+    }
+
+    // MARK: - Private functions
+    private func createActivityRange(for activity: BabyActivity) -> (main: ActivityRange?, nextDay: ActivityRange?) {
+        switch activity.activity {
+        case .sleep(let duration):
+            if checkIfDayNotChanged(with: activity.date, duration: duration) {
+                let range = ActivityRange(
+                    startHour: transformInRangeIndex(activity.date),
+                    endHour: transformInRangeIndex(activity.date.addingTimeInterval(TimeInterval(duration))),
+                    type: .sleep,
+                    value: formatDuration(duration),
+                    unit: nil
+                )
+                return (main: range, nextDay: nil)
+
+            } else {
+                let calendar = Calendar.current
+                let midnight = calendar.startOfDay(for: calendar.date(byAdding: .day, value: 1, to: activity.date)!)
+
+                // before midnight
+                let firstDuration = midnight.timeIntervalSince(activity.date)
+
+                let range = ActivityRange(
+                    startHour: transformInRangeIndex(activity.date),
+                    endHour: 48,
+                    type: .sleep,
+                    value: formatDuration(firstDuration),
+                    unit: nil
+                )
+
+                // after midnight
+                let secondDuration = duration - firstDuration
+                let rangeNextDay = ActivityRange(
+                    startHour: 0,
+                    endHour: transformInRangeIndex(midnight.addingTimeInterval(secondDuration)),
+                    type: .sleep,
+                    value: formatDuration(secondDuration),
+                    unit: nil
+                )
+                return (main: range, nextDay: rangeNextDay)
+            }
+
+        case .diaper:
+            let range = ActivityRange(
+                startHour: transformInRangeIndex(activity.date),
+                endHour: transformInRangeIndex(activity.date) + 1,
+                type: .diaper,
+                value: nil,
+                unit: nil)
+            return (main: range, nextDay: nil)
+
+        case .bottle(volume: let volume, measurementSystem: let measurementSystem):
+            let range = ActivityRange(
+                startHour: transformInRangeIndex(activity.date),
+                endHour: transformInRangeIndex(activity.date) + 1,
+                type: .food,
+                value: Double(Int(volume)),
+                unit: measurementSystem)
+            return (main: range, nextDay: nil)
+
+        case .breast(duration: let duration, lastBreast: _):
+
+            let interval = duration.leftDuration + duration.rightDuration
+            let endDate = activity.date.addingTimeInterval(TimeInterval(interval))
+            let endHour = transformInRangeIndex(endDate)
+
+            let range = ActivityRange(
+                startHour: transformInRangeIndex(activity.date),
+                endHour: endHour,
+                type: .food,
+                value: nil,
+                unit: nil)
+            return (main: range, nextDay: nil)
+
+        case .growth:
+            return (main: nil, nextDay: nil)
         }
     }
 
@@ -142,7 +141,7 @@ class MonitorViewManager: ObservableObject {
         }
     }
 
-    private func transformInRange(_ date: Date) -> Int {
+    private func transformInRangeIndex(_ date: Date) -> Int {
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
         let minute = calendar.component(.minute, from: date)
@@ -169,14 +168,5 @@ class MonitorViewManager: ObservableObject {
         let startOfDay = calendar.startOfDay(for: date)
         let endOfDay = calendar.startOfDay(for: date.addingTimeInterval(duration))
         return startOfDay == endOfDay
-    }
-
-    func toggleFilter(_ category: ActivityCategory) {
-        if filter.contains(category) {
-            filter.removeAll { $0 == category }
-        } else {
-            filter.append(category)
-        }
-        loadActivitiesInDateRange()
     }
 }
