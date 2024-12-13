@@ -27,7 +27,7 @@ class DetailViewManager: ObservableObject {
     }
 
     private func formatActivityData(_ activities: [BabyActivity]) -> [ActivityDetail] {
-        activities.compactMap { activity in
+        activities.compactMap { activity -> ActivityDetail? in
             guard activity.activityCategory != ActivityCategory.growth.rawValue else { return nil }
 
             let icon = activity.activityImageName
@@ -35,9 +35,10 @@ class DetailViewManager: ObservableObject {
             let type = activity.activityTitre
             let startHour = activity.date.toHourMinuteString()
             let value = getValue(for: activity)
+            let date = activity.date
 
-            return ActivityDetail(icon: icon, color: color, type: type, startHour: startHour, value: value)
-        }
+            return ActivityDetail(icon: icon, color: color, type: type, startHour: startHour, value: value, date: date)
+        }.compactMap { $0 }
     }
 
     private func getValue(for activity: BabyActivity) -> String {
@@ -48,7 +49,17 @@ class DetailViewManager: ObservableObject {
             let unit = measurementSystem == .metric ? "ml" : "oz"
             return "\(volume) \(unit)"
         case .sleep(let duration):
-            return Int(duration).toHourMinuteString()
+            return Int(duration).toHourMinuteString() + " h"
+        }
+    }
+
+    // MARK: - Delete Action
+    func deleteActivity(_ activity: ActivityDetail) {
+        let activities = dataManager.fetchFiltered(with: activity.date)
+        for act in activities {
+            if act.activityTitre == activity.type && act.date == activity.date {
+                dataManager.deleteActivity(activity: act)
+            }
         }
     }
 }
@@ -60,4 +71,5 @@ struct ActivityDetail: Identifiable {
     let type: String
     let startHour: String
     let value: String
+    let date: Date
 }
