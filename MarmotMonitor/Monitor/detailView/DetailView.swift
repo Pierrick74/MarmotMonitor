@@ -8,6 +8,7 @@ import SwiftUI
 
 struct DetailView: View {
     @ObservedObject var manager: DetailViewManager
+    @Environment(\.dismiss) var dismiss
 
     init(date: Date) {
         self.manager = DetailViewManager(date: date)
@@ -34,6 +35,12 @@ struct DetailView: View {
                 .onAppear {
                     manager.fetchActivityData()
                 }
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .overlay(alignment: .topLeading) {
+            BackButton {
+                dismiss()
             }
         }
     }
