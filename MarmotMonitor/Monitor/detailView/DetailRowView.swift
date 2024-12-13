@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct DetailRowView: View {
-        let activity: ActivityDetail
+    let activity: ActivityDetail
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
-        var body: some View {
+    var body: some View {
+        if dynamicTypeSize < .accessibility1 {
             HStack {
                 Image(decorative: activity.icon)
                     .resizable()
@@ -41,7 +43,31 @@ struct DetailRowView: View {
             .listRowBackground(Color.clear)
             .listRowSeparator(.hidden)
             .frame(maxWidth: .infinity)
+        } else {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(activity.startHour)
+                    .font(.subheadline)
+                    .foregroundColor(.primary)
+
+                Text(activity.type)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
+                Text(activity.value)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+            }
+            .padding(8)
+            .frame(maxWidth: .infinity)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(activity.color.opacity(0.8))
+                    .shadow(color: Color.black.opacity(0.5), radius: 5, x: 0, y: 2)
+            )
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
         }
+    }
 }
 
 #Preview {
