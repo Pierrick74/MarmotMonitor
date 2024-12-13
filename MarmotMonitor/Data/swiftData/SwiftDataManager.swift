@@ -14,6 +14,7 @@ protocol SwiftDataManagerProtocol {
     func addActivity(_ activity: BabyActivity) throws
     func deleteActivity(activity: BabyActivity)
     func fetchFilteredActivities(with selectedActivityTypes: [ActivityCategory]) -> [BabyActivity]
+    func fetchFiltered(with date: Date) -> [BabyActivity]
     func clearAllData()
 }
 
@@ -78,6 +79,25 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
         do {
             let predicate = #Predicate<BabyActivity> { activity in
                 selectedActivityTypes.contains(activity.activityCategory)
+            }
+
+            let descriptor = FetchDescriptor<BabyActivity>(predicate: predicate, sortBy: [SortDescriptor(\.date, order: .reverse)])
+            return try modelContext.fetch(descriptor)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
+
+    func fetchFiltered(with date: Date) -> [BabyActivity] {
+        let startOfDay = Calendar.current.startOfDay(for: date)
+
+        guard let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay)?.addingTimeInterval(-1) else {
+            fatalError("Unable to calculate end of day")
+        }
+
+        do {
+            let predicate = #Predicate<BabyActivity> { activity in
+                activity.date >= startOfDay && activity.date <= endOfDay
             }
 
             let descriptor = FetchDescriptor<BabyActivity>(predicate: predicate, sortBy: [SortDescriptor(\.date, order: .reverse)])

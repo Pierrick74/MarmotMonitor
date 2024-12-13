@@ -280,4 +280,21 @@ struct SwiftDataManagerTest {
         }
         #expect(babyActivity.count == 1)
     }
+
+    // MARK: - Fetch By Date
+    @MainActor @Test
+    mutating func managerHaveActivities_whenFetchByDate_thenActivityIsReturned() throws {
+        // 1. given
+        #expect(babyActivity.isEmpty)
+        try dataSource.addActivity(dataMock.oneSleepBabyActivity)
+        try dataSource.addActivity(dataMock.sleepBabyActivityBefore)
+        updateBabyActivity()
+        #expect(babyActivity.count == 2)
+
+        // 2. when
+        let activities = dataSource.fetchFiltered(with: dataMock.oneSleepBabyActivity.date)
+
+        // 3. then
+        #expect(activities.count == 1)
+    }
 }

@@ -37,7 +37,7 @@ struct MonitorViewManagerTest {
         #expect(babyActivity.count == 1)
 
         // 2. when
-       manager.createActivityDataInRange()
+       manager.loadActivitiesInDateRange()
 
         // 3. then
         #expect(manager.formattedActivityData.count == 1)

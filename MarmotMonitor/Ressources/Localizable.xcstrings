@@ -118,14 +118,15 @@
         }
       }
     },
-    "Filtre couche %@" : {
-
-    },
-    "Filtre repas %@" : {
-
-    },
-    "Filtre sommeil %@" : {
-
+    "Filtre %@ %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Filtre %1$@ %2$@"
+          }
+        }
+      }
     },
     "Gauche" : {
 

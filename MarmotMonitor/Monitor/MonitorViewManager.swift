@@ -11,13 +11,6 @@ import SwiftUI
 class MonitorViewManager: ObservableObject {
     private var dataManager: SwiftDataManagerProtocol = SwiftDataManager.shared
 
-    init(dataManager: SwiftDataManagerProtocol? = nil) {
-        if let dataManager = dataManager {
-            self.dataManager = dataManager
-        }
-        createActivityDataInRange()
-    }
-
     @Published var formattedActivityData: [Date: [ActivityRange]] = [:]
     @Published private var filter: [ActivityCategory] = [.diaper, .food, .sleep]
 
@@ -25,14 +18,21 @@ class MonitorViewManager: ObservableObject {
     var isDiaperSelected: Bool {filter.contains(.diaper) }
     var isFoodSelected: Bool { filter.contains(.food) }
 
+    init(dataManager: SwiftDataManagerProtocol? = nil) {
+        if let dataManager = dataManager {
+            self.dataManager = dataManager
+        }
+        loadActivitiesInDateRange()
+    }
+
     // MARK: - Functions
-    func createActivityDataInRange() {
+    func loadActivitiesInDateRange() {
         formattedActivityData = [:]
         let babyActivities = dataManager.fetchFilteredActivities(with: filter)
 
         for data in babyActivities {
             var range: ActivityRange?
-            var rangeDayPlusOne: ActivityRange?
+            var rangeNextDay: ActivityRange?
 
             switch data.activity {
             case .sleep(let duration):
@@ -75,7 +75,7 @@ class MonitorViewManager: ObservableObject {
                     let endHourDayPlusOne = transformInRange(midnight.addingTimeInterval(secondDuration))
                     let durationInMinutesDayPlusOne = formatDuration(secondDuration)
 
-                    rangeDayPlusOne = ActivityRange(
+                    rangeNextDay = ActivityRange(
                         startHour: startHourDayPlusOne,
                         endHour: endHourDayPlusOne,
                         type: .sleep,
@@ -124,21 +124,21 @@ class MonitorViewManager: ObservableObject {
 
             let savedData = Calendar.current.startOfDay(for: data.date)
             if let unwrappRange = range {
-                if formattedActivityData[savedData] != nil {
-                    formattedActivityData[savedData]?.append(unwrappRange)
-                } else {
-                    formattedActivityData[savedData] = [unwrappRange]
-                }
+                addToFormattedActivityData(unwrappRange, for: savedData)
             }
 
-            if let unwrappedRangeDayPlusOne = rangeDayPlusOne {
+            if let unwrapRangeNextDay = rangeNextDay {
                 let savedDataPlusOne = Calendar.current.startOfDay(for: data.date.addingTimeInterval(86400))
-                if formattedActivityData[savedDataPlusOne] != nil {
-                    formattedActivityData[savedDataPlusOne]?.append(unwrappedRangeDayPlusOne)
-                } else {
-                    formattedActivityData[savedDataPlusOne] = [unwrappedRangeDayPlusOne]
-                }
+                addToFormattedActivityData(unwrapRangeNextDay, for: savedDataPlusOne)
             }
+        }
+    }
+
+    private func addToFormattedActivityData(_ range: ActivityRange, for date: Date) {
+        if formattedActivityData[date] != nil {
+            formattedActivityData[date]?.append(range)
+        } else {
+            formattedActivityData[date] = [range]
         }
     }
 
@@ -177,6 +177,6 @@ class MonitorViewManager: ObservableObject {
         } else {
             filter.append(category)
         }
-        createActivityDataInRange()
+        loadActivitiesInDateRange()
     }
 }

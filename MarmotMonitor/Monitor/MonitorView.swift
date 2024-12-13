@@ -12,86 +12,49 @@ struct MonitorView: View {
     @StateObject var manager = MonitorViewManager()
 
     var body: some View {
-        ZStack {
-            BackgroundColor()
+        NavigationStack {
+            ZStack {
+                BackgroundColor()
 
-            VStack {
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        withAnimation {
-                            manager.toggleFilter(.sleep)
+                VStack {
+                    HStack {
+                        Spacer()
+                        FilterButton(category: .sleep, isSelected: manager.isSleepSelected) {
+                            withAnimation {manager.toggleFilter(.sleep)}
                         }
-                    }, label: {
-                        Image("Sommeil")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .padding(10)
-                            .background(
-                                Circle()
-                                    .fill(manager.isSleepSelected ? ActivityCategory.sleep.color : .gray)
-                                    .shadow(color: .primary, radius: 2)
-                            )
-                            .frame(maxWidth: .infinity)
-                    })
-                    .accessibilityLabel("Filtre sommeil \(manager.isSleepSelected ? "activé" : "désactivé")")
 
-                    Button(action: {
-                        withAnimation {
-                            manager.toggleFilter(.diaper)
+                        FilterButton(category: .diaper, isSelected: manager.isDiaperSelected) {
+                            withAnimation {manager.toggleFilter(.diaper)}
                         }
-                    }, label: {
-                        Image("Couche")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .padding(10)
-                            .background(
-                                Circle()
-                                    .fill(manager.isDiaperSelected ? ActivityCategory.diaper.color : .gray)
-                                    .shadow(color: .primary, radius: 2)
-                            )
-                            .frame(maxWidth: .infinity)
-                    })
-                    .accessibilityLabel("Filtre couche \(manager.isDiaperSelected ? "activé" : "désactivé")")
 
-                    Button(action: {
-                        withAnimation {
-                            manager.toggleFilter(.food)
+                        FilterButton(category: .food, isSelected: manager.isFoodSelected) {
+                            withAnimation {manager.toggleFilter(.food)}
                         }
-                    }, label: {
-                        Image("Repas")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .padding(10)
-                            .background(
-                                Circle()
-                                    .fill(manager.isFoodSelected ? ActivityCategory.food.color : .gray)
-                                    .shadow(color: .primary, radius: 2)
-                            )
-                            .frame(maxWidth: .infinity)
-                    })
-                    .accessibilityLabel("Filtre repas \(manager.isFoodSelected ? "activé" : "désactivé")")
-
-                    Spacer()
-                }
-                .padding(.top, 20)
-
-                List {
-                    ForEach(manager.formattedActivityData.keys.sorted(by: >), id: \.self) { date in
-                        if let activities = manager.formattedActivityData[date] {
-                            ActivityRow(data: activities, date: date)
-                        }
+                        Spacer()
                     }
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    .frame(maxWidth: .infinity)
+                    .padding(.top, 20)
+
+                    List {
+                        ForEach(manager.formattedActivityData.keys.sorted(by: >), id: \.self) { date in
+                            if let activities = manager.formattedActivityData[date] {
+                                ActivityRow(data: activities, date: date)
+                                    .background(
+                                        NavigationLink("", destination: DetailView(date: date))
+                                            .opacity(0)
+                                    )
+                            }
+                        }
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .frame(maxWidth: .infinity)
+                    }
+                    .scrollContentBackground(.hidden)
+                    .listStyle(PlainListStyle())
                 }
-                .scrollContentBackground(.hidden)
-                .listStyle(PlainListStyle())
             }
-        }
-        .onAppear {
-            manager.createActivityDataInRange()
+            .onAppear {
+                manager.loadActivitiesInDateRange()
+            }
         }
     }
 }
