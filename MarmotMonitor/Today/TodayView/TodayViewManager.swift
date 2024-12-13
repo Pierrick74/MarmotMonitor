@@ -48,7 +48,6 @@ final class TodayViewManager: ObservableObject {
     }
 
     @objc private func handleDataUpdate(_ notification: Notification) {
-            refreshData()
-        print("Data updated")
-        }
+        refreshData()
+    }
 }

@@ -91,6 +91,9 @@
     "Croissance" : {
 
     },
+    "Date de naissance" : {
+
+    },
     "Docteur" : {
       "localizations" : {
         "en" : {
@@ -132,6 +135,9 @@
 
     },
     "Height" : {
+
+    },
+    "Information" : {
 
     },
     "Inserer le nom de la petite marmotte ? " : {
@@ -210,6 +216,9 @@
     "Minutes" : {
 
     },
+    "Modifier" : {
+
+    },
     "Mois" : {
 
     },
@@ -222,6 +231,15 @@
           }
         }
       }
+    },
+    "Né le" : {
+
+    },
+    "Nom de l'enfant" : {
+
+    },
+    "Nom du parent" : {
+
     },
     "nous sommes le %@ %@" : {
       "localizations" : {

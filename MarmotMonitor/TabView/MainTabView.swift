@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainTabView: View {
-    private let gender = AppStorageManager.shared.gender
+    @ObservedObject private var manager = AppStorageManager.shared
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Namespace private var namespace
@@ -32,12 +32,12 @@ struct MainTabView: View {
                     .tabItem {
                         Label("Docteur", systemImage: "stethoscope")
                     }
-                TodayView()
+                SetupView()
                     .tabItem {
                         Label("Réglage", systemImage: "gear")
                     }
             }
-            .tint(gender == GenderType.boy.rawValue ? .blueTapBar : .pinkTapBar)
+            .tint(manager.gender == GenderType.boy ? .blueTapBar : .pinkTapBar)
             .onAppear {
                 let appearance = UITabBarAppearance()
                 appearance.configureWithOpaqueBackground()
@@ -50,15 +50,13 @@ struct MainTabView: View {
             }
             .overlay(VStack {
                 Spacer()
-//                NavigationLink(destination: AddView()
-//                    .navigationTransition(.zoom(sourceID: "zoom", in: namespace))) {
                 Button(action: { isPresented.toggle() },
                        label: {
                     Image(systemName: "plus.circle")
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                         .background(
-                            gender == "Garçon" ? Color.pastelBlueToEgiptienBlue.mix(with: .black, by: 0.1)
+                            manager.gender == .boy ? Color.pastelBlueToEgiptienBlue.mix(with: .black, by: 0.1)
                             : Color.pinkToEgiptienBlue.mix(with: .black, by: 0.1))
                         .clipShape(Circle())
                         .shadow(radius: 5)
@@ -73,7 +71,6 @@ struct MainTabView: View {
                 AddView()
                     .navigationTransition(.zoom(sourceID: "zoom", in: namespace))
                 .presentationCornerRadius(30)
-//                .presentationDetents(dynamicTypeSize < .accessibility1 ? [.medium] : [.large])
                 .environment(\.dynamicTypeSize, dynamicTypeSize)
             }
         }

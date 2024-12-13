@@ -46,7 +46,7 @@ struct FoodAddView: View {
                 .pickerStyle(.segmented)
                 .padding(.horizontal, 50)
                 .padding(.top, 10)
-                .background(manager.gender == GenderType.boy.rawValue ?  .pastelBlueToEgiptienBlue : .pinkToEgiptienBlue)
+                .background(manager.gender == GenderType.boy ?  .pastelBlueToEgiptienBlue : .pinkToEgiptienBlue)
 
                 Spacer()
             }

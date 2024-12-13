@@ -14,7 +14,7 @@ struct GenderView: View {
     let action: () -> Void
     let actionBack: () -> Void
 
-    @Binding var gender: String
+    @Binding var gender: GenderType
 
     var body: some View {
         GeometryReader { proxy in
@@ -66,7 +66,7 @@ struct GenderView: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    GenderView(action: {}, actionBack: {}, gender: .constant("Garçon"))
+    GenderView(action: {}, actionBack: {}, gender: .constant(.boy))
             .preferredColorScheme(.light)
             .background(LinearGradient(gradient:
                                         Gradient(colors: [.pastelBlueToEgiptienBlue, .whiteToEgiptienBlue]), startPoint: .top, endPoint: .bottom)
