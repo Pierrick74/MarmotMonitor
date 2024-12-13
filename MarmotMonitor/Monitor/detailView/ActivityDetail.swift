@@ -22,8 +22,10 @@ struct ActivityDetail: Identifiable {
         self.startHour = activity.date.toHourMinuteString()
         self.value = {
             switch activity.activity {
-            case .diaper, .breast, .growth:
+            case .breast, .growth:
                 return ""
+            case .diaper(let type):
+                return type.rawValue
             case .bottle(let volume, let measurementSystem):
                 let unit = measurementSystem == .metric ? "ml" : "oz"
                 return "\(volume) \(unit)"
