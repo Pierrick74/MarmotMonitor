@@ -33,7 +33,7 @@ class MonitorViewManager: ObservableObject {
         for data in babyActivities {
             let ranges = createActivityRange(for: data)
             let savedData = Calendar.current.startOfDay(for: data.date)
-            
+
             if let mainRange = ranges.main {
                 addToFormattedActivityData(mainRange, for: savedData)
             }
@@ -45,7 +45,6 @@ class MonitorViewManager: ObservableObject {
         }
     }
 
-    
     func toggleFilter(_ category: ActivityCategory) {
         if filter.contains(category) {
             filter.removeAll { $0 == category }
