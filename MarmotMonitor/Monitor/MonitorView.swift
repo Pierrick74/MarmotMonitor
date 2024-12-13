@@ -37,10 +37,11 @@ struct MonitorView: View {
                     List {
                         ForEach(manager.formattedActivityData.keys.sorted(by: >), id: \.self) { date in
                             if let activities = manager.formattedActivityData[date] {
-                                NavigationLink(destination: DetailView(date: date)) {
-                                    ActivityRow(data: activities, date: date)
-                                }
-                                .buttonStyle(PlainButtonStyle())
+                                ActivityRow(data: activities, date: date)
+                                    .background(
+                                        NavigationLink("", destination: DetailView(date: date))
+                                            .opacity(0)
+                                    )
                             }
                         }
                         .listRowBackground(Color.clear)
