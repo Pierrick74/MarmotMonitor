@@ -9,6 +9,8 @@ import SwiftUI
 
 struct InformationRow: View {
     @ObservedObject private var manager = AppStorageManager.shared
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
         HStack {
             Image(systemName: "info.circle")
@@ -39,7 +41,8 @@ struct InformationRow: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 25)
-                .fill(.white)
+                .fill(colorScheme == .light ? .white : .clear)
+                .stroke(colorScheme == .light ? .clear : .primary, lineWidth: 1)
                 .shadow(color: .primary, radius: 2, x: 0, y: 2)
         )
         .padding()
