@@ -14,11 +14,11 @@ struct SetupView: View {
             ZStack {
                 BackgroundColor()
                 VStack(spacing: 0) {
-                    
+
                     NavigationLink(destination: InformationView()) {
                         InformationRow()
                     }
-                    
+
                     DarkModeCard()
                         .padding()
                     Spacer()

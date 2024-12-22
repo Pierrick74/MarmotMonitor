@@ -15,7 +15,7 @@ protocol AppStorageManagerProtocol {
     var gender: GenderType { get }
     var babyBirthday: Date { get set }
     var isMetricUnit: Bool { get set }
-    var appearance : Appearance { get set }
+    var appearance: Appearance { get set }
     func setGender(with gender: GenderType)
 }
 

@@ -11,6 +11,7 @@ import Foundation
 // MARK: - Mock For Tests
 
 class MockAppStorageManager: AppStorageManagerProtocol {
+    var appearance: MarmotMonitor.Appearance = .system
     var gender: MarmotMonitor.GenderType = .girl
     func setGender(with gender: MarmotMonitor.GenderType) { self.gender = gender}
     var babyName: String = "Line"
@@ -21,6 +22,7 @@ class MockAppStorageManager: AppStorageManagerProtocol {
 }
 
 class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
+    var appearance: MarmotMonitor.Appearance = .system
     var babyName: String = "Line"
     var isOnBoardingFinished: Bool = false
     var parentName: String = "Pierrick"
@@ -31,6 +33,7 @@ class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
 }
 
 class MockAppStorageManagerInImperial: AppStorageManagerProtocol {
+    var appearance: MarmotMonitor.Appearance = .system
     var babyName: String = "Line"
     var isOnBoardingFinished: Bool = false
     var parentName: String = "Pierrick"
