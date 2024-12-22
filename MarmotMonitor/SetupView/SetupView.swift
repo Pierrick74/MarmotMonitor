@@ -8,15 +8,20 @@
 import SwiftUI
 
 struct SetupView: View {
+    @AppStorage("appearance") private var appearance: Appearance = .system
     var body: some View {
         NavigationStack {
             ZStack {
                 BackgroundColor()
-                ZStack {
-                    InformationRow()
+                VStack(spacing: 0) {
+                    
                     NavigationLink(destination: InformationView()) {
-                        Color.clear // Zone cliquable invisible
+                        InformationRow()
                     }
+                    
+                    DarkModeCard()
+                        .padding()
+                    Spacer()
                 }
             }
         }

@@ -15,6 +15,7 @@ protocol AppStorageManagerProtocol {
     var gender: GenderType { get }
     var babyBirthday: Date { get set }
     var isMetricUnit: Bool { get set }
+    var appearance : Appearance { get set }
     func setGender(with gender: GenderType)
 }
 
@@ -28,6 +29,7 @@ final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
         case gender
         case babyBirthday
         case isMetricUnit
+        case appearance
     }
     @Published private(set) var gender: GenderType = GenderType.boy
 
@@ -37,6 +39,7 @@ final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
     @AppStorage(AppStorageKeys.isOnBoardingFinished.rawValue) var isOnBoardingFinished: Bool = false
     @AppStorage(AppStorageKeys.babyBirthday.rawValue) var babyBirthday: Date = Date()
     @AppStorage(AppStorageKeys.isMetricUnit.rawValue) var isMetricUnit: Bool = true
+    @AppStorage(AppStorageKeys.appearance.rawValue) var appearance: Appearance = .system
 
     static let shared = AppStorageManager()
 
@@ -53,6 +56,7 @@ final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
 // MARK: - Mock For Tests
 
 class MockAppStorageManager: AppStorageManagerProtocol {
+    var appearance: Appearance = .dark
     func setGender(with gender: GenderType) {}
     var babyName: String = "Line"
     var isOnBoardingFinished: Bool = false
@@ -63,6 +67,7 @@ class MockAppStorageManager: AppStorageManagerProtocol {
 }
 
 class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
+    var appearance: Appearance = .dark
     func setGender(with gender: GenderType) {}
     var babyName: String = "Line"
     var isOnBoardingFinished: Bool = false
