@@ -197,15 +197,14 @@ struct OnBoardingManagerTests {
     // MARK: - Tests ParentName manager
     @Test func whenGenderIsSet_thenGenderIsSaved() async throws {
         // 1. given
-        #expect(storage.gender == "girl")
-        let gender = "boy"
+        #expect(storage.gender == .girl)
 
         // 2. when
-        manager.gender = gender
+        manager.gender = .boy
 
         // 3. then
-        #expect(storage.gender == gender)
-        #expect(manager.gender == gender)
+        #expect(storage.gender == .boy)
+        #expect(manager.gender == .boy)
     }
 
     // MARK: - Tests BirthDay

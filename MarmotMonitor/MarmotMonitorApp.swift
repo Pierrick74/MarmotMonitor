@@ -10,9 +10,12 @@ import SwiftData
 
 @main
 struct MarmotMonitorApp: App {
+    @AppStorage("appearance") private var appearance: Appearance = .system
+
     var body: some Scene {
         WindowGroup {
             StartupView()
+                .preferredColorScheme(appearance.colorScheme)
         }
         .modelContainer(for: BabyActivity.self)
     }

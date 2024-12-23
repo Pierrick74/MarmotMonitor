@@ -13,6 +13,12 @@
     "%lld min" : {
 
     },
+    "Activé" : {
+
+    },
+    "Activer la gestion de l'apparence par le système" : {
+
+    },
     "Âge" : {
 
     },
@@ -33,6 +39,12 @@
       }
     },
     "Allaitement" : {
+
+    },
+    "Apparence Systeme" : {
+
+    },
+    "Appuyer pour changer le mode si la synchronisation systeme n'est pas activée" : {
 
     },
     "Auj" : {
@@ -91,6 +103,12 @@
     "Croissance" : {
 
     },
+    "Date de naissance" : {
+
+    },
+    "Désactivé" : {
+
+    },
     "Docteur" : {
       "localizations" : {
         "en" : {
@@ -134,6 +152,12 @@
     "Height" : {
 
     },
+    "Icone %@" : {
+
+    },
+    "Information" : {
+
+    },
     "Inserer le nom de la petite marmotte ? " : {
       "localizations" : {
         "en" : {
@@ -174,6 +198,9 @@
         }
       }
     },
+    "L'apparence de l'application sera automatiquement synchronisée avec l'apparence du système" : {
+
+    },
     "La petite marmotte est-elle un garçon ou une fille ? " : {
       "localizations" : {
         "en" : {
@@ -210,6 +237,22 @@
     "Minutes" : {
 
     },
+    "Mode %@ %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mode %1$@ %2$@"
+          }
+        }
+      }
+    },
+    "Modifier" : {
+
+    },
+    "Modifier la couleur de l'icone" : {
+
+    },
     "Mois" : {
 
     },
@@ -222,6 +265,15 @@
           }
         }
       }
+    },
+    "Né le" : {
+
+    },
+    "Nom de l'enfant" : {
+
+    },
+    "Nom du parent" : {
+
     },
     "nous sommes le %@ %@" : {
       "localizations" : {

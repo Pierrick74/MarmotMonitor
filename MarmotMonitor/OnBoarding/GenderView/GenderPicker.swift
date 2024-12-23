@@ -13,23 +13,23 @@ import SwiftUI
 // Use GenderType.rawValue to get the selected value
 
 struct GenderPicker: View {
-    @Binding var selection: String
+    @Binding var selection: GenderType
 
     var body: some View {
         HStack(spacing: 10) {
             GenderButton(
                 type: .boy,
                 selection: selection,
-                action: { selection = GenderType.boy.rawValue }
+                action: { selection = GenderType.boy }
             )
-            .accessibilityHint("Séléctionné", isEnabled: selection == GenderType.boy.rawValue)
+            .accessibilityHint("Séléctionné", isEnabled: selection == GenderType.boy)
 
             GenderButton(
                 type: .girl,
                 selection: selection,
-                action: { selection = GenderType.girl.rawValue }
+                action: { selection = GenderType.girl }
             )
-            .accessibilityHint("Séléctionné", isEnabled: selection == GenderType.girl.rawValue)
+            .accessibilityHint("Séléctionné", isEnabled: selection == GenderType.girl)
         }
         .padding(5)
     }
@@ -39,7 +39,7 @@ struct GenderButton: View {
     @Environment(\.colorScheme) var colorScheme
 
     let type: GenderType
-    let selection: String
+    let selection: GenderType
     let action: () -> Void
 
     var body: some View {
@@ -51,7 +51,7 @@ struct GenderButton: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 40)
-                    .opacity(selection == type.rawValue ? 1 : 0.5)
+                    .opacity(selection == type ? 1 : 0.5)
                 Text(type.rawValue)
                     .font(.body.bold())
             }
@@ -60,20 +60,20 @@ struct GenderButton: View {
             .background(
                 RoundedRectangle(cornerRadius: 30)
                     .fill(
-                        selection == type.rawValue
+                        selection == type
                         ? (type == .boy ? .boyGenderButton : .girlGenderButton)
                             : (type == .boy ? .boyGenderButton.opacity(0.4) : .girlGenderButton.opacity(0.4))
                     )
-                    .shadow(color: selection == type.rawValue ?
+                    .shadow(color: selection == type ?
                             colorScheme == .light ? .primary : .clear
                             : .clear, radius: 2, x: 0, y: 2)
             )
         })
-        .foregroundColor(selection == type.rawValue ? .primary : .primary.opacity(0.7))
+        .foregroundColor(selection == type ? .primary : .primary.opacity(0.7))
     }
 }
 
 #Preview {
-    GenderPicker(selection: .constant(GenderType.boy.rawValue))
+    GenderPicker(selection: .constant(GenderType.boy))
         .padding()
 }

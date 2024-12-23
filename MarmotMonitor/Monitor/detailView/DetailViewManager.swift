@@ -43,18 +43,4 @@ class DetailViewManager: ObservableObject {
             return ActivityDetail(from: activity)
         }.compactMap { $0 }
     }
-
-    private func getValue(for activity: BabyActivity) -> String {
-        switch activity.activity {
-        case .breast, .growth:
-            return ""
-        case .diaper(let type):
-            return type.rawValue
-        case .bottle(let volume, let measurementSystem):
-            let unit = measurementSystem == .metric ? "ml" : "oz"
-            return "\(volume) \(unit)"
-        case .sleep(let duration):
-            return Int(duration).toHourMinuteString() + " h"
-        }
-    }
 }

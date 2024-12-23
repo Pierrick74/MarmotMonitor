@@ -67,9 +67,9 @@ final class OnBoardingManager: ObservableObject {
     @Published var isParentNameValide: Bool?
 
     // MARK: - Gender
-    @Published var gender: String {
+    @Published var gender: GenderType {
         didSet {
-            storageManager.gender = gender
+            storageManager.setGender(with: gender)
         }
     }
 
