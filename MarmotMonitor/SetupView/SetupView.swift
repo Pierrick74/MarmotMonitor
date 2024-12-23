@@ -13,15 +13,20 @@ struct SetupView: View {
         NavigationStack {
             ZStack {
                 BackgroundColor()
-                VStack(spacing: 0) {
+                ScrollView {
+                    VStack(spacing: 0) {
 
-                    NavigationLink(destination: InformationView()) {
-                        InformationRow()
+                        NavigationLink(destination: InformationView()) {
+                            InformationRow()
+                        }
+
+                        DarkModeCard()
+                            .padding()
+
+                        IconView()
+                            .padding()
+                        Spacer()
                     }
-
-                    DarkModeCard()
-                        .padding()
-                    Spacer()
                 }
             }
         }
