@@ -13,7 +13,7 @@ import Charts
 /// The user can see the data for each month
 
 struct GrowthView: View {
-
+    @Environment(\.colorScheme) var colorScheme
     @StateObject private var manager = GrowthViewManager()
 
     var body: some View {
@@ -50,7 +50,7 @@ struct GrowthView: View {
                                 x: .value("Mois", month),
                                 y: .value("Height", height)
                             )
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(colorScheme == .dark ? .white : .black)
                             .interpolationMethod(.catmullRom)
                             .lineStyle(.init(lineWidth: 1))
                         }
