@@ -50,6 +50,9 @@ struct DarkModeCard: View {
                     .font(.headline)
             }
             .toggleStyle(SwitchToggleStyle(tint: .secondary))
+            .accessibilityLabel("Activer la gestion de l'apparence par le système")
+            .accessibilityHint("L'apparence de l'application sera automatiquement synchronisée avec l'apparence du système")
+            .accessibilityValue(isSystemModeActivate ? "Activé" : "Désactivé")
             .padding()
         }
         .background(

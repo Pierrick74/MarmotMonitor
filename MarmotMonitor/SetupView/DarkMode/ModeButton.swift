@@ -15,7 +15,7 @@ struct ModeButton: View {
 
     var body: some View {
         VStack {
-            Image(imageName)
+            Image(decorative: imageName)
                 .resizable()
                 .scaledToFit()
                 .shadow(color: .primary.opacity(0.5), radius: 10, x: 0, y: 0)
@@ -26,6 +26,8 @@ struct ModeButton: View {
                     .foregroundColor(.primary)
             }
             .disabled(isDisabled)
+            .accessibilityLabel("Mode \(imageName) \(isSelected ? "activé" : "désactivé")")
+            .accessibilityHint("Appuyer pour changer le mode si la synchronisation systeme n'est pas activée")
         }
     }
 }

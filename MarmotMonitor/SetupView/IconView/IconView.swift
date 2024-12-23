@@ -27,6 +27,7 @@ struct IconView: View {
                                 .fill(theme.color)
                                 .frame(width: 50, height: 50)
                         }
+                        .accessibilityLabel("Icone \(theme.rawValue)")
                     }
                 }
             }
