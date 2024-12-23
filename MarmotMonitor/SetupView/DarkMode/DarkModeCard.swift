@@ -25,7 +25,7 @@ struct DarkModeCard: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 20) {
+            HStack(spacing: 40) {
                 Spacer()
                 ModeButton(
                     imageName: "lightMode",

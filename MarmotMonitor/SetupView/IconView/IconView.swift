@@ -30,7 +30,6 @@ struct IconView: View {
                     }
                 }
             }
-            .padding()
         }
         .padding()
         .background(
