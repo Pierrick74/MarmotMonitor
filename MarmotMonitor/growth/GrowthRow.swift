@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GrowthRow: View {
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
     var date: Date
     var height: Double?
@@ -41,18 +42,36 @@ struct GrowthRow: View {
                 .foregroundColor(.primary)
                 .padding(.bottom, 5)
 
-            HStack {
-                ForEach(measurements, id: \.title) { measurement in
-                    if let value = measurement.value {
-                        VStack {
-                            Text(measurement.title)
-                                .font(.body)
-                                .foregroundColor(.primary)
-                            Text(String(format: "%.1f \(measurement.unit)", value))
-                                .font(.body)
-                                .foregroundColor(.primary)
+            if dynamicTypeSize < .accessibility1 {
+                HStack {
+                    ForEach(measurements, id: \.title) { measurement in
+                        if let value = measurement.value {
+                            VStack {
+                                Text(measurement.title)
+                                    .font(.body)
+                                    .foregroundColor(.primary)
+                                Text(String(format: "%.1f \(measurement.unit)", value))
+                                    .font(.body)
+                                    .foregroundColor(.primary)
+                            }
+                            .frame(maxWidth: .infinity)
                         }
-                        .frame(maxWidth: .infinity)
+                    }
+                }
+            } else {
+                VStack(spacing: 10) {
+                    ForEach(measurements, id: \.title) { measurement in
+                        if let value = measurement.value {
+                            VStack {
+                                Text(measurement.title)
+                                    .font(.body)
+                                    .foregroundColor(.primary)
+                                Text(String(format: "%.1f \(measurement.unit)", value))
+                                    .font(.body)
+                                    .foregroundColor(.primary)
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
                     }
                 }
             }

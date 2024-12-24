@@ -729,6 +729,7 @@
       }
     },
     "taille" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -737,6 +738,9 @@
           }
         }
       }
+    },
+    "Taille" : {
+
     },
     "Temps total" : {
       "localizations" : {
