@@ -24,7 +24,7 @@ struct GrowthView: View {
                 Picker("", selection: $manager.selectedPosition) {
                     Text("Poids")
                         .tag(0)
-                    Text("taille")
+                    Text("Taille")
                         .tag(1)
                     Text("Périmètre")
                         .tag(2)
