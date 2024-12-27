@@ -188,11 +188,12 @@
 				};
 			};
 			buildConfigurationList = 471B02A62CD10B2D009423A8 /* Build configuration list for PBXProject "MarmotMonitor" */;
-			developmentRegion = en;
+			developmentRegion = fr;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 471B02A22CD10B2D009423A8;
 			minimizedProjectReferenceProxies = 1;
