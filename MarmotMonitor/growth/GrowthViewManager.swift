@@ -89,7 +89,11 @@ final class GrowthViewManager: ObservableObject {
 
             let monthDifference = Calendar.current.dateComponents([.month], from: storageManager.babyBirthday, to: date).month
             guard let month = monthDifference else { continue }
-            dataShow[month] = value
+            if let existingValue = dataShow[month] {
+                dataShow[month] = max(existingValue, value)
+            } else {
+                dataShow[month] = value
+            }
         }
     }
 
