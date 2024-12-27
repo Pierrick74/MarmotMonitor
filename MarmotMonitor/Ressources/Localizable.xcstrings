@@ -5,7 +5,14 @@
 
     },
     "." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ","
+          }
+        }
+      }
     },
     "%lld" : {
 
@@ -14,19 +21,54 @@
 
     },
     "Activé" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activate"
+          }
+        }
+      }
     },
     "Activer la gestion de l'apparence par le système" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable system appearance management"
+          }
+        }
+      }
     },
     "Âge" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Age"
+          }
+        }
+      }
     },
     "Ajouter 10 ml" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add 10 ml"
+          }
+        }
+      }
     },
     "Ajouter une activité" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Activity"
+          }
+        }
+      }
     },
     "Alerte" : {
       "localizations" : {
@@ -39,13 +81,34 @@
       }
     },
     "Allaitement" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breastfeeding"
+          }
+        }
+      }
     },
     "Apparence Systeme" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "system appearance"
+          }
+        }
+      }
     },
     "Appuyer pour changer le mode si la synchronisation systeme n'est pas activée" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Press to change mode if system sync is not enabled"
+          }
+        }
+      }
     },
     "Auj" : {
       "localizations" : {
@@ -68,7 +131,14 @@
       }
     },
     "Biberon" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "baby bottle"
+          }
+        }
+      }
     },
     "Bienvenue" : {
       "localizations" : {
@@ -101,13 +171,34 @@
       }
     },
     "Croissance" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Growth"
+          }
+        }
+      }
     },
     "Date de naissance" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "date of birth"
+          }
+        }
+      }
     },
     "Désactivé" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desactivate"
+          }
+        }
+      }
     },
     "Docteur" : {
       "localizations" : {
@@ -120,10 +211,24 @@
       }
     },
     "Droit" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Right"
+          }
+        }
+      }
     },
     "en Mois" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in month"
+          }
+        }
+      }
     },
     "Fermer" : {
       "extractionState" : "stale",
@@ -138,6 +243,12 @@
     },
     "Filtre %@ %@" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter %1$@ %2$@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
@@ -147,16 +258,44 @@
       }
     },
     "Gauche" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Left"
+          }
+        }
+      }
     },
     "Height" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Height"
+          }
+        }
+      }
     },
     "Icone %@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icon %@"
+          }
+        }
+      }
     },
     "Information" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Information"
+          }
+        }
+      }
     },
     "Inserer le nom de la petite marmotte ? " : {
       "localizations" : {
@@ -199,7 +338,14 @@
       }
     },
     "L'apparence de l'application sera automatiquement synchronisée avec l'apparence du système" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The application appearance will be automatically synchronized with the system appearance"
+          }
+        }
+      }
     },
     "La petite marmotte est-elle un garçon ou une fille ? " : {
       "localizations" : {
@@ -221,6 +367,16 @@
         }
       }
     },
+    "Liste" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "List"
+          }
+        }
+      }
+    },
     "manager.accessibilityHintForDate" : {
 
     },
@@ -235,10 +391,23 @@
       }
     },
     "Minutes" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minutes"
+          }
+        }
+      }
     },
     "Mode %@ %@" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mode %1$@ %2$@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
@@ -248,13 +417,34 @@
       }
     },
     "Modifier" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change"
+          }
+        }
+      }
     },
     "Modifier la couleur de l'icone" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change icon color"
+          }
+        }
+      }
     },
     "Mois" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Month"
+          }
+        }
+      }
     },
     "Monitor" : {
       "localizations" : {
@@ -267,13 +457,34 @@
       }
     },
     "Né le" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Born the"
+          }
+        }
+      }
     },
     "Nom de l'enfant" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Child’s name"
+          }
+        }
+      }
     },
     "Nom du parent" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parent’s name"
+          }
+        }
+      }
     },
     "nous sommes le %@ %@" : {
       "localizations" : {
@@ -292,7 +503,14 @@
       }
     },
     "Number of people" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number of people"
+          }
+        }
+      }
     },
     "OK" : {
       "localizations" : {
@@ -331,10 +549,24 @@
       }
     },
     "Périmètre" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perimeter"
+          }
+        }
+      }
     },
     "Poids" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weight"
+          }
+        }
+      }
     },
     "Quand est née la petite marmotte ?" : {
       "localizations" : {
@@ -387,13 +619,34 @@
       }
     },
     "Reset" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
+          }
+        }
+      }
     },
     "Retirer 10 ml" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove 10 ml"
+          }
+        }
+      }
     },
     "saisir manuellement" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "enter manually"
+          }
+        }
+      }
     },
     "Sauvegarder" : {
       "localizations" : {
@@ -426,7 +679,14 @@
       }
     },
     "Séléctionner le premier sein" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select the first breast"
+          }
+        }
+      }
     },
     "Sélectionnez l'heure de début" : {
       "localizations" : {
@@ -469,10 +729,28 @@
       }
     },
     "taille" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "size"
+          }
+        }
+      }
+    },
+    "Taille" : {
 
     },
     "Temps total" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total time"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

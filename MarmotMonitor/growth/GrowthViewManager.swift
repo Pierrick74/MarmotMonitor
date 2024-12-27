@@ -28,9 +28,14 @@ final class GrowthViewManager: ObservableObject {
     @Published var dataShow = [Int: Double]()
     @Published var selectedPosition = 0 {
         didSet {
-            setupData()
+            if selectedPosition < 3 {
+                setupData()
+            } else {
+                fetchGrowthActivities()
+            }
         }
     }
+    @Published var listData: [BabyActivity] = []
 
     var title: String {
         switch selectedPosition {
@@ -84,7 +89,11 @@ final class GrowthViewManager: ObservableObject {
 
             let monthDifference = Calendar.current.dateComponents([.month], from: storageManager.babyBirthday, to: date).month
             guard let month = monthDifference else { continue }
-            dataShow[month] = value
+            if let existingValue = dataShow[month] {
+                dataShow[month] = max(existingValue, value)
+            } else {
+                dataShow[month] = value
+            }
         }
     }
 
@@ -110,5 +119,14 @@ final class GrowthViewManager: ObservableObject {
         case .imperial:
             return value / 2.20462
         }
+    }
+
+    func deleteActivity(_ activity: BabyActivity) {
+        dataManager.deleteActivity(activity: activity)
+        fetchGrowthActivities()
+    }
+
+    private func fetchGrowthActivities() {
+        listData = dataManager.fetchFilteredActivities(with: [.growth])
     }
 }
