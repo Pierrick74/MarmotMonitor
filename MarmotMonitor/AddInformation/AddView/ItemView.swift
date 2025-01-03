@@ -6,7 +6,10 @@
 //
 
 import SwiftUI
-
+/// A reusable SwiftUI view representing an individual item in a grid or list.
+/// - Parameters:
+///   - item: An instance of `GridItemData` containing data for the item.
+///   - width: The available width, used to dynamically size the item's content.
 struct ItemView: View {
         let item: GridItemData
         let width: CGFloat
@@ -43,5 +46,13 @@ struct ItemView: View {
     }
 
 #Preview {
-    ItemView(item: GridItemData(icon: "Sommeil", text: "Sommeil", color: .sommeil, destination: .sommeil), width: 400)
+    ItemView(
+        item: GridItemData(
+            icon: "Sommeil",
+            text: "Sommeil",
+            color: .sommeil,
+            destination: .sommeil
+        ),
+        width: 400
+    )
 }
