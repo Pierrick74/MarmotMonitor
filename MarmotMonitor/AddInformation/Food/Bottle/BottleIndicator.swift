@@ -6,6 +6,10 @@
 //
 
 import SwiftUI
+/// View that represents the bottle indicator level
+/// Parameters:
+/// - height: the height of the bottle indicator
+/// - texte: the text to display below the bottle indicator
 
 struct BottleIndicator: View {
 
@@ -36,5 +40,5 @@ struct BottleIndicator: View {
 }
 
 #Preview {
-    BottleIndicator(height: 20, texte: "20 ml")
+    BottleIndicator(height: 20, texte: "320 ml")
 }

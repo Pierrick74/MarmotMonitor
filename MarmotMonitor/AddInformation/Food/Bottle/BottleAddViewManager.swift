@@ -23,7 +23,11 @@ final class BottleAddViewManager: ObservableObject {
     @Published var heightIndicator: Double
     @Published var volume: Int {
         didSet {
-            self.volumeInformation = "\(Int(volume))" + (storageManager.isMetricUnit ? " ml" : " oz")
+            if volume > 100 {
+                self.volumeInformation = "\(Int(volume))" + "\n" + (storageManager.isMetricUnit ? " ml" : " oz")
+            } else {
+                self.volumeInformation = "\(Int(volume))" + (storageManager.isMetricUnit ? " ml" : " oz")
+            }
         }
     }
     @Published var isSaveError = false
