@@ -26,6 +26,14 @@ struct DestinationView: View {
     }
 }
 
+/// An enumeration defining the possible destinations for activity items.
+enum ItemDestination: Hashable {
+    case sommeil
+    case couche
+    case repas
+    case croissance
+}
+
 #Preview {
     DestinationView(destination: .sommeil)
 }

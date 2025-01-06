@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+/// A SwiftUI view representing an accessibility-friendly item for a grid layout.
+/// - Parameters:
+///   - item: An instance of `GridItemData` containing the icon, text, color, and destination.
+///
+/// This view displays a rounded rectangle with an icon and text, providing a visually appealing and accessible design.
 struct AccessibilityItemView: View {
     let item: GridItemData
 
@@ -25,11 +30,19 @@ struct AccessibilityItemView: View {
                     .multilineTextAlignment(.center)
                     .foregroundColor(.primary)
                     .padding(.bottom, 10)
+                    .accessibilityHint("insérer les informations pour \(item.text)")
             }
         }
     }
 }
 
 #Preview {
-    AccessibilityItemView(item: GridItemData(icon: "Sommeil", text: "Sommeil", color: .sommeil, destination: .sommeil))
+    AccessibilityItemView(
+        item: GridItemData(
+            icon: "Sommeil",
+            text: "Sommeil",
+            color: .sommeil,
+            destination: .sommeil
+        )
+    )
 }

@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+/// A view that allows users to add a new activity by choosing from a list or grid of options.
+/// - This view adapts its layout based on the user's dynamic type size setting.
+/// - It supports both grid and list presentations, making it accessible for all users.
 
 struct AddView: View {
     let items: [GridItemData] = [
@@ -30,11 +33,12 @@ struct AddView: View {
                         .font(.title)
                         .foregroundColor(.primary)
                     if dynamicTypeSize < .accessibility1 {
-                        Image("folder")
+                        Image(decorative: "folder")
                             .resizable()
                             .scaledToFit()
                     }
 
+                    // Content switches between grid and list layout based on accessibility needs.
                     if dynamicTypeSize < .accessibility1 {
                         ScrollView {
                             GeometryReader { geo in
@@ -73,19 +77,18 @@ struct AddView: View {
     }
 }
 
+/// A data model representing an item in the grid or list.
+/// - Parameters:
+///   - icon: The name of the icon representing the item.
+///   - text: A descriptive text for the item.
+///   - color: The background color associated with the item.
+///   - destination: The destination view to navigate to when selected.
 struct GridItemData: Identifiable, Hashable {
     let id = UUID()
     let icon: String
     let text: String
     let color: Color
     let destination: ItemDestination
-}
-
-enum ItemDestination: Hashable {
-    case sommeil
-    case couche
-    case repas
-    case croissance
 }
 
 #Preview {

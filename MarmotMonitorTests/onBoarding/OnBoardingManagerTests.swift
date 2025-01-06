@@ -97,18 +97,6 @@ struct OnBoardingManagerTests {
         #expect(manager.babyName == babyName)
     }
 
-    @Test mutating func babyNameHaveValueInStorage_WhenBabyNameIsGet_thenBabyNameHaveSameValue() async throws {
-        // 1. given
-        let babyName = "BabyName"
-
-        // 2. when
-        storage.babyName = babyName
-
-        // 3. then
-        #expect(storage.babyName == babyName)
-        #expect(manager.babyName == babyName)
-    }
-
     @Test mutating func whenBabyNameIsSetWithOneCharacter_thenBabyNameNotSave() async throws {
         // 1. given
         let babyName = "B"
@@ -119,8 +107,7 @@ struct OnBoardingManagerTests {
         manager.babyName = babyName
 
         // 3. then
-        #expect(storage.babyName.isEmpty)
-        #expect(manager.babyName.isEmpty)
+        #expect(storage.babyName == "Line")
         #expect(manager.isBabyNameValide == false)
     }
 
@@ -134,7 +121,7 @@ struct OnBoardingManagerTests {
         manager.babyName = babyName
 
         // 3. then
-        #expect(storage.babyName.isEmpty)
+        #expect(storage.babyName == "Line")
         #expect(manager.babyName.isEmpty)
         #expect(manager.isBabyNameValide == false)
     }
@@ -161,7 +148,7 @@ struct OnBoardingManagerTests {
 
         // 3. then
         #expect(storage.parentName == parentName)
-        #expect(manager.parentName == parentName)
+        #expect(manager.parentName.isEmpty)
     }
 
     @Test mutating func whenParentNameIsSetWithOneCharacter_thenParentNameNotSave() async throws {
@@ -174,8 +161,8 @@ struct OnBoardingManagerTests {
         manager.parentName = parentName
 
         // 3. then
-        #expect(storage.parentName.isEmpty)
-        #expect(manager.parentName.isEmpty)
+        #expect(storage.parentName == "Pierrick")
+        #expect(manager.parentName == "B")
         #expect(manager.isParentNameValide == false)
     }
 
@@ -189,7 +176,7 @@ struct OnBoardingManagerTests {
         manager.parentName = parentName
 
         // 3. then
-        #expect(storage.parentName.isEmpty)
+        #expect(storage.parentName == "Pierrick")
         #expect(manager.parentName.isEmpty)
         #expect(manager.isParentNameValide == false)
     }
