@@ -158,6 +158,12 @@ struct GestureView: View {
     }
 }
 
+/// A view for displaying the wave animation
+/// - Parameters:
+/// - percent: the percentage of the bottle filled
+/// - geo: the geometry proxy for layout
+/// - Returns: a view with wave animation
+
 struct WaveView: View {
     @Binding var percent: Double
     let geo: GeometryProxy
