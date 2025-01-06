@@ -6,7 +6,11 @@
 //
 
 import SwiftUI
-
+/// A view for recording the status of a diaper change.
+/// - Features include selecting the time of change, marking the diaper as wet or dirty,
+///   and saving the record. The view adapts to accessibility settings.
+/// - Parameters:
+///  - Nil
 struct DiaperAddView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -23,13 +27,12 @@ struct DiaperAddView: View {
 
             ScrollView {
                 VStack(spacing: 30) {
-                    // Titre principal
                     Text("Quelle est l'état de la couche")
                         .font(.title2)
                         .fontWeight(.bold)
                         .padding(20)
 
-                    // start date section
+                    // Diaper State Visualization
                     ZStack {
                             RoundedRectangle(cornerRadius: 30)
                             .fill(RadialGradient(gradient: Gradient(colors: manager.diaperColor),
@@ -53,45 +56,25 @@ struct DiaperAddView: View {
                     .accessibilityLabel("Sélectionnez l'heure de fin")
                     .accessibilityHint(manager.accessibilityHintForDate)
 
+                    // Buttons for marking the diaper as wet or dirty.
                     HStack(spacing: 50) {
-                        Button(action: {
-                            withAnimation {
-                                manager.isWet.toggle()
-                            }
-                        }, label: {
-                            ZStack {
-                                Circle()
-                                    .fill(manager.isWet ? Color.yellow.gradient : Color.gray.gradient)
-                                    .frame(height: 100)
-                                Image("urine")
-                                    .resizable()
-                                    .frame(width: 70, height: 70)
-                                    .padding(20)
-                                    .blendMode(.destinationOut)
-                            }
-                            .compositingGroup()
-                            .shadow(radius: 2, x: 2, y: 2)
-                        })
+                        DiaperStateButton(
+                            isActive: $manager.isWet,
+                            imageName: "urine",
+                            activeColor: .yellow,
+                            inactiveColor: .gray,
+                            label: "Couche mouillée"
+                        )
 
-                        Button(action: {
-                            withAnimation {
-                                manager.isDirty.toggle()
-                            }
-                            }, label: {
-                                ZStack {
-                                    Circle()
-                                        .fill(manager.isDirty ? Color(.diaperButton).gradient : Color(.lightGray).gradient)
-                                        .frame(height: 100)
-                                    Image("selles")
-                                        .resizable()
-                                        .frame(width: 60, height: 60)
-                                        .padding(20)
-                                        .blendMode(.destinationOut)
-                                }
-                                .compositingGroup()
-                                .shadow(radius: 2, x: 2, y: 2)
-                        })
+                        DiaperStateButton(
+                            isActive: $manager.isDirty,
+                            imageName: "selles",
+                            activeColor: Color(.diaperButton),
+                            inactiveColor: Color(.lightGray),
+                            label: "Couche sale"
+                        )
                     }
+
                     Spacer()
 
                     SaveButtonView {
@@ -136,6 +119,43 @@ struct DiaperAddView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {manager.date = .now}
+    }
+}
+
+/// A reusable button for selecting diaper states (wet or dirty).
+/// - Parameters:
+///   - isActive: A binding to the active state of the button.
+///   - imageName: The name of the image displayed inside the button.
+///   - activeColor: The color of the button when active.
+///   - inactiveColor: The color of the button when inactive.
+///   - label: The accessibility label for the button.
+struct DiaperStateButton: View {
+    @Binding var isActive: Bool
+    let imageName: String
+    let activeColor: Color
+    let inactiveColor: Color
+    let label: String
+
+    var body: some View {
+        Button(action: {
+            withAnimation {
+                isActive.toggle()
+            }
+        }, label: {
+            ZStack {
+                Circle()
+                    .fill(isActive ? activeColor.gradient : inactiveColor.gradient)
+                    .frame(height: 100)
+                Image(imageName)
+                    .resizable()
+                    .frame(width: 70, height: 70)
+                    .padding(20)
+                    .blendMode(.destinationOut)
+            }
+            .compositingGroup()
+            .shadow(radius: 2, x: 2, y: 2)
+        })
+        .accessibilityLabel(label)
     }
 }
 
