@@ -44,26 +44,32 @@ final class OnBoardingManager: ObservableObject {
 
     // MARK: - Baby Name
     var babyName: String {
-        get { storageManager.babyName }
+        get { rawBabyName }
         set {
             let trimmed = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-            storageManager.babyName = trimmed.count < 2 ? "" : trimmed
-            isBabyNameValide = trimmed.count < 2 ? false : true
+            rawBabyName = trimmed
+            isBabyNameValide = trimmed.count >= 2
+            if isBabyNameValide == true {
+                storageManager.babyName = trimmed
+            }
         }
     }
-
+    @Published private var rawBabyName: String = ""
     @Published var isBabyNameValide: Bool?
 
     // MARK: - Parent Name
     var parentName: String {
-        get { storageManager.parentName }
+        get { rawParentName }
         set {
             let trimmed = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-            storageManager.parentName = trimmed.count < 2 ? "" : trimmed
-            isParentNameValide = trimmed.count < 2 ? false : true
+            rawParentName = trimmed
+            isParentNameValide = trimmed.count >= 2
+            if isParentNameValide == true {
+                storageManager.parentName = trimmed
+            }
         }
     }
-
+    @Published private var rawParentName: String = ""
     @Published var isParentNameValide: Bool?
 
     // MARK: - Gender
