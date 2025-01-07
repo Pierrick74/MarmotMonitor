@@ -6,17 +6,20 @@
 //
 
 import SwiftUI
-
+/// A manager for handling the sleep data logic in `SleepAddView`.
+/// - Manages the selection of start and end dates and ensures validation before saving.
+/// - Conforms to `ObservableObject` to update the UI when properties change.
 @MainActor
 final class SleepAddViewManager: ObservableObject {
-    private var dataManager: SwiftDataManagerProtocol = SwiftDataManager.shared
+    // MARK: - Dependencies
+    private var dataManager: SwiftDataManagerProtocol
 
+    // MARK: - Init
     init(dataManager: SwiftDataManagerProtocol? = nil) {
-        if let dataManager = dataManager {
-            self.dataManager = dataManager
-        }
+        self.dataManager = dataManager ?? SwiftDataManager.shared
     }
 
+    // MARK: - Published Properties
     @Published var isSaveError = false
     @Published var alertMessage = ""
 
@@ -28,10 +31,7 @@ final class SleepAddViewManager: ObservableObject {
     }
     @Published var isActiveButtonSave: Bool = false
 
-    private func updateIsActiveButtonSave() {
-        isActiveButtonSave = startDate != nil && endDate != nil
-    }
-
+    // MARK: - Computed Properties
     var accessibilityHintForStartDate: String {
         startDate != nil ?
         "Heure actuelle : \(startDate!.formatted(date: .abbreviated, time: .shortened))"
@@ -47,9 +47,8 @@ final class SleepAddViewManager: ObservableObject {
     var startRange: ClosedRange<Date> {
         if let end = endDate {
             return Date.distantPast...end.addingTimeInterval(-60)
-        } else {
-            return Date.distantPast...Date.now
         }
+        return Date.distantPast...Date.now
     }
 
     var endRange: ClosedRange<Date>? {
@@ -58,15 +57,20 @@ final class SleepAddViewManager: ObservableObject {
         return start...Date.distantFuture
     }
 
+    // MARK: - Functions
+    /// Saves the sleep data as a `BabyActivity` object.
+    /// - Validates that both dates are selected and the interval is positive.
+    /// - Updates `isSaveError` and `alertMessage` in case of failure.
     func saveSleep() {
+        // validate date selection
         guard let endDate = endDate, let startDate = startDate else {
             isSaveError = true
             alertMessage = "Veuillez sélectionner une date de début et de fin"
             return
         }
 
+        // validate time interval
         let timeInterval = endDate.timeIntervalSince(startDate)
-
         guard timeInterval > 0 else {
             isSaveError = true
             alertMessage = "Merci de verifier les dates"
@@ -76,6 +80,7 @@ final class SleepAddViewManager: ObservableObject {
         let babyActivity = BabyActivity(
             activity: .sleep(duration: timeInterval),
             date: startDate)
+
         do {
             try dataManager.addActivity(babyActivity)
         } catch {
@@ -83,4 +88,10 @@ final class SleepAddViewManager: ObservableObject {
             alertMessage = "Activité Sommeil déja présente dans cette plage horraire"
         }
     }
+
+    // MARK: - Private Functions
+    private func updateIsActiveButtonSave() {
+        isActiveButtonSave = startDate != nil && endDate != nil
+    }
+    
 }

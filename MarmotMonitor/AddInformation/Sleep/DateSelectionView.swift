@@ -6,6 +6,13 @@
 //
 import SwiftUI
 
+/// A view for selecting a date using a button.
+/// - Displays the currently selected date or a placeholder if no date is set.
+/// - Parameters:
+///   - title: The title displayed above the button.
+///   - date: The currently selected date (optional).
+///   - buttonAction: The action to perform when the button is tapped.
+/// - Returns: A SwiftUI `View` for date selection.
 struct DateSelectionView: View {
     var title: String
     var date: Date?
@@ -31,6 +38,8 @@ struct DateSelectionView: View {
                         .stroke(date == nil ? .teal : .green, lineWidth: 1)
                 )
             }
+            .accessibilityLabel("\(title) Button")
+            .accessibilityHint("Appuyez pour sélectionner une date")
         }
     }
 }
