@@ -6,6 +6,12 @@
 //
 
 import SwiftUI
+
+/// A class responsible for managing a timer with observable state.
+/// - Parameters:
+///   - onTimerStateStart: A closure to be executed when the timer starts.
+///   - Returns: An instance of `TimerObject`.
+
 @Observable
 final class TimerObject {
     private var timer: Timer?
@@ -40,10 +46,22 @@ final class TimerObject {
         timeElapsed = 0
     }
 
+    /// Converts the elapsed time to a formatted string (MM:SS).
+    /// - Returns: A string representing the elapsed time in minutes and seconds.
     func displayTime() -> String {
         let seconds = timeElapsed % 60
         let minutes = (timeElapsed / 60) % 60
 
         return String(format: "%02d:%02d", minutes, seconds)
+    }
+
+    /// Converts the elapsed time to a formatted string (MM:SS).
+    /// - Returns: A string representing the elapsed time in minutes and seconds for label accessibility.
+    func displayTimeAccessibility() -> String {
+        let seconds = timeElapsed % 60
+        let minutes = (timeElapsed / 60) % 60
+        let timerRunning = isRunning ? "Timer en route " : "Timer arrêté "
+
+        return timerRunning + String(format: "%d minute and %d second", minutes, seconds)
     }
 }

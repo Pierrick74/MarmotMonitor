@@ -14,86 +14,73 @@ struct TimerView: View {
     let title: String
 
     var body: some View {
-        if dynamicTypeSize < .accessibility1 {
             VStack {
-                Text(title)
-                    .font(.title2)
-                    .padding(.top, 10)
+                titleView
+                timeDisplay
 
-                Text(timer.displayTime())
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
-                    .contentTransition(.numericText())
-                    .animation(.linear, value: timer.timeElapsed)
-                    .padding(.bottom, 10)
-
-                Button {
-                    if timer.isRunning {
-                        timer.stopTimer()
-                    } else {
-                        timer.startTimer()
-                    }
-                } label: {
-                    Image(systemName: timer.isRunning ? "pause.fill" : "play.fill")
-                        .font(.headline)
-                        .foregroundColor(.primary)
+                if dynamicTypeSize < .accessibility1 {
+                    timerButton
+                        .buttonStyle(ShadowToggleButtonStyle(color: color))
+                } else {
+                    timerButton
+                        .buttonStyle(AccessibilityShadowToggleButtonStyle(color: color))
                 }
-                .buttonStyle(ShadowToggleButtonStyle(color: color))
 
-                Button {
-                    timer.resetTimer()
-                } label: {
-                    Text("Reset")
-                        .font(.headline)
-                        .foregroundColor(.primary)
-                        .shadow(radius: 1, x: 1, y: 1)
-                        .padding(5)
-                }
-            }
-            .frame(maxWidth: .infinity)
-
-        } else {
-            VStack {
-                    Text(title)
-                        .font(.title2)
-                        .padding(.top, 10)
-                    Button {
-                        if timer.isRunning {
-                            timer.stopTimer()
-                        } else {
-                            timer.startTimer()
-                        }
-                    } label: {
-                        Image(systemName: timer.isRunning ? "pause.fill" : "play.fill")
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                    }
-                    .buttonStyle(AccessibilityShadowToggleButtonStyle(color: color))
-
-                    Text(timer.displayTime())
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
-                        .contentTransition(.numericText())
-                        .animation(.linear, value: timer.timeElapsed)
-                        .padding(.bottom, 10)
-
-                    Button {
-                        timer.resetTimer()
-                    } label: {
-                        Text("Reset")
-                            .font(.title)
-                            .foregroundColor(.primary)
-                            .shadow(radius: 1, x: 1, y: 1)
-                    }
+                resetButton
             }
             .padding(10)
             .frame(maxWidth: .infinity)
-        }
     }
+
+    private var titleView: some View {
+        Text(title)
+            .font(.title2)
+            .padding(.top, 10)
+            .accessibilityHidden(true)
+    }
+
+    private var timeDisplay: some View {
+        Text(timer.displayTime())
+            .font(.title)
+            .fontWeight(.bold)
+            .foregroundColor(.primary)
+            .contentTransition(.numericText())
+            .animation(.linear, value: timer.timeElapsed)
+            .padding(.bottom, 10)
+            .accessibilityLabel(timer.displayTimeAccessibility())
+            .accessibilityAddTraits(.updatesFrequently)
+    }
+
+    private var resetButton: some View {
+        Button {
+            timer.resetTimer()
+        } label: {
+            Text("Reset")
+                .font(.headline)
+                .foregroundColor(.primary)
+                .shadow(radius: 1, x: 1, y: 1)
+        }
+        .accessibilityLabel("remettre à zero le timer \(title)")
+    }
+
+    private var timerButton: some View {
+        Button {
+            if timer.isRunning {
+                timer.stopTimer()
+            } else {
+                timer.startTimer()
+            }
+        } label: {
+            Image(systemName: timer.isRunning ? "pause.fill" : "play.fill")
+                .font(.headline)
+                .foregroundColor(.primary)
+        }
+        .accessibilityLabel(timer.isRunning ? "mettre en Pause le timer \(title)" : "lancer le timer \(title)")
+    }
+
 }
 
+/// Button Style for the timer button for dynamic type sizes less than accessibility1
 struct ShadowToggleButtonStyle: ButtonStyle {
     @Environment(\.colorScheme) var colorScheme
     let color: Color
@@ -112,6 +99,7 @@ struct ShadowToggleButtonStyle: ButtonStyle {
     }
 }
 
+/// Button Style for the timer button for dynamic type sizes more than accessibility1
 struct AccessibilityShadowToggleButtonStyle: ButtonStyle {
     @Environment(\.colorScheme) var colorScheme
     let color: Color

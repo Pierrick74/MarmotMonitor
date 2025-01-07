@@ -15,6 +15,7 @@ struct DateSelectionView: View {
         VStack(alignment: .leading, spacing: 10) {
             Text(title)
                 .font(.headline)
+                .accessibilityHidden(true)
 
             Button(action: buttonAction) {
                 HStack {
