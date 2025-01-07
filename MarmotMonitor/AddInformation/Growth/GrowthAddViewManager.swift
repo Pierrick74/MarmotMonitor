@@ -6,19 +6,26 @@
 //
 
 import SwiftUI
-
+/// A manager for handling the growth data logic in `GrowthAddView`.
+/// - This class is responsible for managing input values, converting units, and saving the growth activity.
+/// - Conforms to `ObservableObject` to update the UI when properties change.
 @MainActor
 final class GrowthAddViewManager: ObservableObject {
-    private var dataManager: SwiftDataManagerProtocol = SwiftDataManager.shared
+    // MARK: - Dependancies
+    private var dataManager: SwiftDataManagerProtocol
     private var storageManager: AppStorageManagerProtocol
 
-    init(dataManager: SwiftDataManagerProtocol? = nil, storageManager: AppStorageManagerProtocol = AppStorageManager.shared) {
-        if let dataManager = dataManager {
-            self.dataManager = dataManager
-        }
+    // MARK: - Initialization
+    init(
+        dataManager: SwiftDataManagerProtocol? = nil,
+        storageManager: AppStorageManagerProtocol = AppStorageManager.shared
+    ) {
+        self.dataManager = dataManager ?? SwiftDataManager.shared
         self.storageManager = storageManager
     }
 
+    // MARK: - Properties
+    // data range for date picker
     var range: ClosedRange<Date> {
         Date.distantPast...Date.now
     }
@@ -55,6 +62,7 @@ final class GrowthAddViewManager: ObservableObject {
         height != nil || weight != nil || headSize != nil
     }
 
+    // MARK: - Functions
     func saveGrowth() {
         isSaveError = false
 
@@ -67,14 +75,18 @@ final class GrowthAddViewManager: ObservableObject {
         let activityDate = date ?? .now
 
         let unit: MeasurementSystem = storageManager.isMetricUnit ? .metric : .imperial
-        let growth = BabyActivity(activity:
-                .growth(data: GrowthData(
-                                weight: weight,
-                                height: height,
-                                headCircumference: headSize,
-                                measurementSystem: unit)
-                       ),
-                            date: activityDate)
+        let growth = BabyActivity(
+            activity:
+                    .growth(
+                        data: GrowthData(
+                            weight: weight,
+                            height: height,
+                            headCircumference: headSize,
+                            measurementSystem: unit
+                        )
+                    ),
+            date: activityDate
+        )
 
         do {
             try dataManager.addActivity(growth)
