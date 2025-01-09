@@ -6,7 +6,12 @@
 //
 
 import SwiftUI
-
+/// A view for adding growth information, including height, weight, head size, and date.
+/// - Uses various sheets for input and a save action to persist data.
+/// - Parameters:
+///   - dynamicTypeSize: Adjusts the view to match the user's preferred text size.
+///   - dismiss: Dismisses the current view upon saving.
+/// - Returns: A SwiftUI `View` with input fields for growth data.
 struct GrowthAddView: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.dismiss) var dismiss
@@ -21,59 +26,60 @@ struct GrowthAddView: View {
     @StateObject var manager = GrowthAddViewManager()
 
     var body: some View {
-            ZStack {
-                BackgroundColor()
-                ScrollView {
-                    VStack(spacing: 20) {
-                        Text("Croissance")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .padding(20)
+        ZStack {
+            BackgroundColor()
+            ScrollView {
+                VStack(spacing: 20) {
+                    Text("Croissance")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(20)
+                        .accessibilityHidden(true)
 
-                        CustomTextField(
-                            title: "Taille",
-                            action: {isSizePresented = true},
-                            placeholder: "Appuyer pour entrer la taille",
-                            value: manager.heightDescription
-                        )
+                    CustomTextField(
+                        title: "Taille",
+                        action: {isSizePresented = true},
+                        placeholder: "Appuyer pour entrer la taille",
+                        value: manager.heightDescription
+                    )
 
-                        CustomTextField(
-                            title: "Poids",
-                            action: {isWeightPresented = true},
-                            placeholder: "Appuyer pour entrer le poids",
-                            value: manager.weightDescription
-                        )
+                    CustomTextField(
+                        title: "Poids",
+                        action: {isWeightPresented = true},
+                        placeholder: "Appuyer pour entrer le poids",
+                        value: manager.weightDescription
+                    )
 
-                        CustomTextField(
-                            title: "Périmètre crânien",
-                            action: {isHeadSizePresented = true},
-                            placeholder: "Appuyer pour entrer le périmètre crânien",
-                            value: manager.headSizeDescription
-                        )
+                    CustomTextField(
+                        title: "Périmètre crânien",
+                        action: {isHeadSizePresented = true},
+                        placeholder: "Appuyer pour entrer le périmètre crânien",
+                        value: manager.headSizeDescription
+                    )
 
-                        DateSelectionView(
-                            title: "Date",
-                            date: manager.date,
-                            buttonAction: { isEndPickerPresented = true }
-                        )
-                        .accessibilityLabel("Sélectionnez l'heure de fin")
-                        .accessibilityHint("")
-                        .padding(.top, 20)
+                    DateSelectionView(
+                        title: "Date",
+                        date: manager.date,
+                        buttonAction: { isEndPickerPresented = true }
+                    )
+                    .accessibilityLabel("Sélectionnez l'heure de fin")
+                    .accessibilityHint("")
+                    .padding(.top, 20)
 
-                        SaveButtonView {
-                            manager.saveGrowth()
-                            if manager.isSaveError == false {
-                                dismiss()
-                            } else {
-                                showingAlert = true
-                            }
+                    SaveButtonView {
+                        manager.saveGrowth()
+                        if manager.isSaveError == false {
+                            dismiss()
+                        } else {
+                            showingAlert = true
                         }
-                        .padding(.top, 20)
                     }
-                    .padding()
-                    .scrollBounceBehavior(.basedOnSize)
+                    .padding(.top, 20)
                 }
-                .padding(.top, 20)
+                .padding()
+                .scrollBounceBehavior(.basedOnSize)
+            }
+            .padding(.top, 20)
             .sheet(isPresented: $isEndPickerPresented) {
                 PickerDateSheetView(
                     title: "Select End Time",

@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-
+/// A view model for managing the state and logic of the DiaperAddView.
+/// - Responsible for tracking diaper status, managing save operations, and handling errors.
 @MainActor
 final class DiaperAddViewManager: ObservableObject {
     private var dataManager: SwiftDataManagerProtocol = SwiftDataManager.shared
@@ -17,6 +18,7 @@ final class DiaperAddViewManager: ObservableObject {
     @Published var isWet = false
     @Published var isDirty = false
 
+    /// Initializes the view model with an optional custom data manager.
     init(dataManager: SwiftDataManagerProtocol? = nil) {
         if let dataManager = dataManager {
             self.dataManager = dataManager
@@ -27,14 +29,20 @@ final class DiaperAddViewManager: ObservableObject {
         Date.distantPast...Date.now
     }
 
+    /// Determines the gradient colors for the diaper status visualization.
+    /// - Wet: Yellow to light gray.
+    /// - Dirty: Diaper button color to light gray.
+    /// - Both: Yellow, diaper button color, and light gray.
+    /// - Default: Light gray.
     var diaperColor: [Color] {
-        if isWet && isDirty {
+        switch (isWet, isDirty) {
+        case (true, true):
             return [Color.yellow, Color(uiColor: .diaperButton), Color(.lightGray)]
-        } else if isWet {
+        case (true, false):
             return [Color.yellow, Color(.lightGray)]
-        } else if isDirty {
+        case (false, true):
             return [Color(uiColor: .diaperButton), Color(.lightGray)]
-        } else {
+        case (false, false):
             return [Color(.lightGray)]
         }
     }
@@ -69,14 +77,18 @@ final class DiaperAddViewManager: ObservableObject {
         }
     }
 
+    // MARK: - Private
+    /// Determines the diaper state based on the `isWet` and `isDirty` properties.
+    /// - Returns: A `DiaperState` value (`wet`, `dirty`, `both`, or `nil` if no state is selected).
     private func getDiaperState() -> DiaperState? {
-        guard !(isWet == false && isDirty == false) else {return nil}
-
-        if isWet == true && isDirty == false {
+        switch (isWet, isDirty) {
+        case (false, false):
+            return nil
+        case (true, false):
             return .wet
-        } else if isDirty == true && isWet == false {
+        case (false, true):
             return .dirty
-        } else {
+        case (true, true):
             return .both
         }
     }

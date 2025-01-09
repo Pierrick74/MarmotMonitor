@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+/// A button to go back to the previous screen
 struct BackButton: View {
         let action: () -> Void
 

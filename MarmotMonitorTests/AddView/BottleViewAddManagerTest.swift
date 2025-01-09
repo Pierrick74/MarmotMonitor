@@ -58,6 +58,7 @@ struct BottleViewAddManagerTest {
 
     @Test func test_WhenSetPercent_ThenVolumeIsModifie() {
         // 1. given
+        let value = "180" + "\n" + "ml"
 
         let oldVolume = manager.volumeInformation
         // 2. when
@@ -66,7 +67,7 @@ struct BottleViewAddManagerTest {
         // 3. then
         let newVolume = manager.volumeInformation
         #expect(oldVolume != newVolume)
-        #expect(newVolume == "180 ml")
+        #expect(newVolume == value)
     }
 
     @Test mutating func testInImperialUnit_WhenSetPercent_ThenVolumeIsModifie() {
@@ -79,7 +80,7 @@ struct BottleViewAddManagerTest {
         // 3. then
         let newVolume = manager.volumeInformation
         #expect(oldVolume != newVolume)
-        #expect(newVolume == "180 oz")
+        #expect(newVolume == "180\noz")
     }
 
     // MARK: - Bottle save tests

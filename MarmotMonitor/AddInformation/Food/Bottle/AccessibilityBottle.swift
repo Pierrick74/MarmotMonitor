@@ -6,6 +6,11 @@
 //
 
 import SwiftUI
+/// A view for accessibility person for bottle management
+/// - Parameters:
+/// - volume: The current volume of the bottle
+/// - actionPlus: The action to add volume
+/// - actionMinus: The action to remove volume
 
 struct AccessibilityBottle: View {
     @Binding var volume: Int
