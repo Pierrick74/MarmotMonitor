@@ -19,7 +19,7 @@ final class TodayStripNameManager: ObservableObject {
     }
 
     var babyInfo: String {
-        return storageManager.babyName + " à " + babyAge
+        return storageManager.babyName + " a " + babyAge
     }
 
     var babyAge: String {
