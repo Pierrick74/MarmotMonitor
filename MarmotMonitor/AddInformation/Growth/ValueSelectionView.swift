@@ -22,7 +22,7 @@ struct ValueSelectionView: View {
     @Binding var isPresented: Bool
 
     @State private var number: Int = 10
-    @State private var decimalNumber: Int = 0
+    @State private var decimalNumber: Int = 50
 
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.colorScheme) var colorScheme
