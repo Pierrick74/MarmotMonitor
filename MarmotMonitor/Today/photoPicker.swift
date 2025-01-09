@@ -11,17 +11,17 @@ import SwiftUI
 extension PhotosPickerItem {
     /// Load and return an image from a PhotosPickerItem
     @MainActor
-    func convert() async -> Image {
+    func convert() async -> UIImage? {
         do {
             // load attend que l'image soit en mémoire pour la convertir
             if let data = try await self.loadTransferable(type: Data.self) {
                 if let uiImage = UIImage(data: data) {
-                    return Image(uiImage: uiImage)
+                    return uiImage
                 }
             }
         } catch {
             print(error.localizedDescription)
         }
-        return Image("todayDefault")
+        return nil
     }
 }
