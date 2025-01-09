@@ -37,6 +37,7 @@
       }
     },
     "Activer la gestion de l'apparence par le système" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -97,6 +98,7 @@
       }
     },
     "Apparence Systeme" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -759,6 +761,12 @@
           }
         }
       }
+    },
+    "Synchronisation avec l'apparence système" : {
+
+    },
+    "Synchroniser avec l'apparence du système" : {
+
     },
     "Synthèse de la journée" : {
       "localizations" : {

@@ -19,19 +19,19 @@ struct ModeButton: View {
                 .resizable()
                 .scaledToFit()
                 .shadow(color: .primary.opacity(0.5), radius: 10, x: 0, y: 0)
-
-            Button(action: action) {
-                Image(systemName: isSelected ? "record.circle" : "circle")
-                    .padding()
-                    .foregroundColor(.primary)
+            if !isDisabled {
+                Button(action: action) {
+                    Image(systemName: isSelected ? "record.circle" : "circle")
+                        .padding()
+                        .foregroundColor(.primary)
+                }
+                .accessibilityLabel("Mode \(imageName) \(isSelected ? "activé" : "désactivé")")
+                .accessibilityHint("Appuyer pour changer le mode si la synchronisation systeme n'est pas activée")
             }
-            .disabled(isDisabled)
-            .accessibilityLabel("Mode \(imageName) \(isSelected ? "activé" : "désactivé")")
-            .accessibilityHint("Appuyer pour changer le mode si la synchronisation systeme n'est pas activée")
         }
     }
 }
 
 #Preview {
-    ModeButton(imageName: "darkMode", isSelected: true, isDisabled: false, action: {})
+    ModeButton(imageName: "darkMode", isSelected: true, isDisabled: true, action: {})
 }

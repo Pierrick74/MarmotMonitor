@@ -46,11 +46,11 @@ struct DarkModeCard: View {
             .padding(.top, 20)
 
             Toggle(isOn: $isSystemModeActivate) {
-                Text("Apparence Systeme")
+                Text("Synchroniser avec l'apparence du système")
                     .font(.headline)
             }
             .toggleStyle(SwitchToggleStyle(tint: .secondary))
-            .accessibilityLabel("Activer la gestion de l'apparence par le système")
+            .accessibilityLabel("Synchronisation avec l'apparence système")
             .accessibilityHint("L'apparence de l'application sera automatiquement synchronisée avec l'apparence du système")
             .accessibilityValue(isSystemModeActivate ? "Activé" : "Désactivé")
             .padding()
