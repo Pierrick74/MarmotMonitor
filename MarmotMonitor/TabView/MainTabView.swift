@@ -34,7 +34,7 @@ struct MainTabView: View {
                     }
                 SetupView()
                     .tabItem {
-                        Label("Réglage", systemImage: "gear")
+                        Label("Réglages", systemImage: "gear")
                     }
             }
             .tint(manager.gender == GenderType.boy ? .blueTapBar : .pinkTapBar)

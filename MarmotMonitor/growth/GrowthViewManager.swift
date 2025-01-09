@@ -44,7 +44,7 @@ final class GrowthViewManager: ObservableObject {
         case 1:
             return "Taille"
         case 2:
-            return "Perimètre crânien"
+            return "Périmètre crânien"
         default:
             return "Poids"
         }
