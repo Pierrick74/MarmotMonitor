@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
-
+/// Manager for the `BottleAddView`.
+/// - Handles volume adjustments, animations, and saving bottle activities.
+/// - Provides computed properties and methods to manage the bottle's volume state.
 @MainActor
 final class BottleAddViewManager: ObservableObject {
+    // MARK: - Dependencies
     private var dataManager: SwiftDataManagerProtocol = SwiftDataManager.shared
     private var storageManager: AppStorageManagerProtocol
     private let maxVolume: Double = 360
 
+    // MARK: - Published Properties
     @Published var percent: Double = 20.0 {
         didSet {
             self.volume = Int(percent * (maxVolume / 100))
@@ -23,11 +27,7 @@ final class BottleAddViewManager: ObservableObject {
     @Published var heightIndicator: Double
     @Published var volume: Int {
         didSet {
-            if volume > 100 {
-                self.volumeInformation = "\(Int(volume))" + "\n" + (storageManager.isMetricUnit ? " ml" : " oz")
-            } else {
-                self.volumeInformation = "\(Int(volume))" + (storageManager.isMetricUnit ? " ml" : " oz")
-            }
+            self.volumeInformation = "\(Int(volume))\(volume > 100 ? "\n" : "")" + (storageManager.isMetricUnit ? "ml" : "oz")
         }
     }
     @Published var isSaveError = false
@@ -35,6 +35,7 @@ final class BottleAddViewManager: ObservableObject {
     @Published var date: Date?
     @Published var volumeInformation: String
 
+    // MARK: - Computed Properties
     var range: ClosedRange<Date> {
         Date.distantPast...Date.now
     }
@@ -58,6 +59,7 @@ final class BottleAddViewManager: ObservableObject {
     func saveBottle() {
         isSaveError = false
 
+        // Check if a volume is selected
         guard percent > 0 else {
             isSaveError = true
             alertMessage = "Veuillez sélectionner un volume"
@@ -65,10 +67,10 @@ final class BottleAddViewManager: ObservableObject {
         }
 
         let activityDate = date ?? .now
-
         let unit: MeasurementSystem = storageManager.isMetricUnit ? .metric : .imperial
         let bottle = BabyActivity(activity: .bottle(volume: Double(volume), measurementSystem: unit), date: activityDate)
 
+        // Save the bottle activity
         do {
             try dataManager.addActivity(bottle)
         } catch let error as LocalizedError {

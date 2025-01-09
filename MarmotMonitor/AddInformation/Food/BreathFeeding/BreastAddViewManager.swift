@@ -33,7 +33,7 @@ final class BreastAddViewManager: ObservableObject {
 
     @Published var timerLeft = TimerObject()
     @Published var timerRight = TimerObject()
-    
+
     @Published var firstBreast: BreastType = .left
 
     // MARK: - Init

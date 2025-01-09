@@ -93,5 +93,4 @@ final class SleepAddViewManager: ObservableObject {
     private func updateIsActiveButtonSave() {
         isActiveButtonSave = startDate != nil && endDate != nil
     }
-    
 }
