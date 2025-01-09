@@ -101,7 +101,7 @@ struct BreastAddView: View {
     private var pickerView: some View {
         VStack {
 
-            Text("Séléctionner le premier sein")
+            Text("Sélectionner le premier sein")
                 .font(.body)
                 .fontWeight(.bold)
                 .padding(.top, 10)

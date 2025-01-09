@@ -30,7 +30,7 @@ struct BabyNameView: View {
 
                     ZStack(alignment: .top) {
                         VStack(alignment: .leading) {
-                            Text("Quelle est le nom de la petite marmotte ? ")
+                            Text("Quel est le nom de la petite marmotte ? ")
                                 .onBoardingTextStyle()
                                 .accessibilityHidden(true)
 
