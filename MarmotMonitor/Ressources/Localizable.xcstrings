@@ -147,6 +147,9 @@
     "Appuyez pour sélectionner une date" : {
 
     },
+    "Aucune donnée disponible" : {
+
+    },
     "Auj" : {
       "localizations" : {
         "en" : {
@@ -411,6 +414,7 @@
       }
     },
     "Liste" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

@@ -17,108 +17,58 @@ import Foundation
 /// - Note: Uses dependency injection for data and storage managers
 @MainActor
 final class GrowthViewManager: ObservableObject {
+    // MARK: - Dependencies
     private var dataManager: SwiftDataManagerProtocol = SwiftDataManager.shared
     private var storageManager: AppStorageManagerProtocol
 
+    // MARK: - intialization
     init(storageManager: AppStorageManagerProtocol = AppStorageManager.shared) {
         self.storageManager = storageManager
         setupData()
     }
 
-    @Published var dataShow = [Int: Double]()
+    // MARK: - Published Properties
+    @Published var dataShow: [(key: Int, value: Double)] = []
+
     @Published var selectedPosition = 0 {
         didSet {
-            if selectedPosition < 3 {
-                setupData()
-            } else {
-                fetchGrowthActivities()
-            }
+            setupData()
         }
     }
     @Published var listData: [BabyActivity] = []
 
+    // MARK: - Computed Properties
     var title: String {
         switch selectedPosition {
-        case 0:
-            return "Poids"
-        case 1:
-            return "Taille"
-        case 2:
-            return "Périmètre crânien"
-        default:
-            return "Poids"
+        case 0: return "Taille"
+        case 1: return "Poids"
+        case 2: return "Périmètre crânien"
+        default: return "Poids"
         }
     }
 
     var unit: String {
+        let metricUnit: String
+        let imperialUnit: String
+
         switch selectedPosition {
-        case 0:
-            return storageManager.isMetricUnit ? "en Kg" : "en Lbs"
+        case 0, 2:
+            metricUnit = "en Cm"
+            imperialUnit = "en In"
         case 1:
-            return storageManager.isMetricUnit ? "en Cm" : "en In"
-        case 2:
-            return storageManager.isMetricUnit ? "en Cm" : "en In"
+            metricUnit = "en Kg"
+            imperialUnit = "en Lbs"
         default:
-            return storageManager.isMetricUnit ? "en Kg" : "en Lbs"
+            metricUnit = "en Kg"
+            imperialUnit = "en Lbs"
         }
+        return storageManager.isMetricUnit ? metricUnit : imperialUnit
     }
 
-    func setupData() {
-        let data = dataManager.fetchFilteredActivities(with: [.growth])
-        dataShow = [:]
-
-        for activity in data {
-            guard case .growth(let data) = activity.activity else { continue }
-            let date = activity.date
-            var value: Double
-
-            switch selectedPosition {
-            case 0:
-                guard let weight = data.weight else { continue }
-                value = checkWeightUnit(weight, type: data.measurementSystem)
-            case 1:
-                guard let height = data.height else { continue }
-                value = checkMesureUnit(height, type: data.measurementSystem)
-            case 2:
-                guard let headCircumference = data.headCircumference else { continue }
-                value = checkMesureUnit(headCircumference, type: data.measurementSystem)
-            default:
-                guard let weight = data.weight else { continue }
-                value = checkWeightUnit(weight, type: data.measurementSystem)
-            }
-
-            let monthDifference = Calendar.current.dateComponents([.month], from: storageManager.babyBirthday, to: date).month
-            guard let month = monthDifference else { continue }
-            if let existingValue = dataShow[month] {
-                dataShow[month] = max(existingValue, value)
-            } else {
-                dataShow[month] = value
-            }
-        }
-    }
-
-    private func checkMesureUnit(_ value: Double, type: MeasurementSystem) -> Double {
-        let userUnit = storageManager.isMetricUnit ? MeasurementSystem.metric : MeasurementSystem.imperial
-        guard type != userUnit else { return value }
-
-        switch type {
-        case .metric:
-            return value * 2.20462
-        case .imperial:
-            return value / 2.20462
-        }
-    }
-
-    private func checkWeightUnit(_ value: Double, type: MeasurementSystem) -> Double {
-        let userUnit = storageManager.isMetricUnit ? MeasurementSystem.metric : MeasurementSystem.imperial
-        guard type != userUnit else { return value }
-
-        switch type {
-        case .metric:
-            return value * 2.20462
-        case .imperial:
-            return value / 2.20462
-        }
+    // MARK: - functions
+    func refreshData() {
+        setupData()
+        fetchGrowthActivities()
     }
 
     func deleteActivity(_ activity: BabyActivity) {
@@ -126,6 +76,60 @@ final class GrowthViewManager: ObservableObject {
         fetchGrowthActivities()
     }
 
+    // MARK: - Private functions
+    /// Prepares the growth data for display in charts.
+        private func setupData() {
+            let activities = dataManager.fetchFilteredActivities(with: [.growth])
+            var values: [Int: Double] = [:]
+
+            for activity in activities {
+                guard let (month, value) = extractMeasurement(from: activity) else { continue }
+                values[month] = max(values[month] ?? 0, value)
+            }
+
+            dataShow = values.sorted(by: { $0.key < $1.key })
+        }
+
+        /// Extracts the relevant measurement for the selected position.
+        /// - Parameter activity: The `BabyActivity` to process.
+        /// - Returns: A tuple containing the month and the measurement value, or `nil` if invalid.
+        private func extractMeasurement(from activity: BabyActivity) -> (Int, Double)? {
+            guard case .growth(let data) = activity.activity else { return nil }
+            let date = activity.date
+            let value: Double?
+
+            switch selectedPosition {
+            case 0: value = data.height.map { checkMeasurementUnit($0, type: data.measurementSystem) }
+            case 1: value = data.weight.map { checkWeightUnit($0, type: data.measurementSystem) }
+            case 2: value = data.headCircumference.map { checkMeasurementUnit($0, type: data.measurementSystem) }
+            default: return nil
+            }
+
+            guard let unwrappedValue = value,
+                  let month = Calendar.current.dateComponents([.month], from: storageManager.babyBirthday, to: date).month else {
+                return nil
+            }
+
+            return (month, unwrappedValue)
+        }
+
+    /// Converts a measurement to the user's preferred unit system.
+    private func checkMeasurementUnit(_ value: Double, type: MeasurementSystem) -> Double {
+        let userUnit = storageManager.isMetricUnit ? MeasurementSystem.metric : MeasurementSystem.imperial
+        guard type != userUnit else { return value }
+
+        return type == .metric ? value * 0.393701 : value / 0.393701 // cm to inches conversion
+    }
+
+    /// Converts weight to the user's preferred unit system.
+    private func checkWeightUnit(_ value: Double, type: MeasurementSystem) -> Double {
+        let userUnit = storageManager.isMetricUnit ? MeasurementSystem.metric : MeasurementSystem.imperial
+        guard type != userUnit else { return value }
+
+        return type == .metric ? value * 2.20462 : value / 2.20462 // kg to lbs conversion
+    }
+
+    /// Fetches growth activities for list display.
     private func fetchGrowthActivities() {
         listData = dataManager.fetchFilteredActivities(with: [.growth])
     }

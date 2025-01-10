@@ -30,7 +30,7 @@ struct GrowthRow: View {
             self.measurements = [
                 Measurement(title: "Taille", value: data.height, unit: lengthUnit),
                 Measurement(title: "Poids", value: data.weight, unit: weightUnit),
-                Measurement(title: "Taille tête", value: data.headCircumference, unit: lengthUnit)
+                Measurement(title: "Périmètre", value: data.headCircumference, unit: lengthUnit)
             ]
         } else {
             self.measurements = []

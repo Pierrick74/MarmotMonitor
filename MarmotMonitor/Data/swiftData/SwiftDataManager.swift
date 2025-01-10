@@ -45,7 +45,7 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
     }
 
     // MARK: - Data Management Methods
-    
+
     /// Adds a new activity to the data store.
     /// - Parameter activity: The activity to add.
     /// - Throws: An error if the activity overlaps with an existing one.
@@ -141,7 +141,7 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
     }
 
     // MARK: - Helper Methods
-    
+
     /// Checks if a new activity overlaps with existing ones.
     /// - Parameter newActivity: The new activity to check.
     /// - Returns: `true` if an overlap exists, `false` otherwise.
