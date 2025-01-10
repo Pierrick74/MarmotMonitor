@@ -7,9 +7,16 @@
 
 import SwiftUI
 
-// Sous-vue pour afficher un Picker dans une feuille
-// Permet de choisir une date
-
+/// A view that presents a date picker in a sheet with customizable options.
+///
+/// Allows users to select a date within an optional range. The selected date is saved when the user taps the save button.
+///
+/// - Parameters:
+///   - title: The title displayed at the top of the sheet.
+///   - selectedDate: A binding to the date selected by the user. Defaults to `nil`.
+///   - isPresented: A binding to control the visibility of the sheet.
+///   - range: An optional range of dates to constrain the date picker.
+/// - Returns: A view that displays a date picker inside a customizable sheet.
 struct PickerDateSheetView: View {
     var title: String
     @Binding var selectedDate: Date?
@@ -33,9 +40,9 @@ struct PickerDateSheetView: View {
                                selection: $temporaryDate,
                                in: range ?? Date.distantPast...Date.distantFuture,
                                displayedComponents: [.date, .hourAndMinute])
-                        .datePickerStyle(WheelDatePickerStyle())
-                        .labelsHidden()
-                        .padding(.bottom, 20)
+                    .datePickerStyle(WheelDatePickerStyle())
+                    .labelsHidden()
+                    .padding(.bottom, 20)
 
                     SaveButtonView(onSave: {
                         selectedDate = temporaryDate

@@ -14,7 +14,30 @@
         }
       }
     },
+    "%.1f %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$.1f %2$@"
+          }
+        }
+      }
+    },
     "%@" : {
+
+    },
+    "%@ : %.1f %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ : %2$.1f %3$@"
+          }
+        }
+      }
+    },
+    "%@ : non renseigné" : {
 
     },
     "%@ Button" : {
@@ -124,6 +147,9 @@
     "Appuyez pour sélectionner une date" : {
 
     },
+    "Aucune donnée disponible" : {
+
+    },
     "Auj" : {
       "localizations" : {
         "en" : {
@@ -193,6 +219,9 @@
           }
         }
       }
+    },
+    "Date de la mesure : %@" : {
+
     },
     "Date de naissance" : {
       "localizations" : {
@@ -385,6 +414,7 @@
       }
     },
     "Liste" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -472,6 +502,9 @@
           }
         }
       }
+    },
+    "N/A" : {
+
     },
     "Né le" : {
       "localizations" : {

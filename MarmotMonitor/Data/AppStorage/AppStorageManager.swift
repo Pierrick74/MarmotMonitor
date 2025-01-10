@@ -23,6 +23,9 @@ protocol AppStorageManagerProtocol {
 }
 
 // MARK: - AppStorageManager
+/// A singleton class for managing app storage using `@AppStorage`.
+///
+/// Stores and retrieves user preferences and data persistently, including support for images.
 final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
 
     enum AppStorageKeys: String {
@@ -35,6 +38,10 @@ final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
         case appearance
         case picture
     }
+
+    // MARK: - Properties
+    static let shared = AppStorageManager()
+
     @Published private(set) var gender: GenderType = GenderType.boy
 
     @AppStorage(AppStorageKeys.gender.rawValue) private var storageGender: String = GenderType.boy.rawValue
@@ -46,17 +53,21 @@ final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
     @AppStorage(AppStorageKeys.appearance.rawValue) var appearance: Appearance = .system
     @AppStorage(AppStorageKeys.picture.rawValue) var picture: String = ""
 
-    static let shared = AppStorageManager()
+    // MARK: - Initializer
+    init() {
+        self.gender = GenderType(rawValue: storageGender) ?? GenderType.boy
+    }
 
+    // MARK: - Functions
+    /// Sets the user's gender preference and updates the storage.
+    /// - Parameter gender: The selected `GenderType`.
     func setGender(with gender: GenderType) {
         self.gender = gender
         storageGender = gender.rawValue
     }
 
-    init() {
-        self.gender = GenderType(rawValue: storageGender) ?? GenderType.boy
-    }
-
+    /// Saves a `UIImage` to app storage as a base64-encoded string.
+    /// - Parameter image: The image to save.
     func saveImageToAppStorage(_ image: UIImage) {
         if let imageData = image.jpegData(compressionQuality: 0.8) {
             picture = imageData.base64EncodedString()
@@ -64,6 +75,8 @@ final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
         }
     }
 
+    /// Loads a `UIImage` from app storage.
+    /// - Returns: The loaded `UIImage`, or `nil` if no image exists or decoding fails.
     func loadImageFromAppStorage() -> UIImage? {
         if let imageData = Data(base64Encoded: picture),
            let uiImage = UIImage(data: imageData) {
@@ -74,21 +87,7 @@ final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
 }
 
 // MARK: - Mock For Tests
-
-class MockAppStorageManager: AppStorageManagerProtocol {
-    var appearance: Appearance = .dark
-    func setGender(with gender: GenderType) {}
-    var babyName: String = "Line"
-    var isOnBoardingFinished: Bool = false
-    var parentName: String = "Pierrick"
-    var gender: GenderType = .girl
-    var babyBirthday: Date = Date()
-    var isMetricUnit: Bool = true
-    var picture: String = ""
-    func saveImageToAppStorage(_ image: UIImage) {}
-    func loadImageFromAppStorage() -> UIImage? { return nil }
-}
-
+#if DEBUG
 class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
     var appearance: Appearance = .dark
     func setGender(with gender: GenderType) {}
@@ -102,3 +101,4 @@ class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
     func saveImageToAppStorage(_ image: UIImage) {}
     func loadImageFromAppStorage() -> UIImage? { return nil }
 }
+#endif
