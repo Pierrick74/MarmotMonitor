@@ -87,7 +87,6 @@ final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
 }
 
 // MARK: - Mock For Tests
-#if DEBUG
 class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
     var appearance: Appearance = .dark
     func setGender(with gender: GenderType) {}
@@ -101,4 +100,3 @@ class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
     func saveImageToAppStorage(_ image: UIImage) {}
     func loadImageFromAppStorage() -> UIImage? { return nil }
 }
-#endif
