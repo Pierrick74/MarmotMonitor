@@ -6,7 +6,8 @@
 //
 
 import Foundation
-
+/// Enum for ActivityError
+/// - overlappingActivity: Error when two activities are overlapping
 enum ActivityError: Error, LocalizedError {
     case overlappingActivity
 

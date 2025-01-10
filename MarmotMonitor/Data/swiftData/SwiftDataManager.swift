@@ -19,6 +19,9 @@ protocol SwiftDataManagerProtocol {
 }
 
 // MARK: - SwiftDataManager
+/// A class responsible for managing persistent data storage for baby activities.
+///
+/// Uses SwiftData to manage activities and ensures thread safety and proper error handling.
 final class SwiftDataManager: SwiftDataManagerProtocol {
     private let modelContainer: ModelContainer
     private let modelContext: ModelContext
@@ -26,6 +29,8 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
     @MainActor
     static let shared = SwiftDataManager()
 
+    /// Initializes the `SwiftDataManager` with an optional in-memory configuration for testing purposes.
+    /// - Parameter isStoredInMemoryOnly: If `true`, data is stored in memory only (useful for tests).
     @MainActor
     init(isStoredInMemoryOnly: Bool = false) {
         do {
@@ -39,6 +44,11 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
         }
     }
 
+    // MARK: - Data Management Methods
+    
+    /// Adds a new activity to the data store.
+    /// - Parameter activity: The activity to add.
+    /// - Throws: An error if the activity overlaps with an existing one.
     func addActivity(_ activity: BabyActivity) throws {
         if hasActivityOverlapping(activity) {
             throw ActivityError.overlappingActivity
@@ -48,23 +58,28 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
         }
     }
 
+    /// Deletes an existing activity from the data store.
+    /// - Parameter activity: The activity to delete.
     func deleteActivity(activity: BabyActivity) {
         modelContext.delete(activity)
         save()
     }
 
-    func save() {
-        try? modelContext.save()
-        NotificationCenter.default.post(name: .dataUpdated, object: nil)
-    }
-
+    /// Clears all `BabyActivity` data from the store.
     func clearAllData() {
         try? modelContext.delete(model: BabyActivity.self)
         save()
     }
 
-    // MARK: - Fetch data
+    /// Saves changes to the data store and notifies listeners.
+    private func save() {
+        try? modelContext.save()
+        NotificationCenter.default.post(name: .dataUpdated, object: nil)
+    }
 
+    // MARK: - Fetch data
+    /// Fetches all activities from the data store, sorted by date in ascending order.
+    /// - Returns: An array of `BabyActivity`.
     func fetchData() -> [BabyActivity] {
         do {
             let descriptor = FetchDescriptor<BabyActivity>(sortBy: [SortDescriptor(\.date, order: .forward)])
@@ -74,6 +89,9 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
         }
     }
 
+    /// Fetches activities filtered by specific activity categories.
+    /// - Parameter selectedActivityTypes: The categories to filter by.
+    /// - Returns: An array of filtered `BabyActivity`.
     func fetchFilteredActivities(with selectedActivityTypes: [ActivityCategory]) -> [BabyActivity] {
         let selectedActivityTypes = selectedActivityTypes.map { $0.rawValue }
         do {
@@ -81,13 +99,22 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
                 selectedActivityTypes.contains(activity.activityCategory)
             }
 
-            let descriptor = FetchDescriptor<BabyActivity>(predicate: predicate, sortBy: [SortDescriptor(\.date, order: .reverse)])
+            let descriptor = FetchDescriptor<BabyActivity>(
+                predicate: predicate,
+                sortBy: [SortDescriptor(
+                    \.date,
+                     order: .reverse
+                )]
+            )
             return try modelContext.fetch(descriptor)
         } catch {
             fatalError(error.localizedDescription)
         }
     }
 
+    /// Fetches activities for a specific day.
+    /// - Parameter date: The date to filter by.
+    /// - Returns: An array of activities occurring on the given date.
     func fetchFiltered(with date: Date) -> [BabyActivity] {
         let startOfDay = Calendar.current.startOfDay(for: date)
 
@@ -100,13 +127,24 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
                 activity.date >= startOfDay && activity.date <= endOfDay
             }
 
-            let descriptor = FetchDescriptor<BabyActivity>(predicate: predicate, sortBy: [SortDescriptor(\.date, order: .reverse)])
+            let descriptor = FetchDescriptor<BabyActivity>(
+                predicate: predicate,
+                sortBy: [SortDescriptor(
+                    \.date,
+                     order: .reverse
+                )]
+            )
             return try modelContext.fetch(descriptor)
         } catch {
             fatalError(error.localizedDescription)
         }
     }
 
+    // MARK: - Helper Methods
+    
+    /// Checks if a new activity overlaps with existing ones.
+    /// - Parameter newActivity: The new activity to check.
+    /// - Returns: `true` if an overlap exists, `false` otherwise.
     private func hasActivityOverlapping(_ newActivity: BabyActivity) -> Bool {
 
         let activities = fetchFilteredActivities(with: [newActivity.getCategory()])
@@ -154,6 +192,7 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
 
 // MARK: - Date extension
 extension SwiftDataManager {
+    /// Compares two dates, ignoring seconds.
     func areDatesEqualIgnoringSeconds(_ date1: Date, _ date2: Date) -> Bool {
         let calendar = Calendar.current
 
@@ -163,6 +202,7 @@ extension SwiftDataManager {
         return components1 == components2
     }
 
+    /// Compares two dates, ignoring time.
     func areDatesEqualIgnoringTime(_ date1: Date, _ date2: Date) -> Bool {
         let calendar = Calendar.current
 

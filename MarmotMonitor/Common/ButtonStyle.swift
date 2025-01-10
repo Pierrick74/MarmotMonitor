@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnBoardingButtonStyle: ButtonStyle {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -24,7 +24,7 @@ struct OnBoardingButtonStyle: ButtonStyle {
 }
 
 struct OnBoardingBackButtonStyle: ButtonStyle {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundColor(colorScheme == .light ? .blue.opacity(0.6) : .white.opacity(0.8))
@@ -38,7 +38,7 @@ struct OnBoardingBackButtonStyle: ButtonStyle {
 }
 
 struct CustomCancelButtonStyle: ButtonStyle {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -55,7 +55,7 @@ struct CustomCancelButtonStyle: ButtonStyle {
 }
 
 struct CustomSaveButtonStyle: ButtonStyle {
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .fontWeight(.semibold)

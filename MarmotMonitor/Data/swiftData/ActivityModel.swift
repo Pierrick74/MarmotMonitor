@@ -8,14 +8,19 @@
 import SwiftUI
 import SwiftData
 
-/// Model for baby activities
-/// - Tag: ActivityType
-/// - Note: This model is used to store all the activities of the baby.
-/// - Note: Unit available for the measurement of the activities.
-/// - Note: volum of bottle : ml or fluid ounce (floz)
-/// - Note: height or head Conference  : cm or inch(in)
-/// - Note: weight : kg or livres (lbs)
+// MARK: - BabyActivity
 
+/// A model representing a baby's activity.
+///
+/// This class stores details about various activities such as sleep, diaper changes, feeding, and growth metrics.
+/// - Parameters:
+///   - id: A unique identifier for the activity.
+///   - activity: The specific type of activity.
+///   - date: The date and time the activity occurred.
+///   - activityCategory: The category of the activity (e.g., "Sommeil").
+///   - activityTitre: The title of the activity (e.g., "Couche").
+///   - activityColor: The color associated with the activity.
+///   - activityImageName: The name of the image representing the activity.
 @Model
 class BabyActivity {
     @Attribute(.unique) var id: UUID
@@ -36,6 +41,8 @@ class BabyActivity {
         self.activityImageName = activity.imageName
     }
 
+    /// Retrieves the `ActivityCategory` from the string representation.
+    /// - Returns: The associated `ActivityCategory`, or `.food` as the default.
     func getCategory() -> ActivityCategory {
         switch activityCategory {
         case "Sommeil":
@@ -53,6 +60,7 @@ class BabyActivity {
 }
 
 // MARK: - ENUM
+/// An enum representing various activity types.
 enum ActivityType: Codable, Equatable {
     case diaper(state: DiaperState)
     case bottle(volume: Double, measurementSystem: MeasurementSystem = .metric)
@@ -103,27 +111,34 @@ enum ActivityType: Codable, Equatable {
     }
 }
 
+// MARK: - Supporting Types
+
+/// Measurement system for units.
 enum MeasurementSystem: String, Codable {
     case metric = "Métrique"
     case imperial = "Impérial"
 }
 
+/// state of a diaper during changes
 enum DiaperState: String, Codable, Equatable {
     case wet = "Urine"
     case dirty = "Souillée"
     case both = "Mixte"
 }
 
+/// A struct representing the duration of breastfeeding.
 struct BreastDuration: Codable, Equatable {
     let leftDuration: TimeInterval
     let rightDuration: TimeInterval
 }
 
+/// Types of breasts for breastfeeding tracking.
 enum BreastType: Codable, Equatable {
     case left
     case right
 }
 
+/// Data related to a baby's growth metrics.
 struct GrowthData: Codable, Equatable {
     let weight: Double?
     let height: Double?
@@ -131,6 +146,7 @@ struct GrowthData: Codable, Equatable {
     var measurementSystem: MeasurementSystem = .metric
 }
 
+/// Categories of activities.
 enum ActivityCategory: String, Codable {
     case sleep = "Sommeil"
     case diaper = "Couche"
