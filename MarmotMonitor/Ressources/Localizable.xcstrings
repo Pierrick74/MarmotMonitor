@@ -14,7 +14,30 @@
         }
       }
     },
+    "%.1f %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$.1f %2$@"
+          }
+        }
+      }
+    },
     "%@" : {
+
+    },
+    "%@ : %.1f %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ : %2$.1f %3$@"
+          }
+        }
+      }
+    },
+    "%@ : non renseigné" : {
 
     },
     "%@ Button" : {
@@ -193,6 +216,9 @@
           }
         }
       }
+    },
+    "Date de la mesure : %@" : {
+
     },
     "Date de naissance" : {
       "localizations" : {
@@ -472,6 +498,9 @@
           }
         }
       }
+    },
+    "N/A" : {
+
     },
     "Né le" : {
       "localizations" : {

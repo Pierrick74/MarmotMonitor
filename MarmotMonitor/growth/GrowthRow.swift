@@ -7,31 +7,33 @@
 
 import SwiftUI
 
+/// A view displaying growth-related data for a baby activity.
+///
+/// The view adapts dynamically to the user's text size preference and color scheme.
+/// It shows information like height, weight, and head circumference.
+///
+/// - Parameter activity: A `BabyActivity` instance containing growth data.
 struct GrowthRow: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
-    var date: Date
-    var height: Double?
-    var weight: Double?
-    var headCircumference: Double?
-    let unit: String
-    let weightUnit: String
+    private let date: Date
+    private let measurements: [Measurement]
 
+    /// Initializes the `GrowthRow` with a `BabyActivity`.
     init(activity: BabyActivity) {
         self.date = activity.date
         if case let .growth(data) = activity.activity {
-            self.height = data.height
-            self.weight = data.weight
-            self.headCircumference = data.headCircumference
-            self.unit = data.measurementSystem == .metric ? "cm" : "in"
-            self.weightUnit = data.measurementSystem == .metric ? "kg" : "lb"
+            let lengthUnit = data.measurementSystem == .metric ? "cm" : "in"
+            let weightUnit = data.measurementSystem == .metric ? "kg" : "lb"
+
+            self.measurements = [
+                Measurement(title: "Taille", value: data.height, unit: lengthUnit),
+                Measurement(title: "Poids", value: data.weight, unit: weightUnit),
+                Measurement(title: "Taille tête", value: data.headCircumference, unit: lengthUnit)
+            ]
         } else {
-            self.height = nil
-            self.weight = nil
-            self.headCircumference = nil
-            self.unit = ""
-            self.weightUnit = ""
+            self.measurements = []
         }
     }
 
@@ -41,37 +43,18 @@ struct GrowthRow: View {
                 .font(.subheadline)
                 .foregroundColor(.primary)
                 .padding(.bottom, 5)
+                .accessibilityLabel("Date de la mesure : \(date, style: .date)")
 
             if dynamicTypeSize < .accessibility1 {
                 HStack {
                     ForEach(measurements, id: \.title) { measurement in
-                        if let value = measurement.value {
-                            VStack {
-                                Text(measurement.title)
-                                    .font(.body)
-                                    .foregroundColor(.primary)
-                                Text(String(format: "%.1f \(measurement.unit)", value))
-                                    .font(.body)
-                                    .foregroundColor(.primary)
-                            }
-                            .frame(maxWidth: .infinity)
-                        }
+                        MeasurementView(measurement: measurement)
                     }
                 }
             } else {
                 VStack(spacing: 10) {
                     ForEach(measurements, id: \.title) { measurement in
-                        if let value = measurement.value {
-                            VStack {
-                                Text(measurement.title)
-                                    .font(.body)
-                                    .foregroundColor(.primary)
-                                Text(String(format: "%.1f \(measurement.unit)", value))
-                                    .font(.body)
-                                    .foregroundColor(.primary)
-                            }
-                            .frame(maxWidth: .infinity)
-                        }
+                        MeasurementView(measurement: measurement)
                     }
                 }
             }
@@ -84,15 +67,44 @@ struct GrowthRow: View {
                 .shadow(color: .primary, radius: 2, x: 0, y: 2)
         )
     }
+}
 
-    // Helper for dynamic display
-    private var measurements: [(title: String, value: Double?, unit: String)] {
-        return [
-            ("Taille", height, unit),
-            ("Poids", weight, weightUnit),
-            ("Taille tête", headCircumference, unit)
-        ]
+// MARK: - Measurement View
+/// A reusable view for displaying individual measurements.
+struct MeasurementView: View {
+    let measurement: Measurement
+
+    var body: some View {
+        VStack {
+            Text(measurement.title)
+                .font(.body)
+                .foregroundColor(.secondary)
+                .accessibilityHidden(true)
+
+            if let value = measurement.value {
+                Text("\(value, specifier: "%.1f") \(measurement.unit)")
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                    .accessibilityLabel("\(measurement.title) : \(value, specifier: "%.1f") \(measurement.unit)")
+            } else {
+                Text("N/A")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .accessibilityLabel("\(measurement.title) : non renseigné")
+            }
+        }
+        .frame(maxWidth: .infinity)
     }
+}
+
+// MARK: - Measurement Model
+
+/// A model representing a single measurement.
+struct Measurement: Identifiable {
+    let id = UUID()
+    let title: String
+    let value: Double?
+    let unit: String
 }
 
 #Preview {
