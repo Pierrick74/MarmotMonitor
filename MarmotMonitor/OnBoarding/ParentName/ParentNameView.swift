@@ -31,7 +31,7 @@ struct ParentNameView: View {
                     ZStack(alignment: .top) {
                         VStack(alignment: .leading) {
 
-                            Text("Quelle est le nom du Parent ? ")
+                            Text("Quel est le nom du Parent ? ")
                                 .onBoardingTextStyle()
                                 .accessibilityHidden(true)
 
