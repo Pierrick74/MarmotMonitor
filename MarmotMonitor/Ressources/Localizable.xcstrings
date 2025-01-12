@@ -631,6 +631,9 @@
     "Quel est le nom de la petite marmotte ? " : {
 
     },
+    "Quel est le nom du Parent ? " : {
+
+    },
     "Quelle est l'état de la couche" : {
       "localizations" : {
         "en" : {
@@ -653,6 +656,7 @@
       }
     },
     "Quelle est le nom du Parent ? " : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
