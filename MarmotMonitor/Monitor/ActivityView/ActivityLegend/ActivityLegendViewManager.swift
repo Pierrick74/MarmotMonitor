@@ -26,7 +26,7 @@ final class ActivityLegendViewManager {
     var recurency: String {
         "\(activity.recurency) fois"
     }
-    
+
     /// The total value with its appropriate unit, formatted as a string.
     ///
     /// - Returns: A string representing the total value and its unit or `nil` if not applicable.
