@@ -7,13 +7,18 @@
 
 import SwiftUI
 
+/// A view model for managing and formatting activity data for a specific date.
 @MainActor
-class DetailViewManager: ObservableObject {
+final class DetailViewManager: ObservableObject {
+    // MARK: - dependencies
     private var dataManager: SwiftDataManagerProtocol = SwiftDataManager.shared
+
+    // MARK: - Published Properties
     var date: Date
 
     @Published var formattedActivityData: [ActivityDetail] = []
 
+    // MARK: - Initialization
     init(dataManager: SwiftDataManagerProtocol? = nil, date: Date) {
         if let dataManager = dataManager {
             self.dataManager = dataManager
@@ -21,12 +26,12 @@ class DetailViewManager: ObservableObject {
         self.date = date
     }
 
+    // MARK: - Functions
     func fetchActivityData() {
         let activities = dataManager.fetchFiltered(with: date)
         formattedActivityData = formatActivityData(activities)
     }
 
-    // MARK: - Delete Action
     func deleteActivity(_ activity: ActivityDetail) {
         let activities = dataManager.fetchFiltered(with: activity.date)
         for act in activities {
@@ -37,10 +42,13 @@ class DetailViewManager: ObservableObject {
     }
 
     // MARK: - Private
+    /// Formats raw activity data into a displayable format.
+    /// - Parameter activities: The raw `BabyActivity` data to format.
+    /// - Returns: An array of `ActivityDetail` excluding growth activities.
     private func formatActivityData(_ activities: [BabyActivity]) -> [ActivityDetail] {
         activities.compactMap { activity -> ActivityDetail? in
             guard activity.activityCategory != ActivityCategory.growth.rawValue else { return nil }
             return ActivityDetail(from: activity)
-        }.compactMap { $0 }
+        }
     }
 }
