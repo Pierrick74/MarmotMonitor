@@ -6,56 +6,41 @@
 //
 
 import SwiftUI
-
+/// A view displaying an activity legend with a dynamic layout based on accessibility settings.
+///
+/// - Parameters:
+///   - data: `ActivityLegendData` containing activity type, recurrence, and total values.
+///
+/// This view adapts its layout for different dynamic type sizes and color schemes.
 struct ActivityLegendView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
-    var manager: ActivityLegendViewManager
+    private let manager: ActivityLegendViewManager
 
     init(data: ActivityLegendData) {
         self.manager = ActivityLegendViewManager(activity: data)
     }
 
     var body: some View {
-        HStack(spacing: 8) {
+        VStack {
             if dynamicTypeSize < .accessibility1 {
-                Image(decorative: manager.name)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 30, height: 30)
-                    .foregroundColor(.primary)
-
-                VStack(alignment: .trailing) {
-                    if !manager.recurency.isEmpty {
-                        Text(manager.recurency)
-                            .font(.subheadline)
-                            .foregroundColor(.primary)
-                    }
-                    if let total = manager.totalValue {
-                        Text(total)
-                            .font(.caption)
-                            .foregroundColor(.primary)
-                    }
+                HStack(spacing: 8) {
+                    Image(decorative: manager.name)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.primary)
+                    
+                    valueToShow
                 }
             } else {
-                VStack(alignment: .trailing) {
-                Text(manager.name)
-                    .font(.headline)
-                    .foregroundColor(.primary)
-
-                if !manager.recurency.isEmpty {
-                    Text(manager.recurency)
-                        .font(.subheadline)
+                    Text(manager.name)
+                        .font(.headline)
                         .foregroundColor(.primary)
-                }
-                if let total = manager.totalValue {
-                    Text(total)
-                        .font(.caption)
-                        .foregroundColor(.primary)
-                }
+                    
+                    valueToShow
             }
-        }
         }
         .padding(5)
         .background(
@@ -67,6 +52,22 @@ struct ActivityLegendView: View {
         .padding(5)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(manager.accessibilityDescription)
+    }
+
+    /// Value to show
+    private var valueToShow: some View {
+        VStack(alignment: .trailing) {
+            if !manager.recurency.isEmpty {
+                Text(manager.recurency)
+                    .font(.subheadline)
+                    .foregroundColor(.primary)
+            }
+            if let total = manager.totalValue {
+                Text(total)
+                    .font(.caption)
+                    .foregroundColor(.primary)
+            }
+        }
     }
 }
 

@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
-
+/// A manager for handling activity legend data and providing computed properties for the view.
 final class ActivityLegendViewManager {
 
-    private var activity: ActivityLegendData
+    private let activity: ActivityLegendData
 
     init(activity: ActivityLegendData) {
         self.activity = activity
@@ -26,7 +26,10 @@ final class ActivityLegendViewManager {
     var recurency: String {
         "\(activity.recurency) fois"
     }
-
+    
+    /// The total value with its appropriate unit, formatted as a string.
+    ///
+    /// - Returns: A string representing the total value and its unit or `nil` if not applicable.
     var totalValue: String? {
         guard let totalValue = activity.total else { return nil }
         let total = Int(totalValue)
@@ -41,6 +44,7 @@ final class ActivityLegendViewManager {
         }
     }
 
+    /// An accessibility  description of the activity label.
     var accessibilityDescription: String {
         let total = totalValue != nil ? " avec un total de \(totalValue!)" : ""
         return "Activité \(name) répétée \(recurency)" + total
