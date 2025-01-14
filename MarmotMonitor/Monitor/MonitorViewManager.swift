@@ -105,22 +105,10 @@ class MonitorViewManager: ObservableObject {
             }
 
         case .diaper:
-            let range = ActivityRange(
-                startHour: transformInRangeIndex(activity.date),
-                endHour: transformInRangeIndex(activity.date) + 1,
-                type: .diaper,
-                value: nil,
-                unit: nil)
-            return (main: range, nextDay: nil)
+            return createDiaperRange(for: activity)
 
         case .bottle(volume: let volume, measurementSystem: let measurementSystem):
-            let range = ActivityRange(
-                startHour: transformInRangeIndex(activity.date),
-                endHour: transformInRangeIndex(activity.date) + 1,
-                type: .food,
-                value: Double(Int(volume)),
-                unit: measurementSystem)
-            return (main: range, nextDay: nil)
+            return createBottleRange(at: activity.date, volume: volume, measurementSystem: measurementSystem)
 
         case .breast(duration: let duration, lastBreast: _):
 
@@ -139,6 +127,29 @@ class MonitorViewManager: ObservableObject {
         case .growth:
             return (main: nil, nextDay: nil)
         }
+    }
+
+    /// Creates a bottle range for the activity
+    private func createBottleRange(at date: Date, volume: Double, measurementSystem: MeasurementSystem) -> (main: ActivityRange?, nextDay: ActivityRange?) {
+        let range = ActivityRange(
+            startHour: transformInRangeIndex(date),
+            endHour: transformInRangeIndex(date) + 1,
+            type: .food,
+            value: Double(Int(volume)),
+            unit: measurementSystem
+        )
+        return (main: range, nextDay: nil)
+    }
+
+    /// Creates a diaper range for the activity
+    private func createDiaperRange(for activity: BabyActivity) -> (main: ActivityRange?, nextDay: ActivityRange?) {
+        let range = ActivityRange(
+            startHour: transformInRangeIndex(activity.date),
+            endHour: transformInRangeIndex(activity.date) + 1,
+            type: .diaper,
+            value: nil,
+            unit: nil)
+        return (main: range, nextDay: nil)
     }
 
     /// Adds the range to the formatted activity data.
@@ -161,12 +172,10 @@ class MonitorViewManager: ObservableObject {
         let minutes = Int(seconds) % 3600 / 60
 
         switch minutes {
-        case 0:
-            return Double(hours)
-        case 1..<30:
+        case 0..<30:
             return Double(hours) + 0.5
         default:
-            return Double(hours + 1)
+            return Double(hours) + 0.5
         }
     }
 
