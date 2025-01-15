@@ -6,7 +6,10 @@
 //
 import SwiftUI
 
+/// A detailed view displaying activities for a specific date.
+/// Includes a list of activities and supports deletion.
 struct DetailView: View {
+
     @ObservedObject var manager: DetailViewManager
     @Environment(\.dismiss) var dismiss
 
@@ -19,9 +22,9 @@ struct DetailView: View {
             BackgroundColor()
 
             VStack {
-                    Text(manager.date, style: .date)
-                        .font(.headline)
-                        .padding(.bottom, 8)
+                Text(manager.date, style: .date)
+                    .font(.headline)
+                    .padding(.bottom, 8)
 
                 List {
                     ForEach(manager.formattedActivityData) { activity in
@@ -31,10 +34,6 @@ struct DetailView: View {
                 }
                 .scrollContentBackground(.hidden)
                 .listStyle(PlainListStyle())
-
-                .onAppear {
-                    manager.fetchActivityData()
-                }
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -43,8 +42,12 @@ struct DetailView: View {
                 dismiss()
             }
         }
+        .onAppear {
+            manager.fetchActivityData()
+        }
     }
 
+    /// Deletes activities at the specified offsets.
     func delete(at offsets: IndexSet) {
         let activitiesToDelete = offsets.map { manager.formattedActivityData[$0] }
 

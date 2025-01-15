@@ -31,14 +31,14 @@ struct ActivityLegendView: View {
                         .scaledToFit()
                         .frame(width: 30, height: 30)
                         .foregroundColor(.primary)
-                    
+
                     valueToShow
                 }
             } else {
                     Text(manager.name)
                         .font(.headline)
                         .foregroundColor(.primary)
-                    
+
                     valueToShow
             }
         }

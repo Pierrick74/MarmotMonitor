@@ -7,12 +7,10 @@
 
 import SwiftUI
 
-/// Manager to handle the activity view
+/// A manager for handling activity data and providing utilities for color coding and legend generation.
 /// - Parameters:
 ///  - data: an array of ActivityRange
-///  - Returns: a color of the hour in the day
-///
-///  - Returns: a legend : an array of ActivityLegendData with the type, the recurency, the total and the unit
+
 struct ActivityRowManager {
     private let data: [ActivityRange]
 
@@ -20,6 +18,12 @@ struct ActivityRowManager {
         self.data = data
     }
 
+    var accessibilitéInformation: String = ""
+    // MARK: - Public Methods
+    /// Returns the color associated with a specific hour based on the activity data.
+    ///
+    /// - Parameter hour: The hour to retrieve the color for, in 24-hour format.
+    /// - Returns: A `Color` representing the activity at the given hour, or `.clear` if no activity is found.
     func color(for hour: Int) -> Color {
         let sortedData = data.sorted { lhs, rhs in
             priority(for: lhs.type) > priority(for: rhs.type)
@@ -34,19 +38,9 @@ struct ActivityRowManager {
         return .clear
     }
 
-    private func priority(for type: ActivityCategory) -> Int {
-        switch type {
-        case .food: return 3
-        case .diaper: return 2
-        case .sleep: return 1
-        case .growth: return 0
-        }
-    }
-
-    var accessibilitéInformation: String = ""
-}
-
-extension ActivityRowManager {
+    /// Generates a legend based on the activity data.
+    ///
+    /// - Returns: An array of `ActivityLegendData` containing aggregated information for each activity type.
     func generateLegend() -> [ActivityLegendData] {
         var legendData: [ActivityCategory: (recurency: Int, total: Double?, unit: MeasurementSystem?)] = [:]
 
@@ -89,12 +83,25 @@ extension ActivityRowManager {
                 total: data.total,
                 unit: data.unit
             )
-        }.sorted { lhs, rhs in
-            priority(for: lhs.type) < priority(for: rhs.type)
+        }.sorted { priority(for: $0.type) < priority(for: $1.type)}
+    }
+
+    // MARK: - Private Methods
+    /// Returns the priority level of a specific activity type.
+    ///
+    /// - Parameter type: An `ActivityCategory` to evaluate.
+    /// - Returns: An integer priority value, higher numbers indicate higher priority.
+    private func priority(for type: ActivityCategory) -> Int {
+        switch type {
+        case .food: return 3
+        case .diaper: return 2
+        case .sleep: return 1
+        case .growth: return 0
         }
     }
 }
 
+/// Represents an activity interval with start and end times, type, and optional value.
 struct ActivityRange {
     let startHour: Int
     let endHour: Int
