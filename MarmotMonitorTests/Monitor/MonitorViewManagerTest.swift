@@ -45,7 +45,7 @@ struct MonitorViewManagerTest {
             let date = firstEntry.key
             let activityRanges = manager.formattedActivityData[date]![0]
             #expect(activityRanges.type == .sleep)
-            #expect(activityRanges.endHour == activityRanges.startHour + Int(1))
+            #expect(activityRanges.endHour == (activityRanges.startHour + 1))
         } else {
             #expect(Bool(false))
         }
@@ -94,5 +94,44 @@ struct MonitorViewManagerTest {
         } else {
             #expect(Bool(false))
         }
+    }
+
+    @Test mutating func filterAllFilterIsSelected_whenToggleFilterSleep_thenFilterIsNotSelected() throws {
+        // 1. given
+        #expect(manager.isSleepSelected)
+
+        // 2. when
+        manager.toggleFilter(.sleep)
+
+        // 3. then
+        #expect(manager.isSleepSelected == false)
+        manager.toggleFilter(.sleep)
+        #expect(manager.isSleepSelected)
+    }
+
+    @Test mutating func filterAllFilterIsSelected_whenToggleFilterDiaper_thenFilterIsNotSelected() throws {
+        // 1. given
+        #expect(manager.isDiaperSelected)
+
+        // 2. when
+        manager.toggleFilter(.diaper)
+
+        // 3. then
+        #expect(manager.isDiaperSelected == false)
+        manager.toggleFilter(.diaper)
+        #expect(manager.isDiaperSelected)
+    }
+
+    @Test mutating func filterAllFilterIsSelected_whenToggleFilterFood_thenFilterIsNotSelected() throws {
+        // 1. given
+        #expect(manager.isFoodSelected)
+
+        // 2. when
+        manager.toggleFilter(.food)
+
+        // 3. then
+        #expect(manager.isFoodSelected == false)
+        manager.toggleFilter(.food)
+        #expect(manager.isFoodSelected)
     }
 }

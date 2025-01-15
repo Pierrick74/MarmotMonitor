@@ -67,66 +67,71 @@ class MonitorViewManager: ObservableObject {
     private func createActivityRange(for activity: BabyActivity) -> (main: ActivityRange?, nextDay: ActivityRange?) {
         switch activity.activity {
         case .sleep(let duration):
-            if checkIfDayNotChanged(with: activity.date, duration: duration) {
-                let range = ActivityRange(
-                    startHour: transformInRangeIndex(activity.date),
-                    endHour: transformInRangeIndex(activity.date.addingTimeInterval(TimeInterval(duration))),
-                    type: .sleep,
-                    value: formatDuration(duration),
-                    unit: nil
-                )
-                return (main: range, nextDay: nil)
-
-            } else {
-                let calendar = Calendar.current
-                let midnight = calendar.startOfDay(for: calendar.date(byAdding: .day, value: 1, to: activity.date)!)
-
-                // before midnight
-                let firstDuration = midnight.timeIntervalSince(activity.date)
-
-                let range = ActivityRange(
-                    startHour: transformInRangeIndex(activity.date),
-                    endHour: 48,
-                    type: .sleep,
-                    value: formatDuration(firstDuration),
-                    unit: nil
-                )
-
-                // after midnight
-                let secondDuration = duration - firstDuration
-                let rangeNextDay = ActivityRange(
-                    startHour: 0,
-                    endHour: transformInRangeIndex(midnight.addingTimeInterval(secondDuration)),
-                    type: .sleep,
-                    value: formatDuration(secondDuration),
-                    unit: nil
-                )
-                return (main: range, nextDay: rangeNextDay)
-            }
-
+            return createSleepRange(at: activity.date, duration: duration)
         case .diaper:
             return createDiaperRange(for: activity)
-
         case .bottle(volume: let volume, measurementSystem: let measurementSystem):
             return createBottleRange(at: activity.date, volume: volume, measurementSystem: measurementSystem)
-
         case .breast(duration: let duration, lastBreast: _):
-
-            let interval = duration.leftDuration + duration.rightDuration
-            let endDate = activity.date.addingTimeInterval(TimeInterval(interval))
-            let endHour = transformInRangeIndex(endDate)
-
-            let range = ActivityRange(
-                startHour: transformInRangeIndex(activity.date),
-                endHour: endHour,
-                type: .food,
-                value: nil,
-                unit: nil)
-            return (main: range, nextDay: nil)
-
+            return createBreastRange(at: activity.date, duration: duration)
         case .growth:
             return (main: nil, nextDay: nil)
         }
+    }
+
+    private func createSleepRange(at date: Date, duration: TimeInterval) -> (main: ActivityRange?, nextDay: ActivityRange?) {
+        let startHour = transformInRangeIndex(date)
+        let endHour = transformInRangeIndex(date.addingTimeInterval(duration))
+
+        if checkIfDayNotChanged(with: date, duration: duration) {
+            let range = ActivityRange(
+                startHour: startHour,
+                endHour: endHour,
+                type: .sleep,
+                value: formatDuration(duration),
+                unit: nil
+            )
+            return (main: range, nextDay: nil)
+
+        }
+            let calendar = Calendar.current
+            let midnight = calendar.startOfDay(for: calendar.date(byAdding: .day, value: 1, to: date)!)
+
+            // split the sleep activity into two ranges around midnight
+            let firstDuration = midnight.timeIntervalSince(date)
+            let secondDuration = duration - firstDuration
+
+            let range = ActivityRange(
+                startHour: startHour,
+                endHour: 48,
+                type: .sleep,
+                value: formatDuration(firstDuration),
+                unit: nil
+            )
+
+            let rangeNextDay = ActivityRange(
+                startHour: 0,
+                endHour: transformInRangeIndex(midnight.addingTimeInterval(secondDuration)),
+                type: .sleep,
+                value: formatDuration(secondDuration),
+                unit: nil
+            )
+            return (main: range, nextDay: rangeNextDay)
+    }
+
+    /// Creates a breast range for the activity
+    private func createBreastRange(at date: Date, duration: BreastDuration) -> (main: ActivityRange?, nextDay: ActivityRange?) {
+        let interval = duration.leftDuration + duration.rightDuration
+        let endDate = date.addingTimeInterval(TimeInterval(interval))
+        let endHour = transformInRangeIndex(endDate)
+
+        let range = ActivityRange(
+            startHour: transformInRangeIndex(date),
+            endHour: endHour,
+            type: .food,
+            value: nil,
+            unit: nil)
+        return (main: range, nextDay: nil)
     }
 
     /// Creates a bottle range for the activity
