@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
-// manage the onboarding screen
-
+/// The main view for the onboarding flow.
+/// - Manages navigation between onboarding screens.
+/// - Displays a custom page indicator and background.
+/// - Ensures smooth user interaction with appropriate accessibility labels.
 struct OnBoardingView: View {
+
     @StateObject var manager = OnBoardingManager()
     @State private var isShowPrevButton = false
 
@@ -19,34 +22,8 @@ struct OnBoardingView: View {
             BackgroundColor()
 
             VStack {
-                TabView(selection: $manager.activeScreen) {
-                    WelcomeView(action: manager.next)
-                        .tag(OnBoardingManager.Screen.welcome.rawValue)
-                    BabyNameView(action: manager.next,
-                                 actionBack: manager.previous,
-                                 babyName: $manager.babyName,
-                                 valideName: $manager.isBabyNameValide)
-                    .tag(OnBoardingManager.Screen.babyName.rawValue)
-                    GenderView(action: manager.next,
-                               actionBack: manager.previous,
-                               gender: $manager.gender)
-                    .tag(OnBoardingManager.Screen.gender.rawValue)
-                    ParentNameView(action: manager.next,
-                                   actionBack: manager.previous,
-                                   parentName: $manager.parentName,
-                                   valideName: $manager.isParentNameValide)
-                    .tag(OnBoardingManager.Screen.parentName.rawValue)
-                    BabyBirthdayView(action: manager.next, actionBack: manager.previous, babyBirthday: $manager.babyBirthday)
-                        .tag(OnBoardingManager.Screen.babyBirthday.rawValue)
-                }
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .accessibilityLabel("Page \(String(describing: OnBoardingManager.Screen(rawValue: manager.activeScreen)!.title))")
-
-                CustomPageIndicator(numberOfPages: OnBoardingManager.Screen.allCases.count,
-                                    currentPage: $manager.activeScreen,
-                                    color: .secondary)
-                .padding(.top, 20)
-                .allowsHitTesting(false)
+                onBoardingContent
+                pageIndicator
             }
         }
         // Disable scroll to manage with Button
@@ -63,6 +40,39 @@ struct OnBoardingView: View {
                 UIScrollView.appearance().isScrollEnabled = false
             }
         }
+    }
+
+    private var onBoardingContent: some View {
+        TabView(selection: $manager.activeScreen) {
+            WelcomeView(action: manager.next)
+                .tag(OnBoardingManager.Screen.welcome.rawValue)
+            BabyNameView(action: manager.next,
+                         actionBack: manager.previous,
+                         babyName: $manager.babyName,
+                         valideName: $manager.isBabyNameValide)
+            .tag(OnBoardingManager.Screen.babyName.rawValue)
+            GenderView(action: manager.next,
+                       actionBack: manager.previous,
+                       gender: $manager.gender)
+            .tag(OnBoardingManager.Screen.gender.rawValue)
+            ParentNameView(action: manager.next,
+                           actionBack: manager.previous,
+                           parentName: $manager.parentName,
+                           valideName: $manager.isParentNameValide)
+            .tag(OnBoardingManager.Screen.parentName.rawValue)
+            BabyBirthdayView(action: manager.next, actionBack: manager.previous, babyBirthday: $manager.babyBirthday)
+                .tag(OnBoardingManager.Screen.babyBirthday.rawValue)
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .accessibilityLabel("Page \(String(describing: OnBoardingManager.Screen(rawValue: manager.activeScreen)!.title))")
+    }
+
+    private var pageIndicator: some View {
+        CustomPageIndicator(numberOfPages: OnBoardingManager.Screen.allCases.count,
+                            currentPage: $manager.activeScreen,
+                            color: .secondary)
+        .padding(.top, 20)
+        .allowsHitTesting(false)
     }
 }
 

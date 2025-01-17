@@ -191,6 +191,7 @@
       }
     },
     "C'est parti !" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -201,6 +202,7 @@
       }
     },
     "Commencer" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -790,6 +792,7 @@
 
     },
     "Suivant" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

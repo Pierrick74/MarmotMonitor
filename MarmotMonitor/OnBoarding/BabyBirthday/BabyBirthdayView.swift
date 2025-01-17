@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+/// A view that displays an onboarding screen to select a baby's birthday.
+/// - Parameters:
+///   - action: A closure executed when the user confirms the selection.
+///   - actionBack: A closure executed when the user wants to go back.
+///   - babyBirthday: A binding to the baby's birthday date.
+/// - Returns: A fully styled view.
 struct BabyBirthdayView: View {
     @Environment(\.colorScheme) var colorScheme
 
@@ -35,33 +41,35 @@ struct BabyBirthdayView: View {
                         }
                         .onBoardingBackground()
 
-                        HStack {
-                            Spacer()
-                            Image(decorative: "marmotWithPen")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 150, height: 150)
-                                .padding(.horizontal, 20)
-                                .offset(x: 0, y: -100)
-                        }
+                        MarmotImageView()
                     }
 
-                    Button(action: action) {
-                        Text("C'est parti !")
-                    }
-                    .buttonStyle(OnBoardingButtonStyle())
+                    OnBoardingConfirmButton(
+                        confirmAction: action,
+                        text: "C'est parti !"
+                    )
                 }
                 .padding(.horizontal, 20)
             }
             .scrollBounceBehavior(.basedOnSize)
         }
         .overlay(alignment: .topLeading) {
-            Button(action: actionBack) {
-                Image(systemName: "chevron.backward")
-            }
-            .buttonStyle(OnBoardingBackButtonStyle())
+            BackButton(action: actionBack)
+                .padding()
         }
     }
+
+    /// The image of the marmot displayed in the onboarding view.
+        var marmotImage: some View {
+            HStack {
+                Spacer()
+                Image(decorative: "marmotWithPen")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 150, height: 150)
+                    .padding(.horizontal, 20)
+            }
+        }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {

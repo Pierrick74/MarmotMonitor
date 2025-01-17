@@ -6,7 +6,12 @@
 //
 
 import SwiftUI
-
+/// A custom page indicator view that displays the current page in a series of pages.
+/// - Parameters:
+///   - numberOfPages: The total number of pages.
+///   - currentPage: A binding to the index of the currently active page.
+///   - color: The color for the active page indicator.
+/// - Returns: A horizontal page indicator.
 struct CustomPageIndicator: View {
     let numberOfPages: Int
     @Binding var currentPage: Int

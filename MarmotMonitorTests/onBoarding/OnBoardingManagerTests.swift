@@ -101,7 +101,7 @@ struct OnBoardingManagerTests {
         // 1. given
         let babyName = "B"
         #expect(storage.babyName == "Line")
-        #expect(manager.isBabyNameValide == nil)
+        #expect(manager.isBabyNameValide == false)
 
         // 2. when
         manager.babyName = babyName
@@ -115,7 +115,7 @@ struct OnBoardingManagerTests {
         // 1. given
         let babyName = ""
         #expect(storage.babyName == "Line")
-        #expect(manager.isBabyNameValide == nil)
+        #expect(manager.isBabyNameValide == false)
 
         // 2. when
         manager.babyName = babyName
@@ -155,7 +155,7 @@ struct OnBoardingManagerTests {
         // 1. given
         let parentName = "B"
         #expect(storage.parentName == "Pierrick")
-        #expect(manager.isParentNameValide == nil)
+        #expect(manager.isParentNameValide == false)
 
         // 2. when
         manager.parentName = parentName
@@ -170,7 +170,7 @@ struct OnBoardingManagerTests {
         // 1. given
         let parentName = ""
         #expect(storage.parentName == "Pierrick")
-        #expect(manager.isParentNameValide == nil)
+        #expect(manager.isParentNameValide == false)
 
         // 2. when
         manager.parentName = parentName
