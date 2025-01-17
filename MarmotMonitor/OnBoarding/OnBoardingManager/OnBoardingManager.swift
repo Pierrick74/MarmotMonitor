@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
-// manage de obBoarding screen
-// store the activeScreen index
-// manage the previous and next button
 
+/// Manages the onboarding process, including screen navigation and user inputs.
+/// - Handles persistence through `AppStorageManagerProtocol`.
+/// - Publishes states for binding with SwiftUI views.
 final class OnBoardingManager: ObservableObject {
 
+    // MARK: - Dependencies
     private var storageManager: AppStorageManagerProtocol
 
+    // MARK: - Initializers
     init(storageManager: AppStorageManagerProtocol = AppStorageManager.shared) {
         self.storageManager = storageManager
         gender = storageManager.gender
@@ -55,7 +57,7 @@ final class OnBoardingManager: ObservableObject {
         }
     }
     @Published private var rawBabyName: String = ""
-    @Published var isBabyNameValide: Bool?
+    @Published var isBabyNameValide: Bool = false
 
     // MARK: - Parent Name
     var parentName: String {
@@ -70,7 +72,7 @@ final class OnBoardingManager: ObservableObject {
         }
     }
     @Published private var rawParentName: String = ""
-    @Published var isParentNameValide: Bool?
+    @Published var isParentNameValide: Bool = false
 
     // MARK: - Gender
     @Published var gender: GenderType {
@@ -87,6 +89,7 @@ final class OnBoardingManager: ObservableObject {
 }
 
 extension OnBoardingManager {
+    /// Represents the onboarding screens
     enum Screen: Int, CaseIterable {
         case welcome
         case babyName

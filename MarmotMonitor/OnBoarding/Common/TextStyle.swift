@@ -6,7 +6,11 @@
 //
 
 import SwiftUI
-
+/// View modifier to apply the onboarding text style
+/// Parameters:
+/// - content: the content to apply the style to
+/// - Returns: the content with the onboarding text style
+///
 struct OnBoardingTextStyleModifier: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
 

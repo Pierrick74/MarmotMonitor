@@ -7,9 +7,17 @@
 
 import SwiftUI
 
+/// A view that prompts the user to input a baby's name.
+/// - Parameters:
+///   - action: A closure executed when the user confirms the input.
+///   - actionBack: A closure executed when the user navigates back.
+///   - babyName: A binding to the baby's name input.
+///   - valideName: A binding to the validation state of the baby's name (true, false, or nil).
+/// - Returns: A fully styled onboarding view.
 struct BabyNameView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     private var placeholderOfTextField: String {
         return dynamicTypeSize > .xxLarge ? "Nom" : "Nom du bébé"
     }
@@ -18,7 +26,7 @@ struct BabyNameView: View {
     let actionBack: () -> Void
 
     @Binding var babyName: String
-    @Binding var valideName: Bool?
+    @Binding var valideName: Bool
     @State private var showAlerte = false
 
     var body: some View {
@@ -56,31 +64,24 @@ struct BabyNameView: View {
                         }
                         .onBoardingBackground()
                         .onChange(of: valideName) {
-                            let valide = valideName ?? false
-                            showAlerte = !valide
+                            showAlerte = !valideName
                         }
 
-                        HStack {
-                            Spacer()
-                            Image(decorative: "marmotWithPen")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 150, height: 150)
-                                .padding(.horizontal, 20)
-                                .offset(x: 0, y: -100)
-                        }
+                        MarmotImageView()
                     }
 
-                    Button {
-                        self.dismissKeyboard()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                            action()
-                        }
-                    } label: {
-                        Text("Suivant")
-                    }
-                    .buttonStyle(OnBoardingButtonStyle())
+                    OnBoardingConfirmButton(
+                        confirmAction: {
+                            self.dismissKeyboard()
+                            DispatchQueue.main
+                                .asyncAfter(deadline: .now() + 0.7) {
+                                    action()
+                                }
+                        },
+                        text: "Suivant"
+                    )
                     .disabled(valideName == false)
+
                 }
                 .padding(.horizontal, 20)
             }
@@ -90,15 +91,15 @@ struct BabyNameView: View {
             }
         }
         .overlay(alignment: .topLeading) {
-            Button {
-                self.dismissKeyboard()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                    actionBack()
+            BackButton(
+                action: {
+                    self.dismissKeyboard()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                        actionBack()
+                    }
                 }
-            } label: {
-                Image(systemName: "chevron.backward")
-            }
-            .buttonStyle(OnBoardingBackButtonStyle())
+            )
+            .padding()
         }
     }
 }

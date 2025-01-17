@@ -6,7 +6,12 @@
 //
 
 import SwiftUI
-
+/// A view that allows the user to select the gender of the baby.
+/// - Parameters:
+///   - action: A closure executed when the user confirms the selection.
+///   - actionBack: A closure executed when the user navigates back.
+///   - gender: A binding to the selected `GenderType`.
+/// - Returns: A styled onboarding view.
 struct GenderView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -24,44 +29,37 @@ struct GenderView: View {
                         .frame(height: proxy.size.height * 0.30)
 
                     ZStack(alignment: .top) {
-                        VStack(alignment: .leading) {
-                            Spacer()
-                                .frame(height: 10)
-
-                            Text("La petite marmotte est-elle un garçon ou une fille ? ")
-                                .onBoardingTextStyle()
-
-                            GenderPicker(selection: $gender)
-                                .padding(.horizontal)
-                        }
-                        .onBoardingBackground()
-
-                        HStack {
-                            Spacer()
-                            Image(decorative: "marmotWithPen")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 150, height: 150)
-                                .padding(.horizontal, 20)
-                                .offset(x: 0, y: -100)
-                        }
+                        genderSelectionSection
+                        MarmotImageView()
                     }
 
-                    Button(action: action) {
-                        Text("Suivant")
-                    }
-                    .buttonStyle(OnBoardingButtonStyle())
+                    OnBoardingConfirmButton(
+                        confirmAction: action,
+                        text: "Suivant"
+                    )
                 }
                 .padding(.horizontal, 20)
             }
             .scrollBounceBehavior(.basedOnSize)
         }
         .overlay(alignment: .topLeading) {
-            Button(action: actionBack) {
-                Image(systemName: "chevron.backward")
-            }
-            .buttonStyle(OnBoardingBackButtonStyle())
+            BackButton(action: actionBack)
+                .padding()
         }
+    }
+
+    private var genderSelectionSection: some View {
+        VStack(alignment: .leading) {
+            Spacer()
+                .frame(height: 10)
+
+            Text("La petite marmotte est-elle un garçon ou une fille ? ")
+                .onBoardingTextStyle()
+
+            GenderPicker(selection: $gender)
+                .padding(.horizontal)
+        }
+        .onBoardingBackground()
     }
 }
 

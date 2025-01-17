@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
-
+/// View modifier that sets the background of the onboarding views
+/// Parameters:
+/// - colorScheme: the color scheme of the device
 struct OnBoardingBackgroundModifier: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
 
