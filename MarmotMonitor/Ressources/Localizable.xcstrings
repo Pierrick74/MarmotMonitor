@@ -2,7 +2,14 @@
   "sourceLanguage" : "fr",
   "strings" : {
     "" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "  "
+          }
+        }
+      }
     },
     "." : {
       "localizations" : {
@@ -16,6 +23,12 @@
     },
     "%.1f %@" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$.1f %2$@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
@@ -25,10 +38,23 @@
       }
     },
     "%@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
     },
     "%@ : %.1f %@" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ : %2$.1f %3$@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
@@ -38,16 +64,44 @@
       }
     },
     "%@ : non renseigné" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ : no data"
+          }
+        }
+      }
     },
     "%@ Button" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Button"
+          }
+        }
+      }
     },
     "%lld" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
     },
     "%lld min" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld min"
+          }
+        }
+      }
     },
     "Activé" : {
       "localizations" : {
@@ -55,17 +109,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Activate"
-          }
-        }
-      }
-    },
-    "Activer la gestion de l'apparence par le système" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enable system appearance management"
           }
         }
       }
@@ -121,7 +164,7 @@
       }
     },
     "Apparence Systeme" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -142,13 +185,34 @@
       }
     },
     "appuyer pour modifier le champ %@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "touch to modifie %@"
+          }
+        }
+      }
     },
     "Appuyez pour sélectionner une date" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "touch to select a date"
+          }
+        }
+      }
     },
     "Aucune donnée disponible" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Data Available"
+          }
+        }
+      }
     },
     "Auj" : {
       "localizations" : {
@@ -190,28 +254,6 @@
         }
       }
     },
-    "C'est parti !" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "It's gone"
-          }
-        }
-      }
-    },
-    "Commencer" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Start"
-          }
-        }
-      }
-    },
     "Croissance" : {
       "localizations" : {
         "en" : {
@@ -223,7 +265,14 @@
       }
     },
     "Date de la mesure : %@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "date of the measurement :  %@"
+          }
+        }
+      }
     },
     "Date de naissance" : {
       "localizations" : {
@@ -271,17 +320,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "in month"
-          }
-        }
-      }
-    },
-    "Fermer" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Closed"
           }
         }
       }
@@ -403,7 +441,14 @@
       }
     },
     "lancer le timer %@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "start the timer %@"
+          }
+        }
+      }
     },
     "Le nom doit contenir au moins 2 caractères" : {
       "localizations" : {
@@ -411,17 +456,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The name must contain at least 2 characters"
-          }
-        }
-      }
-    },
-    "Liste" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "List"
           }
         }
       }
@@ -437,7 +471,14 @@
       }
     },
     "mettre en Pause le timer %@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sets the timer to a pause: %@"
+          }
+        }
+      }
     },
     "Minutes" : {
       "localizations" : {
@@ -506,7 +547,14 @@
       }
     },
     "N/A" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "N/A"
+          }
+        }
+      }
     },
     "Né le" : {
       "localizations" : {
@@ -631,10 +679,24 @@
       }
     },
     "Quel est le nom de la petite marmotte ? " : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What is the name of the little marmot?"
+          }
+        }
+      }
     },
     "Quel est le nom du Parent ? " : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What is the Parent's name?"
+          }
+        }
+      }
     },
     "Quelle est l'état de la couche" : {
       "localizations" : {
@@ -647,7 +709,7 @@
       }
     },
     "Quelle est le nom de la petite marmotte ? " : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -657,19 +719,7 @@
         }
       }
     },
-    "Quelle est le nom du Parent ? " : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "What is the Parent's name?"
-          }
-        }
-      }
-    },
-    "Réglage" : {
-      "extractionState" : "stale",
+    "Réglages" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -679,11 +729,15 @@
         }
       }
     },
-    "Réglages" : {
-
-    },
     "remettre à zero le timer %@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "reset the timer %@"
+          }
+        }
+      }
     },
     "Reset" : {
       "localizations" : {
@@ -716,10 +770,24 @@
       }
     },
     "Saisir manuellement le temps passé à droite" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "use to manually enter the right time"
+          }
+        }
+      }
     },
     "Saisir manuellement le temps passé à gauche" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "use to manually enter the left time"
+          }
+        }
+      }
     },
     "Sauvegarder" : {
       "localizations" : {
@@ -752,15 +820,11 @@
       }
     },
     "Sélectionner le premier sein" : {
-
-    },
-    "Séléctionner le premier sein" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Select the first breast"
+            "value" : "Select the first breath"
           }
         }
       }
@@ -786,27 +850,44 @@
       }
     },
     "Sélectionnez le premier sein" : {
-
-    },
-    "Sélectionnez le premier sein qui commence la session" : {
-
-    },
-    "Suivant" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Next"
+            "value" : "Select the first breath"
+          }
+        }
+      }
+    },
+    "Sélectionnez le premier sein qui commence la session" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select the first breath who start"
           }
         }
       }
     },
     "Synchronisation avec l'apparence système" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "synchronisation with system appearance"
+          }
+        }
+      }
     },
     "Synchroniser avec l'apparence du système" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "synchronisation with system appearance"
+          }
+        }
+      }
     },
     "Synthèse de la journée" : {
       "localizations" : {
@@ -818,19 +899,15 @@
         }
       }
     },
-    "taille" : {
-      "extractionState" : "stale",
+    "Taille" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "size"
+            "value" : "Height"
           }
         }
       }
-    },
-    "Taille" : {
-
     },
     "Temps total" : {
       "localizations" : {
