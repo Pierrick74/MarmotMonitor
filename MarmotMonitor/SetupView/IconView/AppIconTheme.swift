@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Enum that represents the different app icon themes
 enum AppIconTheme: String, CaseIterable {
     case blackDefault = "black"
     case pink = "pink"

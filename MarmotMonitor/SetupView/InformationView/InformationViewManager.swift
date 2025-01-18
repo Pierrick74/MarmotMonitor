@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-
+/// Manager for the information view
+/// This class is responsible for managing the data of the information view
 class InformationViewManager: ObservableObject {
     @Published var name: String
     @Published var parentName: String

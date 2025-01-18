@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
-
+/// A view for displaying and editing user information.
+/// - Allows modification of the child's name, birthday, gender, and parent's name.
+/// - Provides a save button to persist changes.
 struct InformationView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var manager = InformationViewManager()
