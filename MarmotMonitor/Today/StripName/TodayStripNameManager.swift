@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+/// Manager that provides the information to display in the today strip
 final class TodayStripNameManager: ObservableObject {
     private var storageManager: AppStorageManagerProtocol
 
