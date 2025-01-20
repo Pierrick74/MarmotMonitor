@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-/// Manager for the information view
+/// Manager for the information view in setupProfile
 /// This class is responsible for managing the data of the information view
 class InformationViewManager: ObservableObject {
     @Published var name: String
@@ -14,19 +14,20 @@ class InformationViewManager: ObservableObject {
     @Published var babyBirthday = Date()
     @Published var gender: GenderType
 
-    var dataStorage = AppStorageManager.shared
+    var dataManager: AppStorageManagerProtocol
 
-    init() {
-        name = dataStorage.babyName
-        babyBirthday = dataStorage.babyBirthday
-        gender = dataStorage.gender
-        parentName = dataStorage.parentName
+    init(dataManager: AppStorageManagerProtocol = AppStorageManager.shared) {
+        self.dataManager = dataManager
+        name = dataManager.babyName
+        babyBirthday = dataManager.babyBirthday
+        gender = dataManager.gender
+        parentName = dataManager.parentName
     }
 
     func saveInformation() {
-        dataStorage.babyName = name
-        dataStorage.babyBirthday = babyBirthday
-        dataStorage.setGender(with: gender)
-        dataStorage.parentName = parentName
+        dataManager.babyName = name
+        dataManager.babyBirthday = babyBirthday
+        dataManager.setGender(with: gender)
+        dataManager.parentName = parentName
     }
 }

@@ -25,7 +25,7 @@ struct InformationView: View {
 
                     VStack(alignment: .leading, spacing: 5) {
                         Text("Nom de l'enfant")
-                        TextField(manager.dataStorage.babyName, text: $manager.name)
+                        TextField("Nom de l'enfant", text: $manager.name)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .tint(.primary)
                     }
@@ -44,7 +44,7 @@ struct InformationView: View {
 
                     VStack(alignment: .leading, spacing: 5) {
                         Text("Nom du parent")
-                        TextField(manager.dataStorage.parentName, text: $manager.parentName)
+                        TextField("Nom du parent", text: $manager.parentName)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .tint(.primary)
                     }
