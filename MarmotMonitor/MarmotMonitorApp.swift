@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SwiftData
-
+/// Entry point of the application
 @main
 struct MarmotMonitorApp: App {
     @AppStorage("appearance") private var appearance: Appearance = .system

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+/// SetupView is the view where the user can configure the app
 struct SetupView: View {
     @AppStorage("appearance") private var appearance: Appearance = .system
     var body: some View {
@@ -15,14 +15,11 @@ struct SetupView: View {
                 BackgroundColor()
                 ScrollView {
                     VStack(spacing: 0) {
-
                         NavigationLink(destination: InformationView()) {
                             InformationRow()
                         }
-
                         DarkModeCard()
                             .padding()
-
                         IconView()
                             .padding()
                         Spacer()

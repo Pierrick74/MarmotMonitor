@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Enum to represent the appearance of the app
 enum Appearance: String, CaseIterable, Identifiable {
     case system
     case light

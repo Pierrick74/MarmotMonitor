@@ -6,7 +6,12 @@
 //
 
 import SwiftUI
-
+/// A view that represents a row displaying baby activity information.
+/// - Parameters:
+///  - activity: The baby activity to display.
+///  - category: The category of the activity.
+///  - Returns: A row view displaying the baby activity information.
+///  - Note: The row view adjusts its layout based on the dynamic type size.
 struct RowView: View {
     var manager: RowManager
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
@@ -23,49 +28,11 @@ struct RowView: View {
                 .frame(height: 80)
                 .offset(x: 1, y: 2)
 
-            ZStack(alignment: .center) {
+            Group {
                 if dynamicTypeSize < .accessibility1 {
-                    HStack {
-                        Spacer()
-                        Spacer()
-                        Image(manager.imageName)
-                            .resizable()
-                            .frame(width: 80, height: 80)
-                            .clipped()
-                        Spacer()
-                    }
-                }
-                if dynamicTypeSize < .accessibility1 {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(manager.title)
-                                .font(.title)
-                                .foregroundColor(.primary)
-                            Text(manager.lastActivity)
-                                .font(.subheadline)
-                                .foregroundColor(.primary)
-                        }
-                        .padding(.leading, 10)
-                        Spacer()
-                        VStack(alignment: .center) {
-                            Text(manager.information)
-                                .bold()
-                        }
-                        .padding()
-                    }
+                    compactLayout
                 } else {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(manager.title)
-                                .font(.title)
-                                .foregroundColor(.primary)
-                            Text(manager.lastActivity)
-                                .font(.subheadline)
-                                .foregroundColor(.primary)
-                            Text(manager.information.replacingOccurrences(of: "\n", with: " "))
-                        }
-                        Spacer()
-                    }
+                    expandedLayout
                 }
             }
             .padding(.horizontal, 10)
@@ -74,6 +41,59 @@ struct RowView: View {
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(manager.accessibilityDescription)
+    }
+
+    // MARK: - Private Views
+    private var compactLayout: some View {
+        ZStack(alignment: .center) {
+            compactIcon
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    title
+                    lastActivity
+                }
+                Spacer()
+                Text(manager.information)
+                    .bold()
+            }
+            .padding(.horizontal)
+        }
+    }
+
+    private var expandedLayout: some View {
+        ZStack(alignment: .center) {
+            VStack(alignment: .leading) {
+                title
+                lastActivity
+                Text(manager.information.replacingOccurrences(of: "\n", with: " "))
+            }
+            .frame(maxWidth: .infinity)
+        }
+    }
+
+    /// A view that displays the  icon in a compact layout
+    private var compactIcon: some View {
+        HStack {
+            Spacer()
+            Spacer()
+            Image(manager.imageName)
+                .resizable()
+                .frame(width: 80, height: 80)
+                .clipped()
+            Spacer()
+        }
+    }
+
+    private var title: some View {
+        Text(manager.title)
+            .font(.title)
+            .foregroundColor(.primary)
+    }
+
+    private var lastActivity: some View {
+        Text(manager.lastActivity)
+            .font(.subheadline)
+            .foregroundColor(.primary)
     }
 }
 

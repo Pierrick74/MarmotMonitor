@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+/// View that represents a mode button
+/// Parameters:
+/// - imageName: the name of the image to display
+/// - isSelected: true if the mode is selected
+/// - isDisabled: true if the mode is disabled
+/// - action: the action to perform when the button is tapped
 struct ModeButton: View {
     let imageName: String
     let isSelected: Bool

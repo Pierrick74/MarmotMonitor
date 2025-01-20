@@ -7,17 +7,18 @@
 
 import SwiftUI
 
-/// A view that allows the user to select the app's appearance mode.
-/// The user can choose between light mode, dark mode or system mode.
-/// When system mode is selected, the app's appearance is automatically set to the system's appearance.
-/// When light or dark mode is selected, the app's appearance is set to the selected mode.
-
+/// A view that allows users to toggle between light mode, dark mode, or system appearance.
+/// - Synchronizes user preferences with `AppStorageManager`.
 struct DarkModeCard: View {
+    /// Represents the appearance modes available for selection.
     enum Mode {
             case light, dark
     }
 
+    // MARK: - Dependencies
     var storageManager = AppStorageManager.shared
+
+    // MARK: - Properties
     @Environment(\.colorScheme) var colorScheme
 
     @State private var mode: Mode = .light
@@ -25,35 +26,8 @@ struct DarkModeCard: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 40) {
-                Spacer()
-                ModeButton(
-                    imageName: "lightMode",
-                    isSelected: mode == .light,
-                    isDisabled: isSystemModeActivate,
-                    action: { mode = .light }
-                )
-                Spacer()
-
-                ModeButton(
-                    imageName: "darkMode",
-                    isSelected: mode == .dark,
-                    isDisabled: isSystemModeActivate,
-                    action: { mode = .dark }
-                )
-                Spacer()
-            }
-            .padding(.top, 20)
-
-            Toggle(isOn: $isSystemModeActivate) {
-                Text("Synchroniser avec l'apparence du système")
-                    .font(.headline)
-            }
-            .toggleStyle(SwitchToggleStyle(tint: .secondary))
-            .accessibilityLabel("Synchronisation avec l'apparence système")
-            .accessibilityHint("L'apparence de l'application sera automatiquement synchronisée avec l'apparence du système")
-            .accessibilityValue(isSystemModeActivate ? "Activé" : "Désactivé")
-            .padding()
+            apparenceSelection
+            systemSelection
         }
         .background(
             RoundedRectangle(cornerRadius: 25)
@@ -78,6 +52,8 @@ struct DarkModeCard: View {
         }
     }
 
+    // MARK: - Private Methods
+    /// Synchronizes the view's appearance with the stored user preference.
     private func syncWithStoredAppearance() {
         switch storageManager.appearance {
         case .system:
@@ -90,6 +66,40 @@ struct DarkModeCard: View {
             isSystemModeActivate = false
             mode = .dark
         }
+    }
+
+    private var apparenceSelection: some View {
+        HStack(spacing: 40) {
+            Spacer()
+            ModeButton(
+                imageName: "lightMode",
+                isSelected: mode == .light,
+                isDisabled: isSystemModeActivate,
+                action: { mode = .light }
+            )
+            Spacer()
+
+            ModeButton(
+                imageName: "darkMode",
+                isSelected: mode == .dark,
+                isDisabled: isSystemModeActivate,
+                action: { mode = .dark }
+            )
+            Spacer()
+        }
+        .padding(.top, 20)
+    }
+
+    private var systemSelection: some View {
+        Toggle(isOn: $isSystemModeActivate) {
+            Text("Synchroniser avec l'apparence du système")
+                .font(.headline)
+        }
+        .toggleStyle(SwitchToggleStyle(tint: .secondary))
+        .accessibilityLabel("Synchronisation avec l'apparence système")
+        .accessibilityHint("L'apparence de l'application sera automatiquement synchronisée avec l'apparence du système")
+        .accessibilityValue(isSystemModeActivate ? "Activé" : "Désactivé")
+        .padding()
     }
 }
 
