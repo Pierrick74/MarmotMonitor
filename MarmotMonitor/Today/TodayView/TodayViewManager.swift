@@ -7,12 +7,16 @@
 
 import SwiftUI
 import PhotosUI
-
+/// A manager responsible for handling the logic and state of the TodayView.
+/// - Manages baby activities, the selected image, and data refreshes.
+/// - Observes notifications for data updates and ensures thread safety with `@MainActor`.
 @MainActor
 final class TodayViewManager: ObservableObject {
+    // MARK: - Dependencies
     private var dataManager: SwiftDataManagerProtocol = SwiftDataManager.shared
     private var storageManager: AppStorageManagerProtocol = AppStorageManager.shared
 
+    // MARK: - Published
     @Published var lastSleepActivity: BabyActivity?
     @Published var lastDiaperActivity: BabyActivity?
     @Published var lastFoodActivity: BabyActivity?
@@ -20,6 +24,7 @@ final class TodayViewManager: ObservableObject {
 
     @Published var selectedImage: Image = Image("todayDefault")
 
+    // MARK: - Initializer
     init(dataManager: SwiftDataManagerProtocol? = nil) {
         if let dataManager = dataManager {
             self.dataManager = dataManager
@@ -39,28 +44,6 @@ final class TodayViewManager: ObservableObject {
     }
 
     // MARK: - Functions
-    private func getLastActivity(of category: ActivityCategory) -> BabyActivity? {
-        let activities = dataManager.fetchFilteredActivities(with: [category])
-        return activities.first
-    }
-
-    func refreshData() {
-        lastSleepActivity = getLastActivity(of: .sleep)
-        lastDiaperActivity = getLastActivity(of: .diaper)
-        lastFoodActivity = getLastActivity(of: .food)
-        lastGrowthActivity = getLastActivity(of: .growth)
-
-        initSelectedImage()
-    }
-
-    private func initSelectedImage() {
-        if let picture = storageManager.loadImageFromAppStorage() {
-            selectedImage = Image(uiImage: picture)
-        } else {
-            selectedImage = Image("todayDefault")
-        }
-    }
-
     func changePicture(_ picture: PhotosPickerItem?) {
         if let picture {
             Task {
@@ -74,6 +57,29 @@ final class TodayViewManager: ObservableObject {
         }
     }
 
+    func refreshData() {
+        lastSleepActivity = getLastActivity(of: .sleep)
+        lastDiaperActivity = getLastActivity(of: .diaper)
+        lastFoodActivity = getLastActivity(of: .food)
+        lastGrowthActivity = getLastActivity(of: .growth)
+        initSelectedImage()
+    }
+
+    // MARK: - Private functions
+    private func getLastActivity(of category: ActivityCategory) -> BabyActivity? {
+        let activities = dataManager.fetchFilteredActivities(with: [category])
+        return activities.first
+    }
+
+    private func initSelectedImage() {
+        if let picture = storageManager.loadImageFromAppStorage() {
+            selectedImage = Image(uiImage: picture)
+        } else {
+            selectedImage = Image("todayDefault")
+        }
+    }
+
+    // MARK: - Notification
     @objc private func handleDataUpdate(_ notification: Notification) {
         refreshData()
     }

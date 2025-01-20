@@ -21,6 +21,8 @@ struct StartupView: View {
                 OnBoardingView()
             }
         }
+        .edgesIgnoringSafeArea(.all)
+        .statusBar(hidden: true)
     }
 }
 
