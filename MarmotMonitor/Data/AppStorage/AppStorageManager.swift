@@ -17,6 +17,8 @@ protocol AppStorageManagerProtocol {
     var isMetricUnit: Bool { get set }
     var appearance: Appearance { get set }
     var picture: String { get set }
+    var processCompletedCount: Int { get set }
+    var lastDateForReview: Date? { get set }
     func setGender(with gender: GenderType)
     func saveImageToAppStorage(_ image: UIImage)
     func loadImageFromAppStorage() -> UIImage?
@@ -27,7 +29,7 @@ protocol AppStorageManagerProtocol {
 ///
 /// Stores and retrieves user preferences and data persistently, including support for images.
 final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
-
+    // MARK: - Enum
     enum AppStorageKeys: String {
         case isOnBoardingFinished
         case babyName
@@ -37,6 +39,8 @@ final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
         case isMetricUnit
         case appearance
         case picture
+        case processCompletedCount
+        case lastDateForReview
     }
 
     // MARK: - Properties
@@ -52,6 +56,8 @@ final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
     @AppStorage(AppStorageKeys.isMetricUnit.rawValue) var isMetricUnit: Bool = true
     @AppStorage(AppStorageKeys.appearance.rawValue) var appearance: Appearance = .system
     @AppStorage(AppStorageKeys.picture.rawValue) var picture: String = ""
+    @AppStorage(AppStorageKeys.processCompletedCount.rawValue) var processCompletedCount: Int = 0
+    @AppStorage(AppStorageKeys.lastDateForReview.rawValue) var lastDateForReview: Date?
 
     // MARK: - Initializer
     init() {
@@ -88,6 +94,8 @@ final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
 
 // MARK: - Mock For Tests
 class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
+    var processCompletedCount: Int = 0
+    var lastDateForReview: Date? = nil
     var appearance: Appearance = .dark
     func setGender(with gender: GenderType) {}
     var babyName: String = "Line"

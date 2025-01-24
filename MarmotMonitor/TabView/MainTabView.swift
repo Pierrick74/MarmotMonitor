@@ -6,18 +6,22 @@
 //
 
 import SwiftUI
+import StoreKit
 /// The main tab-based interface of the app, providing navigation to key sections.
 /// - Includes tabs for Today, Monitor, Growth, and Setup.
 /// - Offers a central button for adding new entries.
 struct MainTabView: View {
     // MARK: - Dependencies
     @ObservedObject private var manager = AppStorageManager.shared
+    @ObservedObject private var reviewManager = ReviewManager.shared
 
     // MARK: - Properties
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.requestReview) var requestReview
     @Namespace private var namespace
     @State private var isPresented: Bool = false
+    @State private var isShowingReview: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -36,6 +40,14 @@ struct MainTabView: View {
                     .navigationTransition(.zoom(sourceID: "zoom", in: namespace))
                 .presentationCornerRadius(30)
                 .environment(\.dynamicTypeSize, dynamicTypeSize)
+            }
+            .onChange(of: isShowingReview) { _, newValue in
+                if newValue == true {
+                    Task {
+                        try await Task.sleep(until: .now + .seconds(2))
+                        requestReview()
+                    }
+                }
             }
         }
     }
@@ -91,8 +103,10 @@ struct MainTabView: View {
     var addButtonOverlay: some View {
         VStack {
             Spacer()
-            Button(action: { isPresented.toggle() },
-                   label: {
+            Button(action: {
+                isPresented.toggle()
+                isShowingReview = reviewManager.checkForReview()
+            }, label: {
                 Image(systemName: "plus.circle")
                     .foregroundColor(.white)
                     .font(.system(size: 50))
