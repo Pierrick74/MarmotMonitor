@@ -91,8 +91,9 @@ struct MainTabView: View {
     var addButtonOverlay: some View {
         VStack {
             Spacer()
-            Button(action: { isPresented.toggle() },
-                   label: {
+            Button(action: {
+                isPresented.toggle()
+            }, label: {
                 Image(systemName: "plus.circle")
                     .foregroundColor(.white)
                     .font(.system(size: 50))

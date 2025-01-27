@@ -32,38 +32,12 @@ struct AddView: View {
                     Text("Ajouter une activité")
                         .font(.title)
                         .foregroundColor(.primary)
-                    if dynamicTypeSize < .accessibility1 {
-                        Image(decorative: "folder")
-                            .resizable()
-                            .scaledToFit()
-                    }
 
-                    // Content switches between grid and list layout based on accessibility needs.
                     if dynamicTypeSize < .accessibility1 {
-                        ScrollView {
-                            GeometryReader { geo in
-                                LazyVGrid(columns: columns, spacing: 32) {
-                                    ForEach(items) { item in
-                                        NavigationLink(destination: DestinationView(destination: item.destination)) {
-                                            ItemView(item: item, width: geo.size.width)
-                                        }
-                                    }
-                                }
-                                .padding()
-                            }
-                            .scrollBounceBehavior(.basedOnSize)
-                            .ignoresSafeArea()
-                        }
+                        folderView
+                        itemsInGrid
                     } else {
-                        List(items) { item in
-                            NavigationLink(destination: DestinationView(destination: item.destination)) {
-                                AccessibilityItemView(item: item)
-                            }
-                            .padding(.vertical, 5)
-                            .listRowBackground(Color.clear)
-                            .listRowSeparator(.hidden)
-                        }
-                        .scrollContentBackground(.hidden)
+                        itemsInList
                     }
                 }
                 .padding()
@@ -73,6 +47,42 @@ struct AddView: View {
             BackButton {
                 dismiss()
             }
+        }
+    }
+
+    // MARK: - Private Views
+    private var folderView: some View {
+        Image(decorative: "folder")
+            .resizable()
+            .scaledToFit()
+    }
+
+    private var itemsInList: some View {
+        List(items) { item in
+            NavigationLink(destination: DestinationView(destination: item.destination)) {
+                AccessibilityItemView(item: item)
+            }
+            .padding(.vertical, 5)
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+        }
+        .scrollContentBackground(.hidden)
+    }
+
+    private var itemsInGrid: some View {
+        ScrollView {
+            GeometryReader { geo in
+                LazyVGrid(columns: columns, spacing: 32) {
+                    ForEach(items) { item in
+                        NavigationLink(destination: DestinationView(destination: item.destination)) {
+                            ItemView(item: item, width: geo.size.width)
+                        }
+                    }
+                }
+                .padding()
+            }
+            .scrollBounceBehavior(.basedOnSize)
+            .ignoresSafeArea()
         }
     }
 }
