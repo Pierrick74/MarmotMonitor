@@ -10,11 +10,11 @@ import SwiftUI
 /// Includes a list of activities and supports deletion.
 struct DetailView: View {
 
-    @ObservedObject var manager: DetailViewManager
+    @StateObject private var manager: DetailViewManager
     @Environment(\.dismiss) var dismiss
 
     init(date: Date) {
-        self.manager = DetailViewManager(date: date)
+        _manager = StateObject(wrappedValue: DetailViewManager(date: date))
     }
 
     var body: some View {
