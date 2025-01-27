@@ -11,10 +11,12 @@ import SwiftUI
 class MonitorViewManager: ObservableObject {
     // MARK: - Dependencies
     private var dataManager: SwiftDataManagerProtocol = SwiftDataManager.shared
+    private var reviewManager = ReviewManager.shared
 
     // MARK: - Published Properties
     @Published var formattedActivityData: [Date: [ActivityRange]] = [:]
     @Published private var filter: [ActivityCategory] = [.diaper, .food, .sleep]
+    @Published var isShowingsReview: Bool = false
 
     // MARK: - Computed Properties
     var isSleepSelected: Bool { filter.contains(.sleep) }
@@ -61,6 +63,12 @@ class MonitorViewManager: ObservableObject {
             filter.append(category)
         }
         loadActivitiesInDateRange()
+    }
+
+    func checkForReview() {
+        if formattedActivityData.count >= 5 {
+            isShowingsReview = reviewManager.checkForReview()
+        }
     }
 
     // MARK: - Private functions

@@ -12,7 +12,6 @@ class ReviewManager: ObservableObject {
     @Environment(\.requestReview) var requestReview
 
     var dataManager: AppStorageManagerProtocol
-
     static let shared = ReviewManager()
 
     init(dataManager: AppStorageManagerProtocol = AppStorageManager.shared) {
@@ -20,10 +19,7 @@ class ReviewManager: ObservableObject {
     }
 
     func checkForReview() -> Bool {
-        dataManager.processCompletedCount += 1
-
-        if dataManager.processCompletedCount >= 4,
-           checkDateForRequest() == true {
+        if checkDateForRequest() == true {
             dataManager.lastDateForReview = Date.now
             return true
         }

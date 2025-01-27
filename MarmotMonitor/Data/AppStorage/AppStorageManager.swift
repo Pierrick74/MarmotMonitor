@@ -95,7 +95,7 @@ final class AppStorageManager: AppStorageManagerProtocol, ObservableObject {
 // MARK: - Mock For Tests
 class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
     var processCompletedCount: Int = 0
-    var lastDateForReview: Date? = nil
+    var lastDateForReview: Date?
     var appearance: Appearance = .dark
     func setGender(with gender: GenderType) {}
     var babyName: String = "Line"

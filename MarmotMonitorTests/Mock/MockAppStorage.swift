@@ -11,6 +11,8 @@ import SwiftUI
 // MARK: - Mock For Tests
 
 class MockAppStorageManager: AppStorageManagerProtocol {
+    var processCompletedCount: Int = 0
+    var lastDateForReview: Date?
     var appearance: MarmotMonitor.Appearance = .system
     var gender: MarmotMonitor.GenderType = .girl
     func setGender(with gender: MarmotMonitor.GenderType) { self.gender = gender}
@@ -25,6 +27,8 @@ class MockAppStorageManager: AppStorageManagerProtocol {
 }
 
 class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
+    var processCompletedCount: Int = 0
+    var lastDateForReview: Date?
     var appearance: MarmotMonitor.Appearance = .system
     var babyName: String = "Line"
     var isOnBoardingFinished: Bool = false
@@ -39,6 +43,8 @@ class MockAppStorageManagerForStripName: AppStorageManagerProtocol {
 }
 
 class MockAppStorageManagerInImperial: AppStorageManagerProtocol {
+    var processCompletedCount: Int = 0
+    var lastDateForReview: Date?
     var appearance: MarmotMonitor.Appearance = .system
     var babyName: String = "Line"
     var isOnBoardingFinished: Bool = false

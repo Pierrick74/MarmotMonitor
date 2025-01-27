@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import StoreKit
 /// A view that displays a list of activities with filter options for sleep, diaper, and food categories.
 struct MonitorView: View {
-
+    @Environment(\.requestReview) var requestReview
     @StateObject var manager = MonitorViewManager()
 
     var body: some View {
@@ -23,6 +24,15 @@ struct MonitorView: View {
             }
             .onAppear {
                 manager.loadActivitiesInDateRange()
+                manager.checkForReview()
+            }
+            .onChange(of: manager.isShowingsReview) { _, newValue in
+                if newValue == true {
+                    Task {
+                        try await Task.sleep(until: .now + .seconds(2))
+                        requestReview()
+                    }
+                }
             }
         }
     }
