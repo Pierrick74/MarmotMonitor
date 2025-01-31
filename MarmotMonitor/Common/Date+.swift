@@ -31,10 +31,13 @@ extension Date {
         let minutes = (interval % 3600) / 60
 
         var result = ""
-        if days > 0 { result += "\(days) j " }
-        if hours > 0 || days > 0 { result += "\(hours)h " }
-        if minutes > 0 && hours > 0 { result += "\(minutes < 10 ? "0" : "")\(minutes)\(days > 0 ? "m" : "")"}
-        if minutes > 0 && hours == 0 { result += "\(minutes < 10 ? "0" : "")\(minutes) m" }
+        if days > 0 {
+            result += "\(days) j "
+            if hours > 0 { result += "\(hours)h " }
+        } else {
+            if hours > 0 { result += "\(hours)h " }
+            if minutes > 0 { result += "\(minutes < 10 ? "0" : "")\(minutes) m" }
+        }
 
         if result.isEmpty { return "\nMaintenant" }
         return "Il y a\n" + result.trimmingCharacters(in: .whitespaces)
