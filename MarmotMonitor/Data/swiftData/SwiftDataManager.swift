@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import WidgetKit
 
 // MARK: - SwiftDataManagerProtocol
 protocol SwiftDataManagerProtocol {
@@ -25,6 +26,8 @@ protocol SwiftDataManagerProtocol {
 final class SwiftDataManager: SwiftDataManagerProtocol {
     private let modelContainer: ModelContainer
     private let modelContext: ModelContext
+    // for widget
+    private let sharedDefaults = UserDefaults(suiteName: "group.marmotmonitor")
 
     @MainActor
     static let shared = SwiftDataManager()
@@ -73,7 +76,9 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
 
     /// Saves changes to the data store and notifies listeners.
     private func save() {
+        print("save")
         try? modelContext.save()
+        saveActivitiesForWidget()
         NotificationCenter.default.post(name: .dataUpdated, object: nil)
     }
 
@@ -187,6 +192,20 @@ final class SwiftDataManager: SwiftDataManagerProtocol {
         }
 
         return false
+    }
+
+    // MARK: - widget methods
+    func saveActivitiesForWidget() {
+        var lastData: [ActivityCategory: Date] = [:]
+        lastData[.sleep] = fetchFilteredActivities(with: [.sleep]).first?.date
+        lastData[.diaper] = fetchFilteredActivities(with: [.diaper]).first?.date
+        lastData[.food] = fetchFilteredActivities(with: [.food]).first?.date
+
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(lastData) {
+            sharedDefaults?.set(encoded, forKey: "widgetActivities")
+            WidgetCenter.shared.reloadTimelines(ofKind: "MarmotMonitorWidget")
+        }
     }
 }
 
