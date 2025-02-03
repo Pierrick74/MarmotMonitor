@@ -18,7 +18,7 @@ struct SetupView: View {
                         NavigationLink(destination: InformationView()) {
                             InformationRow()
                         }
-                        DarkModeCard()
+                        DarkModeView()
                             .padding()
                         IconView()
                             .padding()

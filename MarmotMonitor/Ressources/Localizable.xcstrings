@@ -163,6 +163,9 @@
         }
       }
     },
+    "Apparence" : {
+
+    },
     "Apparence Systeme" : {
       "extractionState" : "manual",
       "localizations" : {

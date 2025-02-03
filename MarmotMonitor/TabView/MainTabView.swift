@@ -65,7 +65,7 @@ struct MainTabView: View {
     }
 
     private var setupTab: some View {
-        SetupView()
+        SettingsView()
             .tabItem {
                 Label("Réglages", systemImage: "gear")
             }

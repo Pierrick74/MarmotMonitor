@@ -63,6 +63,12 @@ struct InformationView: View {
         .onTapGesture {
             dismissKeyboard()
         }
+        .overlay(alignment: .topLeading) {
+            BackButton {
+                dismiss()
+            }
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

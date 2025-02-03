@@ -25,7 +25,7 @@ struct ModeButton: View {
                 .resizable()
                 .scaledToFit()
                 .shadow(color: .primary.opacity(0.5), radius: 10, x: 0, y: 0)
-            if !isDisabled {
+//            if !isDisabled {
                 Button(action: action) {
                     Image(systemName: isSelected ? "record.circle" : "circle")
                         .padding()
@@ -33,7 +33,9 @@ struct ModeButton: View {
                 }
                 .accessibilityLabel("Mode \(imageName) \(isSelected ? "activé" : "désactivé")")
                 .accessibilityHint("Appuyer pour changer le mode si la synchronisation systeme n'est pas activée")
-            }
+                .disabled(isDisabled)
+                .opacity(isDisabled ? 0 : 1)
+//            }
         }
     }
 }
