@@ -931,6 +931,12 @@
           }
         }
       }
+    },
+    "Unité" : {
+
+    },
+    "Unité de mesure" : {
+
     }
   },
   "version" : "1.0"

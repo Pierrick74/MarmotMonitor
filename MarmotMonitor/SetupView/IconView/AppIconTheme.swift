@@ -32,7 +32,7 @@ enum AppIconTheme: String, CaseIterable {
             return "AppIcon5"
         }
     }
-    
+
     var iconImageName: String? {
         switch self {
         case .blackDefault:
