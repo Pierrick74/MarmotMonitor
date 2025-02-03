@@ -18,7 +18,7 @@ struct SettingsView: View {
     var settings: [SettingsViewType] = [
           SettingsViewType(iconeName: "info.circle", title: "Informations", description: "", destination: AnyView(InformationView())),
           SettingsViewType(iconeName: "moon", title: "Apparence", description: "", destination: AnyView(DarkModeView())),
-          SettingsViewType(iconeName: "paintbrush", title: "Icone", description: "", destination: AnyView(EmptyView())),
+          SettingsViewType(iconeName: "paintbrush", title: "Icone", description: "", destination: AnyView(IconView())),
           SettingsViewType(iconeName: "ruler", title: "Unités", description: "", destination: AnyView(EmptyView())),
           SettingsViewType(iconeName: "info.circle", title: "À propos", description: "", destination: AnyView(EmptyView()))
       ]

@@ -197,6 +197,9 @@
         }
       }
     },
+    "Appuyez pour sélectionner cette icône" : {
+
+    },
     "Appuyez pour sélectionner une date" : {
       "localizations" : {
         "en" : {
@@ -256,6 +259,9 @@
           }
         }
       }
+    },
+    "Choisir une Icone" : {
+
     },
     "Croissance" : {
       "localizations" : {
@@ -372,6 +378,9 @@
           }
         }
       }
+    },
+    "Icone actuellement sélectionnée" : {
+
     },
     "Information" : {
       "localizations" : {
@@ -520,6 +529,7 @@
       }
     },
     "Modifier la couleur de l'icone" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
