@@ -14,7 +14,7 @@ final class BottleAddViewManager: ObservableObject {
     // MARK: - Dependencies
     private var dataManager: SwiftDataManagerProtocol = SwiftDataManager.shared
     private var storageManager: AppStorageManagerProtocol
-    private let maxVolume: Double = 360
+    private let maxVolume: Double
 
     // MARK: - Published Properties
     @Published var percent: Double = 20.0 {
@@ -46,9 +46,10 @@ final class BottleAddViewManager: ObservableObject {
             self.dataManager = dataManager
         }
         self.storageManager = storageManager
-        volume = 70
+        maxVolume = storageManager.isMetricUnit ? 360 : 12
+        volume = storageManager.isMetricUnit ? 70 : 3
         heightIndicator = 60
-        volumeInformation = "\(70)" + (storageManager.isMetricUnit ? " ml" : " oz")
+        volumeInformation = "\(storageManager.isMetricUnit ? 70 : 3)" + (storageManager.isMetricUnit ? " ml" : " oz")
     }
 
     // MARK: - Functions
