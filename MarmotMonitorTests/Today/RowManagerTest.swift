@@ -164,7 +164,11 @@ struct RowManagerTest {
         let manager = RowManager(babyActivity: dataMock.oneBottleBabyActivity, category: .food)
 
         // 2. then
-        #expect(manager.information == "120\nml")
+        if AppStorageManager.shared.isMetricUnit {
+            #expect(manager.information == "120\nml")
+        } else {
+            #expect(manager.information == "4\noz")
+        }
     }
 
     @Test mutating func whenInitWithActivityBreast_thenInformationIsDescription() async throws {

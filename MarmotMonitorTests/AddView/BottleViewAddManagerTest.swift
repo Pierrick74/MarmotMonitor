@@ -21,8 +21,8 @@ struct BottleViewAddManagerTest {
     @MainActor
     init() {
         dataSource = SwiftDataManager(isStoredInMemoryOnly: true)
-        manager = BottleAddViewManager(dataManager: dataSource)
         appStorageManager = MockAppStorageManager()
+        manager = BottleAddViewManager(dataManager: dataSource, storageManager: appStorageManager)
         updateBabyActivity()
     }
 
@@ -80,7 +80,7 @@ struct BottleViewAddManagerTest {
         // 3. then
         let newVolume = manager.volumeInformation
         #expect(oldVolume != newVolume)
-        #expect(newVolume == "180\noz")
+        #expect(newVolume == "6oz")
     }
 
     // MARK: - Bottle save tests

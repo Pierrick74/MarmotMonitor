@@ -12,8 +12,9 @@ final class ActivityLegendViewManager {
     private let activity: ActivityLegendData
     @ObservedObject private var storageManager: AppStorageManager = AppStorageManager.shared
 
-    init(activity: ActivityLegendData) {
+    init(activity: ActivityLegendData, storageManager: AppStorageManager = AppStorageManager.shared) {
         self.activity = activity
+        self.storageManager = storageManager
     }
 
     var name: String {
@@ -40,7 +41,7 @@ final class ActivityLegendViewManager {
         case .food:
             if storageManager.isMetricUnit == false {
                 let total = totalValue / 29.5735
-                return "\(total)" + " oz"
+                return String(format: "%.2f", total) + " oz"
             } else {
                 return "\(total)" + " ml"
             }
