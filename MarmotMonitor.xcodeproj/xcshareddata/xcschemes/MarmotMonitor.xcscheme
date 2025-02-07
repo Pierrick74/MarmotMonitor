@@ -30,9 +30,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:MarmotMonitorTests/MarmotMonitor.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
             reference = "container:MarmotMonitorUITests/MarmotMonitor.xctestplan"
             default = "YES">
          </TestPlanReference>
