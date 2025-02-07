@@ -14,14 +14,19 @@ struct UnitType {
 }
 
 struct UnitView: View {
-    let dataManager = AppStorageManager.shared
+    @StateObject private var dataManager = AppStorageManager()
 
     var units: [UnitType] = [
         UnitType(name: "Metric", description: "ml, cm, kg", isMetric: true),
         UnitType(name: "Imperial", description: "oz, in, lb", isMetric: false)
     ]
 
-    @State var currentUnit: Bool = AppStorageManager.shared.isMetricUnit
+    @State var currentUnit: Bool = AppStorageManager.shared.isMetricUnit == true {
+        didSet {
+            dataManager.isMetricUnit = currentUnit
+        }
+    }
+
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -60,7 +65,6 @@ struct UnitView: View {
                         .foregroundColor(.secondary)
                     Spacer()
                     Button {
-                        dataManager.isMetricUnit = unit.isMetric
                         currentUnit = unit.isMetric
                     } label: {
                         if currentUnit == unit.isMetric {

@@ -11,7 +11,7 @@ import SwiftUI
 /// - Offers a central button for adding new entries.
 struct MainTabView: View {
     // MARK: - Dependencies
-    @ObservedObject private var manager = AppStorageManager.shared
+    @StateObject private var manager = AppStorageManager()
 
     // MARK: - Properties
     @Environment(\.colorScheme) var colorScheme
@@ -20,7 +20,6 @@ struct MainTabView: View {
     @State private var isPresented: Bool = false
 
     var body: some View {
-        NavigationStack {
             TabView {
                 todayTab
                 monitorTab
@@ -37,7 +36,6 @@ struct MainTabView: View {
                 .presentationCornerRadius(30)
                 .environment(\.dynamicTypeSize, dynamicTypeSize)
             }
-        }
     }
 
     // MARK: - Private Views

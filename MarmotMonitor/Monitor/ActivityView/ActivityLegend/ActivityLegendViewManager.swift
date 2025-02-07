@@ -10,6 +10,7 @@ import SwiftUI
 final class ActivityLegendViewManager {
 
     private let activity: ActivityLegendData
+    @ObservedObject private var storageManager: AppStorageManager = AppStorageManager.shared
 
     init(activity: ActivityLegendData) {
         self.activity = activity
@@ -37,8 +38,13 @@ final class ActivityLegendViewManager {
         case .sleep:
             return "\(total) h"
         case .food:
-            let unit = activity.unit == .imperial ? "oz" : "ml"
-            return "\(total)" + " " + unit
+            if storageManager.isMetricUnit == false {
+                let total = totalValue / 29.5735
+                return "\(total)" + " oz"
+            } else {
+                return "\(total)" + " ml"
+            }
+
         default:
             return nil
         }

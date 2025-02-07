@@ -7,55 +7,81 @@
 
 import SwiftUI
 
-struct SettingsViewType {
-    let iconeName: String
-    let title: String
-    var description: String
-    let destination: AnyView
+enum SettingsOption: CaseIterable, Identifiable {
+    case information
+    case darkMode
+    case icon
+    case units
+    case about
+
+    var id: String { title }
+
+    var iconName: String {
+        switch self {
+        case .information: return "info.circle"
+        case .darkMode: return "moon"
+        case .icon: return "paintbrush"
+        case .units: return "ruler"
+        case .about: return "info.circle"
+        }
+    }
+
+    var title: String {
+        switch self {
+        case .information: return "Informations"
+        case .darkMode: return "Apparence"
+        case .icon: return "Icône"
+        case .units: return "Unités"
+        case .about: return "À propos"
+        }
+    }
 }
 
 struct SettingsView: View {
-    var settings: [SettingsViewType] = [
-          SettingsViewType(iconeName: "info.circle", title: "Informations", description: "", destination: AnyView(InformationView())),
-          SettingsViewType(iconeName: "moon", title: "Apparence", description: "", destination: AnyView(DarkModeView())),
-          SettingsViewType(iconeName: "paintbrush", title: "Icone", description: "", destination: AnyView(IconView())),
-          SettingsViewType(iconeName: "ruler", title: "Unités", description: "", destination: AnyView(UnitView())),
-          SettingsViewType(iconeName: "info.circle", title: "À propos", description: "", destination: AnyView(EmptyView()))
-      ]
 
     var body: some View {
-        ZStack {
-            BackgroundColor()
-            VStack {
-                Text("Réglages")
-                    .font(.title.bold())
-                List {
-                    ForEach(settings, id: \.title) { setting in
-                        NavigationLink(destination: setting.destination) {
-                            HStack {
-                                Image(systemName: setting.iconeName)
-                                    .foregroundColor(.primary)
-                                Text(setting.title)
-                                    .font(.body.bold())
-                                    .foregroundColor(.primary)
-                                Spacer()
-                                Text(setting.description)
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
+        NavigationStack {
+            ZStack {
+                BackgroundColor()
+                VStack {
+                    Text("Réglages")
+                        .font(.title.bold())
+                    List {
+                        ForEach(SettingsOption.allCases, id: \.title) { setting in
+                            NavigationLink(value: setting) {
+                                HStack {
+                                    Image(systemName: setting.iconName)
+                                        .foregroundColor(.primary)
+                                    Text(setting.title)
+                                        .font(.title3)
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(.primary)
+                                    Spacer()
+                                }
                             }
+                            .listRowBackground(Color.clear)
+                            .foregroundColor(.primary)
+                            .padding(.vertical, 7)
                         }
-                        .listRowBackground(Color.clear)
-                        .foregroundColor(.primary)
                     }
+                    .navigationDestination(for: SettingsOption.self, destination: { destination in
+                        switch destination {
+                        case .information: InformationView()
+                        case .darkMode: DarkModeView()
+                        case .icon: IconView()
+                        case .units: UnitView()
+                        case .about: AboutView()
+                        }
+                    })
+                    .listStyle(.plain)
+                    .listRowSeparator(.hidden)
+                    .scrollContentBackground(.hidden)
+                    .scrollBounceBehavior(.basedOnSize)
+                    .ignoresSafeArea(edges: .horizontal)
                 }
-                .listStyle(.plain)
-                .listRowSeparator(.hidden)
-                .scrollContentBackground(.hidden)
-                .scrollBounceBehavior(.basedOnSize)
                 .ignoresSafeArea(edges: .horizontal)
+                .padding(5)
             }
-            .ignoresSafeArea(edges: .horizontal)
-            .padding(5)
         }
     }
 }
