@@ -57,11 +57,15 @@ struct ActivityRowManager {
                 )
 
             case .food:
-                let volume = range.value ?? 0
+                var volume = range.value ?? 0
+                if range.unit == .imperial {
+                    volume *= 29.5735
+                }
+
                 legendData[.food] = (
                     recurency: current.recurency + 1,
                     total: (current.total ?? 0) + volume,
-                    unit: range.unit
+                    unit: .metric
                 )
 
             case .diaper:

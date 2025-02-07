@@ -43,10 +43,17 @@ struct ActivityLegendViewManagerTest {
         // 2. when
 
         // 3. then
-        #expect(manager.name == "Repas")
-        #expect(manager.color == ActivityCategory.food.color)
-        #expect(manager.recurency == "5 fois")
-        #expect(manager.totalValue == "10 ml")
+        if AppStorageManager.shared.isMetricUnit {
+            #expect(manager.name == "Repas")
+            #expect(manager.color == ActivityCategory.food.color)
+            #expect(manager.recurency == "5 fois")
+            #expect(manager.totalValue == "10 ml")
+        } else {
+            #expect(manager.name == "Repas")
+            #expect(manager.color == ActivityCategory.food.color)
+            #expect(manager.recurency == "5 fois")
+            #expect(manager.totalValue == "0.34 oz")
+        }
     }
 
     @Test mutating func testFood_WhenAddFoodDataImperial_ThenDataShowIsFood() {
@@ -55,10 +62,17 @@ struct ActivityLegendViewManagerTest {
         // 2. when
 
         // 3. then
-        #expect(manager.name == "Repas")
-        #expect(manager.color == ActivityCategory.food.color)
-        #expect(manager.recurency == "5 fois")
-        #expect(manager.totalValue == "10 oz")
+        if AppStorageManager.shared.isMetricUnit {
+            #expect(manager.name == "Repas")
+            #expect(manager.color == ActivityCategory.food.color)
+            #expect(manager.recurency == "5 fois")
+            #expect(manager.totalValue == "10 ml")
+        } else {
+            #expect(manager.name == "Repas")
+            #expect(manager.color == ActivityCategory.food.color)
+            #expect(manager.recurency == "5 fois")
+            #expect(manager.totalValue == "0.34 oz")
+        }
     }
 
     @Test mutating func testFood_WhenAddFoodDataWithNoValue_ThenDataShowIsFood() {

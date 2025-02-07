@@ -20,7 +20,7 @@ struct GrowthAddViewManagerTest {
     @MainActor
     init() {
         dataSource = SwiftDataManager(isStoredInMemoryOnly: true)
-        manager = GrowthAddViewManager(dataManager: dataSource)
+        manager = GrowthAddViewManager(dataManager: dataSource, storageManager: MockAppStorageManager())
         updateBabyActivity()
     }
 

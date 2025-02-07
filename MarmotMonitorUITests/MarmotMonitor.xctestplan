@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "E5767FB6-456B-4EBA-84FB-529826447FE2",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MarmotMonitor.xcodeproj",
+        "identifier" : "471B02BA2CD10B2E009423A8",
+        "name" : "MarmotMonitorTests"
+      }
+    }
+  ],
+  "version" : 1
+}

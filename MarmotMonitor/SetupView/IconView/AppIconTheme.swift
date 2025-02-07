@@ -9,12 +9,12 @@ import SwiftUI
 
 /// Enum that represents the different app icon themes
 enum AppIconTheme: String, CaseIterable {
-    case blackDefault = "black"
-    case pink = "pink"
-    case blue = "blue"
-    case yellow = "yellow"
-    case green = "green"
-    case violet = "violet"
+    case blackDefault = "Noir"
+    case pink = "Rose"
+    case blue = "Bleu"
+    case yellow = "Jaune"
+    case green = "Vert"
+    case violet = "Violet"
 
     var iconName: String? {
         switch self {
@@ -30,6 +30,23 @@ enum AppIconTheme: String, CaseIterable {
             return "AppIcon4"
         case .violet:
             return "AppIcon5"
+        }
+    }
+
+    var iconImageName: String? {
+        switch self {
+        case .blackDefault:
+            return "Icon"
+        case .pink:
+            return "Icon1"
+        case .blue:
+            return "Icon2"
+        case .yellow:
+            return "Icon3"
+        case .green:
+            return "Icon4"
+        case .violet:
+            return "Icon5"
         }
     }
 

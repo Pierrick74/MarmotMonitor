@@ -163,6 +163,16 @@
         }
       }
     },
+    "Apparence" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apparence"
+          }
+        }
+      }
+    },
     "Apparence Systeme" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -190,6 +200,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "touch to modifie %@"
+          }
+        }
+      }
+    },
+    "Appuyez pour sélectionner cette icône" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Touch to select icon "
           }
         }
       }
@@ -250,6 +270,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Welcome"
+          }
+        }
+      }
+    },
+    "Choisir une Icone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Icon"
           }
         }
       }
@@ -370,6 +400,16 @@
         }
       }
     },
+    "Icone actuellement sélectionnée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icon selected"
+          }
+        }
+      }
+    },
     "Information" : {
       "localizations" : {
         "en" : {
@@ -460,6 +500,9 @@
         }
       }
     },
+    "Marmot Monitor" : {
+
+    },
     "MarmotMonitor est une application qui vous permet de suivre la croissance de votre bébé." : {
       "localizations" : {
         "en" : {
@@ -506,26 +549,6 @@
         }
       }
     },
-    "Modifier" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Change"
-          }
-        }
-      }
-    },
-    "Modifier la couleur de l'icone" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Change icon color"
-          }
-        }
-      }
-    },
     "Mois" : {
       "localizations" : {
         "en" : {
@@ -552,16 +575,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "N/A"
-          }
-        }
-      }
-    },
-    "Né le" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Born the"
           }
         }
       }
@@ -918,6 +931,29 @@
           }
         }
       }
+    },
+    "Unité" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unit"
+          }
+        }
+      }
+    },
+    "Unité de mesure" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Growth unit"
+          }
+        }
+      }
+    },
+    "Version : %@" : {
+
     }
   },
   "version" : "1.0"

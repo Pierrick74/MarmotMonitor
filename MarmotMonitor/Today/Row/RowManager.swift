@@ -10,6 +10,7 @@ import SwiftUI
 final class RowManager {
     private var activity: BabyActivity?
     private var category: ActivityCategory
+    private let storageManager = AppStorageManager.shared
 
     /// Initializes the manager with an activity and a category.
     /// - Parameters:
@@ -82,7 +83,7 @@ final class RowManager {
     private func getDescription(of activity: ActivityType) -> String {
         switch activity {
         case .bottle(let volume, let unit ):
-            return "\(Int(volume))\n\(unit == .metric ? "ml" : "oz")"
+            return convertVolume(volume: volume, unit: unit)
         case .sleep(let duration):
             let hours = Int(duration) / 3600
             let minutes = (Int(duration) % 3600) / 60
@@ -112,6 +113,18 @@ final class RowManager {
             return babyActivity.date.addingTimeInterval(duration)
         default:
             return babyActivity.date
+        }
+    }
+
+    /// check the volume unit and convert if needed
+    private func convertVolume(volume: Double, unit: MeasurementSystem) -> String {
+        let currentUnit: MeasurementSystem = storageManager.isMetricUnit ? .metric : .imperial
+        if currentUnit == unit {
+            return "\(Int(volume))\n\(unit == .metric ? "ml" : "oz")"
+        } else if currentUnit == .imperial {
+            return "\(Int(volume / 29.5735))\noz"
+        } else {
+            return "\(Int(volume * 29.5735))\nml"
         }
     }
 }
